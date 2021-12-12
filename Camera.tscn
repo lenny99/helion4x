@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/orbit_camera/orbit_camera.gd" type="Script" id=1]
+
+[node name="Anchor" type="Spatial"]
+
+[node name="OrbitCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.83311 )
+current = true
+script = ExtResource( 1 )
+SCROLL_SPEED = 50.0
+ZOOM_SPEED = 20.0
+ROTATE_SPEED = 0.3
+ANCHOR_NODE_PATH = NodePath("..")
