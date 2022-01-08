@@ -7,6 +7,8 @@
 [node name="OrbitCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.83311 )
 current = true
+fov = 70.1288
+far = 8192.0
 script = ExtResource( 1 )
 SCROLL_SPEED = 50.0
 ZOOM_SPEED = 20.0

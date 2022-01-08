@@ -22,11 +22,13 @@ var is_zoom_out: bool
 var _rotation: Vector3
 var _distance: float
 var _anchor_node: Spatial
+var distance_from_anchor: float
 
 func _ready():
 	_rotation = self.transform.basis.get_rotation_quat().get_euler()
 	_distance = DEFAULT_DISTANCE
 	_anchor_node = self.get_node(ANCHOR_NODE_PATH) 
+	distance_from_anchor = self.translation.distance_to(_anchor_node.translation)
 
 func _process(delta: float):
 	if is_zoom_in:
@@ -35,6 +37,7 @@ func _process(delta: float):
 		_scroll_speed = 1 * ZOOM_SPEED
 	_process_transformation(delta)
 	_process_movement(delta)
+	distance_from_anchor = self.translation.distance_to(_anchor_node.translation)
 
 func _process_transformation(delta: float):
 	# Update rotation
@@ -76,17 +79,17 @@ func _process_mouse_rotation_event(e: InputEventMouseMotion):
 
 func _process_mouse_scroll_event(e: InputEventMouseButton):
 	if e.button_index == BUTTON_WHEEL_UP:
-		_scroll_speed = -1 * SCROLL_SPEED
+		_scroll_speed = -1 * SCROLL_SPEED * sqrt(distance_from_anchor)
 	elif e.button_index == BUTTON_WHEEL_DOWN:
-		_scroll_speed = 1 * SCROLL_SPEED
+		_scroll_speed = 1 * SCROLL_SPEED * sqrt(distance_from_anchor)
 	
 func _process_click_event(event: InputEventMouseButton):
 	if event.button_index == BUTTON_RIGHT and event.pressed:
 		var from = self.project_ray_origin(event.position)
 		var to = from + self.project_ray_normal(event.position) * RAY_LENGTH
 		var hit = get_world().direct_space_state.intersect_ray(from, to)
-		if !hit.empty() and hit.collider is CelestialObject:
-			var planet = hit.collider as CelestialObject
+		if !hit.empty() and hit.collider is CelestialBody:
+			var planet = hit.collider as CelestialBody
 			var menu_location = self.unproject_position(planet.translation)
 			planet.open_planet_window(menu_location)
 

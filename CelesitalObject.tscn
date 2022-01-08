@@ -1,12 +1,13 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scripts/Planet.gd" type="Script" id=1]
+[ext_resource path="res://scripts/CelestialBody.gd" type="Script" id=1]
 
 [sub_resource type="SphereMesh" id=1]
 
 [sub_resource type="SphereShape" id=2]
 
-[node name="CelestialObject" type="StaticBody"]
+[node name="CelestialObject" type="RigidBody"]
+linear_damp = 0.0
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -16,24 +17,78 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 2 )
 
-[node name="Control" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="PlanetInterface" type="Control" parent="."]
+margin_right = 109.0
+margin_bottom = 111.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PopupMenu" type="PopupMenu" parent="Control"]
-margin_right = 162.0
-margin_bottom = 147.0
+[node name="PopupMenu" type="PopupMenu" parent="PlanetInterface"]
+margin_right = 169.0
+margin_bottom = 161.0
 rect_scale = Vector2( 0.994785, 1.00454 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="Control/PopupMenu"]
-margin_left = 9.0
+[node name="Fleets" type="Button" parent="PlanetInterface/PopupMenu"]
+margin_left = 11.0577
+margin_top = 66.6972
+margin_right = 155.058
+margin_bottom = 86.6972
+rect_pivot_offset = Vector2( 114.598, 9.9548 )
+text = "Fleets"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Planet" type="Button" parent="PlanetInterface/PopupMenu"]
+margin_left = 11.0577
+margin_top = 11.9458
+margin_right = 155.058
+margin_bottom = 31.9458
+rect_pivot_offset = Vector2( 114.598, 9.9548 )
+text = "Planet"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settlement" type="Button" parent="PlanetInterface/PopupMenu"]
+margin_left = 11.0577
+margin_top = 38.8237
+margin_right = 155.058
+margin_bottom = 58.8237
+rect_pivot_offset = Vector2( 114.598, 9.9548 )
+text = "Settlement"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettlementView" type="PanelContainer" parent="PlanetInterface"]
+visible = false
+margin_left = 242.0
+margin_top = 112.0
+margin_right = 575.0
+margin_bottom = 281.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="PlanetInterface/SettlementView"]
+margin_left = 7.0
 margin_top = 7.0
-margin_right = 153.0
-margin_bottom = 27.0
-text = "Economy"
+margin_right = 326.0
+margin_bottom = 162.0
+
+[node name="Title" type="Label" parent="PlanetInterface/SettlementView/GridContainer"]
+margin_right = 71.0
+margin_bottom = 14.0
+text = "Settlement"
+
+[node name="LineEdit" type="LineEdit" parent="PlanetInterface/SettlementView/GridContainer"]
+margin_top = 18.0
+margin_right = 71.0
+margin_bottom = 42.0
+caret_blink = true
+caret_blink_speed = 0.5

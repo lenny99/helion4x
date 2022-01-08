@@ -8,10 +8,11 @@
 [node name="Camera" parent="." instance=ExtResource( 2 )]
 
 [node name="Sol" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.693, 0, 0, 0, 0.693, 0, 0, 0, 0.693, 0, 0, 0 )
-is_orbiting = false
+mode = 1
+mass = 100.0
 
-[node name="Mercury" parent="Sol" instance=ExtResource( 1 )]
-transform = Transform( 3.52092, 0, 0, 0, 3.52092, 0, 0, 0, 3.52092, 14.8944, 0, 0 )
-mass = 2e+06
-distance_from_sun = 0.001
+[node name="Mercury" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6808, 0, 0 )
+mass = 2.98
+linear_velocity = Vector3( 0, 0, 4 )
+parent_body = NodePath("../Sol")
