@@ -6,8 +6,7 @@
 
 [sub_resource type="SphereShape" id=2]
 
-[node name="CelestialObject" type="RigidBody"]
-linear_damp = 0.0
+[node name="CelestialObject" type="StaticBody"]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -92,3 +91,5 @@ margin_right = 71.0
 margin_bottom = 42.0
 caret_blink = true
 caret_blink_speed = 0.5
+
+[connection signal="pressed" from="PlanetInterface/PopupMenu/Fleets" to="." method="_on_Fleets_pressed"]
