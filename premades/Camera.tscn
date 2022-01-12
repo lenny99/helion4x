@@ -10,7 +10,6 @@ current = true
 fov = 70.1288
 far = 8192.0
 script = ExtResource( 1 )
-SCROLL_SPEED = 50.0
 ZOOM_SPEED = 20.0
 ROTATE_SPEED = 0.3
 ANCHOR_NODE_PATH = NodePath("..")

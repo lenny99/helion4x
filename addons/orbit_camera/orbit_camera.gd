@@ -79,9 +79,9 @@ func _process_mouse_rotation_event(e: InputEventMouseMotion):
 
 func _process_mouse_scroll_event(e: InputEventMouseButton):
 	if e.button_index == BUTTON_WHEEL_UP:
-		_scroll_speed = -1 * SCROLL_SPEED * sqrt(distance_from_anchor)
+		_scroll_speed = -1 * SCROLL_SPEED * distance_from_anchor
 	elif e.button_index == BUTTON_WHEEL_DOWN:
-		_scroll_speed = 1 * SCROLL_SPEED * sqrt(distance_from_anchor)
+		_scroll_speed = 1 * SCROLL_SPEED * distance_from_anchor
 	
 func _process_click_event(event: InputEventMouseButton):
 	if event.button_index == BUTTON_RIGHT and event.pressed:
