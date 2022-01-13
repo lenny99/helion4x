@@ -37,6 +37,7 @@ func _calculate_next_position(delta: float) -> Vector3:
 		_theta += 2 * PI
 	return Vector3(cos(_theta), 0, sin(_theta)) * _distance_from_parent
 
+	
 func open_planet_window(location: Vector2):
 	$PlanetInterface/PopupMenu.set_position(location)
 	$PlanetInterface/PopupMenu.popup()
