@@ -90,9 +90,9 @@ class LastUpdate : Godot.Object
         if (this.month < time)
         {
             list.Add(Intervall.MONTH);
-            this.day = time.AddMonths(1);
+            this.month = time.AddMonths(1);
         }
-        if (this.month < time)
+        if (this.year < time)
         {
             list.Add(Intervall.YEAR);
             this.year = time.AddYears(1);
