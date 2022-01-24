@@ -1,7 +1,7 @@
 using Godot;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 
 public class Universe : Node
 {
@@ -11,7 +11,7 @@ public class Universe : Node
     private LastUpdate lastUpdate;
 
     [Signal]
-    delegate void TimeProcess(float seconds);
+    delegate void TimeProcess(Intervall intervall);
 
     [Signal]
     delegate void StateChanged(Intervall state);
@@ -35,16 +35,49 @@ public class Universe : Node
         var intervalls = this.lastUpdate.DetermineIntervalls(time); // TODO
         foreach (var intervall in intervalls)
         {
-            EmitSignal(nameof(TimeProcess), intervall);
+            EmitSignal(nameof(TimeProcess), intervall.ToString());
         }
         EmitSignal(nameof(StateChanged), this);
     }
 
+    public void _on_Menu_progress_intervall(int i)
+    {
+        Intervall intervall = fromInt(i);
 
+    }
+
+    private TimeSpan timeSpanForIntervall(Intervall intervall)
+    {
+        switch (intervall)
+        {
+            case Intervall.HOUR:
+                return TimeSpan.FromHours(1);
+            case Intervall.DAY:
+                return TimeSpan.FromDays(1);
+            case Intervall.MONTH:
+                int daysInMonth = DateTime.DaysInMonth(this.time.Year, this.time.Month);
+                return TimeSpan.FromDays(daysInMonth);
+            case Year
+        }
+    }
+
+    private Intervall fromInt(int i)
+    {
+        switch (i)
+        {
+            case 0: return Intervall.NONE;
+            case 1: return Intervall.HOUR;
+            case 2: return Intervall.DAY;
+            case 4: return Intervall.MONTH;
+            case 5: return Intervall.YEAR;
+            default: return Intervall.NONE;
+        }
+    }
 }
 
 enum Intervall
 {
+    NONE,
     HOUR,
     DAY,
     MONTH,
