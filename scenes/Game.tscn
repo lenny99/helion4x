@@ -24,4 +24,4 @@ script = ExtResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6808, 0, 0 )
 parent_node_path = NodePath("../Sol")
 
-[connection signal="progress_intervall" from="Menu" to="." method="_on_Menu_progress_intervall"]
+[connection signal="progress_intervall" from="Menu" to="UniverseTime" method="_on_Menu_progress_intervall"]

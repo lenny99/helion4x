@@ -1,16 +1,12 @@
 using Godot;
 using Godot.Collections;
 using System;
-using System.Collections.Generic;
 
 public class UniverseTime : Node
 {
     private DateTime time
     {
-        get
-        {
-            return this.time;
-        }
+        get { return this.time; }
         set
         {
             EmitSignal(nameof(UpdateUI), value);
@@ -32,13 +28,18 @@ public class UniverseTime : Node
         EmitSignal(nameof(UpdateUI), this.time.ToString());
     }
 
+    public void _on_Menu_progress_intervall(Dictionary intervall)
+    {
+        ProgressTime(intervall);
+    }
+
     public void ProgressTime(Dictionary timePassed)
     {
-        var hoursPassed = calculateHoursPassed(timePassed);
+        var hoursPassed = CalculateHoursPassed(timePassed);
         for (int hours = 1; hours < hoursPassed; hours++)
         {
             ProgressTimeBy(Intervall.Hour);
-            lastUpdate = lastUpdate.Hour.Add(1);
+            lastUpdate.Hour = lastUpdate.Hour.AddHours(1);
             time = time.AddHours(1);
             if (lastUpdate.Day < this.time.AddHours(hours))
             {
@@ -63,13 +64,13 @@ public class UniverseTime : Node
         EmitSignal(nameof(TimeProgressed), intervall);
     }
 
-    private int calculateHoursPassed(Dictionary<int> passedTime)
+    private int CalculateHoursPassed(Dictionary passedTime)
     {
-        return passedTime[Intervall.Hour] + passedTime[Intervall.Day] * 24;
+        return (int)passedTime[Intervall.Hour] + (int)passedTime[Intervall.Day] * 24;
     }
 }
 
-enum Intervall
+public enum Intervall
 {
     Year,
     Month,
@@ -84,7 +85,7 @@ struct LastUpdate
     public DateTime Month { get; set; }
     public DateTime Year { get; set; }
 
-    public UniverseTime(DateTime date)
+    public LastUpdate(DateTime date)
     {
         this.Hour = date;
         this.Day = date;
