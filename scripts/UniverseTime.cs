@@ -5,47 +5,69 @@ using System.Collections.Generic;
 
 public class UniverseTime : Node
 {
-    private DateTime time;
+    private DateTime time
+    {
+        get
+        {
+            return this.time;
+        }
+        set
+        {
+            EmitSignal(nameof(UpdateUI), value);
+            this.time = value;
+        }
+    }
     private LastUpdate lastUpdate;
 
     [Signal]
     public delegate void UpdateUI(String time);
+    [Signal]
+    public delegate void TimeProgressed(Intervall intervall);
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        this.time = DateTime.Now;
+        this.time = new DateTime(2030, 1, 1);
+        this.lastUpdate = new LastUpdate(this.time);
+        EmitSignal(nameof(UpdateUI), this.time.ToString());
     }
 
-    public void ProgressTime(Dictionary timeToAdd)
+    public void ProgressTime(Dictionary timePassed)
     {
-        var passedTime = this.AddTime(timeToAdd);
-
-        // foreach (var intervall in intervalls)
-        // {
-        //     EmitSignal(nameof(TimeProcess), intervall.ToString());
-        // }
-        EmitSignal(nameof(UpdateUI), time.ToString());
+        var hoursPassed = calculateHoursPassed(timePassed);
+        for (int hours = 1; hours < hoursPassed; hours++)
+        {
+            ProgressTimeBy(Intervall.Hour);
+            lastUpdate = lastUpdate.Hour.Add(1);
+            time = time.AddHours(1);
+            if (lastUpdate.Day < this.time.AddHours(hours))
+            {
+                lastUpdate.Hour = lastUpdate.Day.AddDays(1);
+                ProgressTimeBy(Intervall.Day);
+            }
+            if (lastUpdate.Month < this.time.AddHours(hours))
+            {
+                lastUpdate.Month = lastUpdate.Month.AddHours(hours);
+                ProgressTimeBy(Intervall.Month);
+            }
+            if (lastUpdate.Year < this.time.AddHours(hours))
+            {
+                lastUpdate.Year = lastUpdate.Year.AddHours(hours);
+                ProgressTimeBy(Intervall.Year);
+            }
+        }
     }
 
-    private TimeSpan AddTime(Dictionary passedTime)
+    private void ProgressTimeBy(Intervall intervall)
     {
-        var pastTime = this.time;
-        Func<Intervall, double> getAsDouble = (Intervall intervall) => (double)passedTime[intervall];
-        Func<Intervall, int> getAsInt = (Intervall intervall) => (int)passedTime[intervall];
-        if (passedTime.Contains(Intervall.Hour))
-            this.time = this.time.AddHours(getAsDouble(Intervall.Hour));
-        if (passedTime.Contains(Intervall.Day))
-            this.time = this.time.AddDays(getAsDouble(Intervall.Day));
-        if (passedTime.Contains(Intervall.Month))
-            this.time = this.time.AddMonths(getAsInt(Intervall.Month));
-        if (passedTime.Contains(Intervall.Year))
-            this.time = this.time.AddYears(getAsInt(Intervall.Year));
-        return this.time - pastTime;
+        EmitSignal(nameof(TimeProgressed), intervall);
+    }
+
+    private int calculateHoursPassed(Dictionary<int> passedTime)
+    {
+        return passedTime[Intervall.Hour] + passedTime[Intervall.Day] * 24;
     }
 }
-
-
 
 enum Intervall
 {
@@ -53,56 +75,20 @@ enum Intervall
     Month,
     Day,
     Hour,
-    Minute, // might be needed
-    Second // might be needed
 }
 
-class LastUpdate : Godot.Object
+struct LastUpdate
 {
-    public DateTime hour { get; set; }
-    public DateTime day { get; set; }
-    public DateTime month { get; set; }
-    public DateTime year { get; set; }
+    public DateTime Hour { get; set; }
+    public DateTime Day { get; set; }
+    public DateTime Month { get; set; }
+    public DateTime Year { get; set; }
 
-    public LastUpdate()
+    public UniverseTime(DateTime date)
     {
-        this.hour = DateTime.MinValue;
-        this.day = DateTime.MinValue;
-        this.month = DateTime.MinValue;
-        this.year = DateTime.MinValue;
-    }
-
-    public LastUpdate(DateTime hour, DateTime day, DateTime month, DateTime year)
-    {
-        this.hour = hour;
-        this.day = day;
-        this.month = month;
-        this.year = year;
-    }
-
-    public List<Intervall> DetermineIntervalls(DateTime time)
-    {
-        var list = new List<Intervall>(4);
-        if (this.hour < time)
-        {
-            list.Add(Intervall.Hour);
-            this.hour = time.AddHours(1);
-        }
-        if (this.day < time)
-        {
-            list.Add(Intervall.Day);
-            this.day = time.AddDays(1);
-        }
-        if (this.month < time)
-        {
-            list.Add(Intervall.Day);
-            this.month = time.AddMonths(1);
-        }
-        if (this.year < time)
-        {
-            list.Add(Intervall.Year);
-            this.year = time.AddYears(1);
-        }
-        return list;
+        this.Hour = date;
+        this.Day = date;
+        this.Month = date;
+        this.Year = date;
     }
 }
