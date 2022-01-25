@@ -27,7 +27,7 @@ __meta__ = {
 }
 
 [node name="Date" type="HBoxContainer" parent="TimePanel/Grid"]
-margin_right = 264.0
+margin_right = 230.0
 margin_bottom = 14.0
 
 [node name="Label" type="Label" parent="TimePanel/Grid/Date"]
@@ -46,49 +46,36 @@ __meta__ = {
 
 [node name="TimeWarp" type="HBoxContainer" parent="TimePanel/Grid"]
 margin_top = 18.0
-margin_right = 264.0
+margin_right = 230.0
 margin_bottom = 38.0
 
 [node name="Label" type="Label" parent="TimePanel/Grid/TimeWarp"]
 margin_top = 3.0
-margin_right = 77.0
+margin_right = 66.0
 margin_bottom = 17.0
-text = "Advance by:"
+text = "Timewarp:"
 
-[node name="Hour" type="Button" parent="TimePanel/Grid/TimeWarp"]
-margin_left = 81.0
+[node name="Slower" type="Button" parent="TimePanel/Grid/TimeWarp"]
+margin_left = 70.0
 margin_right = 124.0
 margin_bottom = 20.0
-text = "Hour"
+text = "Slower"
 
-[node name="Day" type="Button" parent="TimePanel/Grid/TimeWarp"]
+[node name="Timewarp" type="Label" parent="TimePanel/Grid/TimeWarp"]
 margin_left = 128.0
-margin_right = 164.0
+margin_top = 3.0
+margin_right = 175.0
+margin_bottom = 17.0
+text = "Normal"
+
+[node name="Faster" type="Button" parent="TimePanel/Grid/TimeWarp"]
+margin_left = 179.0
+margin_right = 230.0
 margin_bottom = 20.0
-text = "Day"
+text = "Faster"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Month" type="Button" parent="TimePanel/Grid/TimeWarp"]
-margin_left = 168.0
-margin_right = 221.0
-margin_bottom = 20.0
-text = "Month"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Year" type="Button" parent="TimePanel/Grid/TimeWarp"]
-margin_left = 225.0
-margin_right = 264.0
-margin_bottom = 20.0
-text = "Year"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[connection signal="pressed" from="TimePanel/Grid/TimeWarp/Hour" to="." method="_on_Hour_pressed"]
-[connection signal="pressed" from="TimePanel/Grid/TimeWarp/Day" to="." method="_on_Day_pressed"]
-[connection signal="pressed" from="TimePanel/Grid/TimeWarp/Month" to="." method="_on_Month_pressed"]
-[connection signal="pressed" from="TimePanel/Grid/TimeWarp/Year" to="." method="_on_Year_pressed"]
+[connection signal="pressed" from="TimePanel/Grid/TimeWarp/Slower" to="." method="_on_Slower_pressed"]
+[connection signal="pressed" from="TimePanel/Grid/TimeWarp/Faster" to="." method="_on_Faster_pressed"]

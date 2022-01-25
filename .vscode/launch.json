@@ -17,6 +17,8 @@
             "mode": "executable",
             "preLaunchTask": "build",
             "executable": "C:/ProgramData/chocolatey/lib/godot-mono/tools/godot_v3.4.2-stable_mono_win64/godot_v3.4.2-stable_mono_win64.exe\r",
+            // See which arguments are available here:
+            // https://docs.godotengine.org/en/stable/getting_started/editor/command_line_tutorial.html
             "executableArguments": [
                 "--path",
                 "${workspaceRoot}"
@@ -29,6 +31,8 @@
             "mode": "executable",
             "preLaunchTask": "build",
             "executable": "C:/ProgramData/chocolatey/lib/godot-mono/tools/godot_v3.4.2-stable_mono_win64/godot_v3.4.2-stable_mono_win64.exe\r",
+            // See which arguments are available here:
+            // https://docs.godotengine.org/en/stable/getting_started/editor/command_line_tutorial.html
             "executableArguments": [
                 "--path",
                 "${workspaceRoot}",

@@ -4,43 +4,39 @@ using System;
 
 public class UniverseTime : Node
 {
-    private DateTime time
+    private DateTime time;
+
+    private void setTime(DateTime time)
     {
-        get { return this.time; }
-        set
-        {
-            EmitSignal(nameof(UpdateUI), value);
-            this.time = value;
-        }
+        this.time = time;
+        EmitSignal(nameof(UpdateUI), time.ToString());
     }
+
     private LastUpdate lastUpdate;
 
     [Signal]
     public delegate void UpdateUI(String time);
     [Signal]
-    public delegate void TimeProgressed(Intervall intervall);
+    public delegate void TimeProgressed(String intervall);
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        this.time = new DateTime(2030, 1, 1);
+        setTime(DateTime.Parse("01/01/2030 00:00:00"));
         this.lastUpdate = new LastUpdate(this.time);
-        EmitSignal(nameof(UpdateUI), this.time.ToString());
     }
 
-    public void _on_Menu_progress_intervall(Dictionary intervall)
+    public void _on_Timer_timewarp_timeout()
     {
-        ProgressTime(intervall);
+        ProgressTime(1);
     }
 
-    public void ProgressTime(Dictionary timePassed)
+    private void ProgressTime(int hoursPassed)
     {
-        var hoursPassed = CalculateHoursPassed(timePassed);
-        for (int hours = 1; hours < hoursPassed; hours++)
+        for (int hours = 0; hours < hoursPassed; hours++)
         {
             ProgressTimeBy(Intervall.Hour);
             lastUpdate.Hour = lastUpdate.Hour.AddHours(1);
-            time = time.AddHours(1);
+            setTime(time.AddHours(1));
             if (lastUpdate.Day < this.time.AddHours(hours))
             {
                 lastUpdate.Hour = lastUpdate.Day.AddDays(1);
@@ -61,21 +57,39 @@ public class UniverseTime : Node
 
     private void ProgressTimeBy(Intervall intervall)
     {
-        EmitSignal(nameof(TimeProgressed), intervall);
-    }
-
-    private int CalculateHoursPassed(Dictionary passedTime)
-    {
-        return (int)passedTime[Intervall.Hour] + (int)passedTime[Intervall.Day] * 24;
+        EmitSignal(nameof(TimeProgressed), intervall.ToString());
     }
 }
 
-public enum Intervall
+enum Intervall
 {
     Year,
     Month,
     Day,
     Hour,
+}
+
+enum Timewarp
+{
+    Slow,
+    Normal,
+    Faster,
+    Fastest
+}
+
+static class TimewarpUtils
+{
+    public static Timewarp? StringToTimewarp(String timewarp)
+    {
+        switch (timewarp)
+        {
+            case "0": return Timewarp.Slow;
+            case "1": return Timewarp.Normal;
+            case "2": return Timewarp.Faster;
+            case "3": return Timewarp.Fastest;
+            default: return null;
+        }
+    }
 }
 
 struct LastUpdate
