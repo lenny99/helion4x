@@ -1,38 +1,47 @@
 extends Timer
 
 signal timewarp_timeout()
-signal timewarp_changed(timewarp)
 
 enum Timewarp {SLOW, NORMAL, FASTER, FASTEST}
 
 export (Timewarp) var timewarp = Timewarp.NORMAL;
 
 func _on_Timer_timeout():
-	emit_signal("timewarp_timeout", str(timewarp))
-	pass # Replace with function body.
+	emit_signal("timewarp_timeout")
 
 
-func _on_Menu_slow_down():
+func _on_slower_button_pressed():
 	match self.timewarp:
 		Timewarp.NORMAL:
-			self.timewarp = Timewarp.SLOW
+			timewarp = Timewarp.SLOW
 		Timewarp.FASTER:
-			self.timewarp = Timewarp.NORMAL
+			timewarp = Timewarp.NORMAL
 		Timewarp.FASTEST:
-			self.timewarp = Timewarp.FASTER
-	emit_signal("timewarp_changed", Timewarp.keys()[timewarp])
+			timewarp = Timewarp.FASTER
+	set_timewarp(timewarp)
 
 
-func _on_Menu_speed_up():
+func _on_faster_button_pressed():
 	match self.timewarp:
 		Timewarp.SLOW:
-			self.timewarp = Timewarp.NORMAL
+			timewarp = Timewarp.NORMAL
 		Timewarp.NORMAL:
-			self.timewarp = Timewarp.FASTER
+			timewarp = Timewarp.FASTER
 		Timewarp.FASTER:
-			self.timewarp = Timewarp.FASTEST
-	emit_signal("timewarp_changed", Timewarp.keys()[timewarp])
-	
+			timewarp = Timewarp.FASTEST
+	set_timewarp(timewarp)
 
 
+func set_timewarp(timewarp):
+	match timewarp:
+		Timewarp.SLOW:
+			wait_time = 2
+		Timewarp.NORMAL:
+			wait_time = 1
+		Timewarp.FASTER:
+			wait_time = 0.4
+		Timewarp.FASTEST:
+			wait_time = 0.1
+	self.timewarp = timewarp
+	$time_menu/time_panel/grid/timewarp_container/timewarp.text = Timewarp.keys()[timewarp]	
 

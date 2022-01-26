@@ -9,13 +9,11 @@ public class UniverseTime : Node
     private void setTime(DateTime time)
     {
         this.time = time;
-        EmitSignal(nameof(UpdateUI), time.ToString());
+        GetNodeOrNull<Label>("timer/time_menu/time_panel/grid/date_container/text").Text = time.ToString();
     }
 
     private LastUpdate lastUpdate;
 
-    [Signal]
-    public delegate void UpdateUI(String time);
     [Signal]
     public delegate void TimeProgressed(String intervall);
 
