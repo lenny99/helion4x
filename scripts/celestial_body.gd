@@ -32,33 +32,36 @@ func _calculate_next_position(delta: float) -> Vector3:
 	return Vector3(cos(_theta), 0, sin(_theta)) * _distance_from_parent
 
 
-func _on_Game_TimeProcess(intervall):
+func _time_process(intervall):
 	match intervall:
 		'HOUR': process_hour()
 		'DAY':  process_day()
 		'MONTH': process_month()
 		'YEAR': process_year()
-		_: print('unkown intervall')
 
 
 func process_hour():
+	print("hours passed")
 	pass
 
 
 func process_day():
+	print("days passed")
 	if _is_orbiting:
 		self.translation = _calculate_next_position(1)
 
 
 func process_month():
+	print("month passed")
 	pass
 
 
 func process_year():
+	print("year passed")
 	pass
 
 
 func open_planet_window(menu_location: Vector2):
-	$PlanetInterface.open_popup(menu_location)
+	$planet_interface.open_popup(menu_location)
 
 	

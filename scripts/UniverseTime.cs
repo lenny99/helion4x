@@ -9,13 +9,10 @@ public class UniverseTime : Node
     private void setTime(DateTime time)
     {
         this.time = time;
-        GetNodeOrNull<Label>("timer/time_menu/time_panel/grid/date_container/text").Text = time.ToString();
+        GetNodeOrNull<Label>("timer/time_panel/grid/date_container/text").Text = time.ToString();
     }
 
     private LastUpdate lastUpdate;
-
-    [Signal]
-    public delegate void TimeProgressed(String intervall);
 
     public override void _Ready()
     {
@@ -55,7 +52,7 @@ public class UniverseTime : Node
 
     private void ProgressTimeBy(Intervall intervall)
     {
-        EmitSignal(nameof(TimeProgressed), intervall.ToString());
+        GetTree().CallGroup("Timeables", intervall.ToString());
     }
 }
 
