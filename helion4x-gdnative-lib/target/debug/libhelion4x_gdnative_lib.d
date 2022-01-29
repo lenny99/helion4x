@@ -1,0 +1,1 @@
+C:\Users\Lennart\Quellcode\helion4x\helion4x-gdnative-lib\target\debug\libhelion4x_gdnative_lib.rlib: C:\Users\Lennart\Quellcode\helion4x\helion4x-gdnative-lib\src\lib.rs C:\Users\Lennart\Quellcode\helion4x\helion4x-gdnative-lib\target\debug\build\physical_constants-a3452727ae5440c2\out\constants.rs

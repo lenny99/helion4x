@@ -100,6 +100,6 @@ __meta__ = {
 [connection signal="state_changed" from="." to="control" method="_on_time_state_changed"]
 [connection signal="state_changed" from="timer" to="control" method="_on_timer_state_changed"]
 [connection signal="timeout" from="timer" to="timer" method="_on_Timer_timeout"]
-[connection signal="timewarp_timeout" from="timer" to="." method="_on_Timer_timewarp_timeout"]
+[connection signal="timewarp_timeout" from="timer" to="." method="_on_timer_timewarp_timeout"]
 [connection signal="pressed" from="control/time_panel/grid/timewarp_container/slower_button" to="timer" method="_on_slower_button_pressed"]
 [connection signal="pressed" from="control/time_panel/grid/timewarp_container/faster_button" to="timer" method="_on_faster_button_pressed"]

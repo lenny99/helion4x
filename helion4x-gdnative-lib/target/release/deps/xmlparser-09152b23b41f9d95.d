@@ -1,0 +1,11 @@
+C:\Users\Lennart\Quellcode\helion4x\helion4x-gdnative-lib\target\release\deps\xmlparser-09152b23b41f9d95.rmeta: C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\lib.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\error.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\stream.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\strspan.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\xmlchar.rs
+
+C:\Users\Lennart\Quellcode\helion4x\helion4x-gdnative-lib\target\release\deps\libxmlparser-09152b23b41f9d95.rlib: C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\lib.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\error.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\stream.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\strspan.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\xmlchar.rs
+
+C:\Users\Lennart\Quellcode\helion4x\helion4x-gdnative-lib\target\release\deps\xmlparser-09152b23b41f9d95.d: C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\lib.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\error.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\stream.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\strspan.rs C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\xmlchar.rs
+
+C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\lib.rs:
+C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\error.rs:
+C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\stream.rs:
+C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\strspan.rs:
+C:\Users\Lennart\.cargo\registry\src\github.com-1ecc6299db9ec823\xmlparser-0.13.3\src\xmlchar.rs:

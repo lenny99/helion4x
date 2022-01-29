@@ -3,9 +3,13 @@ name = "helion4x-gdnative-lib"
 version = "0.1.0"
 authors = ["Lennart Grosse <lennartgrosse@hotmail.de>"]
 edition = "2018"
+publish = false
+
+[lib]
 crate-type = ["cdylib"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 gdnative = "0.9"
+physical_constants = "0.4.1"

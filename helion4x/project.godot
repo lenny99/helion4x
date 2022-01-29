@@ -794,7 +794,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Pulsar 4x"
+config/name="Helion 4x"
 run/main_scene="res://scenes/game.tscn"
 config/icon="res://icon.png"
 

@@ -25,7 +25,7 @@ public class UniverseTime : Node
         this.nextUpdate = new NextUpdate(this.time);
     }
 
-    public void _on_Timer_timewarp_timeout()
+    public void _on_timer_timewarp_timeout()
     {
         ProgressTime();
     }
