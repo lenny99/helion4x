@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/camera.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/time.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/celesital_body.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/camera/camera.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/time/time.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/celestial_body/celesital_body.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/settlement/settlement.tscn" type="PackedScene" id=4]
 
 [node name="game" type="Node"]
 
@@ -15,7 +16,11 @@
 [node name="sol" type="Spatial" parent="space"]
 
 [node name="sun" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
+mass = 1000.0
 
 [node name="mercury" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6808, 0, 0 )
 parent_node_path = NodePath("../sun")
+
+[node name="settlement" parent="space/sol/mercury" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.6808, 0, 0 )
