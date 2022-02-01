@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://scenes/settlement/settlement_controller.gd" type="Script" id=2]
+[ext_resource path="res://scenes/settlement/economy.gd" type="Script" id=1]
+[ext_resource path="res://scenes/settlement/planet_interface/planet_interface.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/settlement/settlement.gd" type="Script" id=3]
 
 [sub_resource type="SphereShape" id=1]
@@ -14,107 +14,19 @@ script = ExtResource( 3 )
 [node name="collision_shape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
-[node name="planet_interface" type="Control" parent="."]
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="planet_interface" parent="." instance=ExtResource( 2 )]
 
-[node name="popup" type="PopupMenu" parent="planet_interface"]
-margin_right = 169.0
-margin_bottom = 161.0
-rect_scale = Vector2( 0.994785, 1.00454 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="economy" type="Node" parent="."]
+script = ExtResource( 1 )
 
-[node name="Fleets" type="Button" parent="planet_interface/popup"]
-margin_left = 11.0577
-margin_top = 66.6972
-margin_right = 155.058
-margin_bottom = 86.6972
-rect_pivot_offset = Vector2( 114.598, 9.9548 )
-text = "Fleets"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="projects" type="Node" parent="economy"]
 
-[node name="Planet" type="Button" parent="planet_interface/popup"]
-margin_left = 11.0577
-margin_top = 11.9458
-margin_right = 155.058
-margin_bottom = 31.9458
-rect_pivot_offset = Vector2( 114.598, 9.9548 )
-text = "Planet"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="infrastructure" type="Node" parent="economy"]
 
-[node name="Settlement" type="Button" parent="planet_interface/popup"]
-margin_left = 11.0577
-margin_top = 38.8237
-margin_right = 155.058
-margin_bottom = 58.8237
-rect_pivot_offset = Vector2( 114.598, 9.9548 )
-text = "Settlement"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="population" type="Node" parent="."]
 
-[node name="settlement" type="PanelContainer" parent="planet_interface"]
-anchor_right = 3.055
-anchor_bottom = 1.523
-margin_right = 85.0
-margin_bottom = 124.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="GridContainer2" type="GridContainer" parent="planet_interface/settlement"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 140.0
-margin_bottom = 117.0
-columns = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="planet_interface/settlement"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 140.0
-margin_bottom = 117.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="planet_interface/settlement/VBoxContainer"]
-margin_right = 133.0
-margin_bottom = 64.0
-
-[node name="TextureButton" type="TextureButton" parent="planet_interface/settlement/VBoxContainer/HBoxContainer"]
-margin_right = 64.0
-margin_bottom = 64.0
-texture_normal = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="contant" type="HBoxContainer" parent="planet_interface/settlement/VBoxContainer"]
-margin_top = 68.0
-margin_right = 133.0
-margin_bottom = 92.0
-
-[node name="title" type="Label" parent="planet_interface/settlement/VBoxContainer/contant"]
-margin_top = 5.0
-margin_right = 71.0
-margin_bottom = 19.0
-text = "Settlement"
-
-[node name="edit" type="LineEdit" parent="planet_interface/settlement/VBoxContainer/contant"]
-margin_left = 75.0
-margin_right = 133.0
-margin_bottom = 24.0
-caret_blink = true
-caret_blink_speed = 0.5
+[node name="research" type="Node" parent="."]
 
 [connection signal="input_event" from="." to="planet_interface" method="_on_settlement_input_event"]
-[connection signal="pressed" from="planet_interface/popup/Fleets" to="planet_interface" method="_on_Fleets_pressed"]
-[connection signal="pressed" from="planet_interface/popup/Planet" to="planet_interface" method="_on_Planet_pressed"]
-[connection signal="pressed" from="planet_interface/popup/Settlement" to="planet_interface" method="_on_Settlement_pressed"]
-[connection signal="pressed" from="planet_interface/settlement/VBoxContainer/HBoxContainer/TextureButton" to="planet_interface" method="_on_TextureButton_pressed"]
+[connection signal="state_changed" from="." to="planet_interface" method="_on_settlement_state_changed"]
+[connection signal="state_changed" from="economy" to="planet_interface" method="_on_economy_state_changed"]

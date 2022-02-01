@@ -23,4 +23,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6808, 0, 0 )
 parent_node_path = NodePath("../sun")
 
 [node name="settlement" parent="space/sol/mercury" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.6808, 0, 0 )
+population = 1000.0
+gdp = 1000.0
