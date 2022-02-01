@@ -22,10 +22,10 @@ func set_size():
 
 func _time_process(intervall):
 	if intervall == 'Day':
-		$economy.construct_projects()
+		$economy.process_day()
 	if intervall == 'Year':
 		population += population * population_incrase
-		$economy.gdp_incrase()
+		$economy.process_year()
 	state_change()
 
 
