@@ -1,5 +1,5 @@
 [package]
-name = "helion4x-gdnative-lib"
+name = "helion4x-gdnative"
 version = "0.1.0"
 authors = ["Lennart Grosse <lennartgrosse@hotmail.de>"]
 edition = "2018"

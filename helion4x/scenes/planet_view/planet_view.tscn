@@ -2,10 +2,47 @@
 
 [ext_resource path="res://scenes/planet_view/planet_view.gd" type="Script" id=1]
 
-[node name="Control" type="Control"]
+[node name="planet_view" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="tab_container" type="TabContainer" parent="."]
+margin_right = 322.0
+margin_bottom = 246.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="planet" type="GridContainer" parent="tab_container"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="hbox" type="HBoxContainer" parent="tab_container/planet"]
+margin_right = 72.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="tab_container/planet/hbox"]
+margin_right = 68.0
+margin_bottom = 14.0
+text = "Population"
+
+[node name="TextEdit" type="TextEdit" parent="tab_container/planet/hbox"]
+margin_left = 72.0
+margin_right = 122.0
+margin_bottom = 14.0
+
+[node name="economy" type="GridContainer" parent="tab_container"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -278.0
+margin_bottom = -174.0

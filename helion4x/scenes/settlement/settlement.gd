@@ -29,3 +29,5 @@ func _time_process(intervall):
 	state_change()
 
 
+func _on_economy_project_is_finished(project):
+	pass # Replace with function body.

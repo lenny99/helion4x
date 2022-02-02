@@ -23,3 +23,5 @@ script = ExtResource( 1 )
 [node name="population" type="Node" parent="."]
 
 [node name="research" type="Node" parent="."]
+
+[connection signal="project_is_finished" from="economy" to="." method="_on_economy_project_is_finished"]

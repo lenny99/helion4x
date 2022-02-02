@@ -549,6 +549,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/asserts/GdUnitVector3AssertImpl.gd"
 }, {
+"base": "Node",
+"class": "Infrastructure",
+"language": "GDScript",
+"path": "res://scenes/settlement/infrastructure/infrastructure.gd"
+}, {
+"base": "Project",
+"class": "InfrastructureProject",
+"language": "GDScript",
+"path": "res://scenes/settlement/projects/infrastructure_project.gd"
+}, {
 "base": "Fuzzer",
 "class": "IntFuzzer",
 "language": "GDScript",
@@ -778,6 +788,8 @@ _global_script_class_icons={
 "GdUnitVector2AssertImpl": "",
 "GdUnitVector3Assert": "",
 "GdUnitVector3AssertImpl": "",
+"Infrastructure": "",
+"InfrastructureProject": "",
 "IntFuzzer": "",
 "LocalTime": "",
 "OrbitCamera": "",

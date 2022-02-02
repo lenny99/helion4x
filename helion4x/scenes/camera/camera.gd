@@ -4,6 +4,7 @@ export var RAY_LENGTH: float = 200
 var distance_from_anchor: float
 
 func _ready():
+	far = float.max
 	._ready()
 
 func _process(delta: float):

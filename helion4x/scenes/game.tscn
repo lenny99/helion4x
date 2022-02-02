@@ -21,6 +21,7 @@ mass = 1000.0
 
 [node name="mercury" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6808, 0, 0 )
+parent_node_path = NodePath("../sun")
 
 [node name="settlement" parent="space/sol/mercury" instance=ExtResource( 4 )]
 population = 1000.0
