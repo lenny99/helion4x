@@ -67,7 +67,7 @@ func _input(event):
 		_process_touch_zoom_event(event)
 
 func _process_mouse_rotation_event(e: InputEventMouseMotion):
-	if Input.is_mouse_button_pressed(BUTTON_LEFT):
+	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
 		_move_speed = e.relative
 
 

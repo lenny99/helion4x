@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "CelestialBody",
 "language": "GDScript",
-"path": "res://scenes/celestial_body/celestial_body.gd"
+"path": "res://scenes/spatial/celestial_body/celestial_body.gd"
 }, {
 "base": "GdUnitTestSuite",
 "class": "CelestialBodyextendsSpatialTest",
@@ -552,12 +552,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Infrastructure",
 "language": "GDScript",
-"path": "res://scenes/settlement/infrastructure/infrastructure.gd"
+"path": "res://scenes/spatial/settlement/infrastructure/infrastructure.gd"
 }, {
 "base": "Project",
 "class": "InfrastructureProject",
 "language": "GDScript",
-"path": "res://scenes/settlement/projects/infrastructure_project.gd"
+"path": "res://scenes/spatial/settlement/projects/infrastructure_project.gd"
 }, {
 "base": "Fuzzer",
 "class": "IntFuzzer",
@@ -577,7 +577,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Project",
 "language": "GDScript",
-"path": "res://scenes/settlement/projects/project.gd"
+"path": "res://scenes/spatial/settlement/projects/project.gd"
+}, {
+"base": "PanelContainer",
+"class": "ProjectRow",
+"language": "GDScript",
+"path": "res://scenes/control/infrastructure_row.gd"
 }, {
 "base": "GdUnitMonitor",
 "class": "PushErrorMonitor",
@@ -637,7 +642,7 @@ _global_script_classes=[ {
 "base": "StaticBody",
 "class": "Settlement",
 "language": "GDScript",
-"path": "res://scenes/settlement/settlement.gd"
+"path": "res://scenes/spatial/settlement/settlement.gd"
 }, {
 "base": "Resource",
 "class": "SignalHandler",
@@ -794,6 +799,7 @@ _global_script_class_icons={
 "LocalTime": "",
 "OrbitCamera": "",
 "Project": "",
+"ProjectRow": "",
 "PushErrorMonitor": "",
 "RPC": "",
 "RPCClientConnect": "",

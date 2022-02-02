@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/control/label_and_field.gd" type="Script" id=1]
+
+[node name="label_and_field" type="HBoxContainer"]
+margin_right = 152.0
+margin_bottom = 24.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="."]
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 19.0
+text = "label "
+
+[node name="edit" type="LineEdit" parent="."]
+margin_left = 39.0
+margin_right = 97.0
+margin_bottom = 24.0

@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scenes/camera/camera.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/spatial/camera/camera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/time/time.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/celestial_body/celesital_body.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/settlement/settlement.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/planet_view/planet_view.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/spatial/celestial_body/celesital_body.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/spatial/settlement/settlement.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/control/planet_view.tscn" type="PackedScene" id=5]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SphereMesh" id=2]
 
 [node name="game" type="Node"]
 
@@ -16,15 +20,28 @@
 
 [node name="sol" type="Spatial" parent="space"]
 
-[node name="sun" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
-mass = 1000.0
+[node name="earth" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
 
-[node name="mercury" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6808, 0, 0 )
-parent_node_path = NodePath("../sun")
+[node name="MeshInstance" type="MeshInstance" parent="space/sol/earth"]
+mesh = SubResource( 1 )
+material/0 = null
 
-[node name="settlement" parent="space/sol/mercury" instance=ExtResource( 4 )]
+[node name="settlement" parent="space/sol/earth" instance=ExtResource( 4 )]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
 population = 1000.0
 gdp = 1000.0
 
-[node name="planet_view" parent="space/sol/mercury" instance=ExtResource( 5 )]
+[node name="planet_view" parent="space/sol/earth" instance=ExtResource( 5 )]
+
+[node name="moon" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 33.6808, 0, 0 )
+parent_node_path = NodePath("../earth")
+mass_type = 2
+
+[node name="MeshInstance2" type="MeshInstance" parent="space/sol/moon"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[connection signal="input_event" from="space/sol/earth/settlement" to="space/sol/earth/planet_view" method="_on_settlement_input_event"]
+[connection signal="projects_updated" from="space/sol/earth/settlement" to="space/sol/earth/planet_view" method="_on_settlement_projects_updated"]
+[connection signal="state_changed" from="space/sol/earth/settlement" to="space/sol/earth/planet_view" method="_on_settlement_state_changed"]

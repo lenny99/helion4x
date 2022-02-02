@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/control/infrastructure_row.gd" type="Script" id=1]
+
+[node name="row" type="PanelContainer"]
+margin_top = 32.0
+margin_right = 938.0
+margin_bottom = 66.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hbox" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 931.0
+margin_bottom = 27.0
+
+[node name="name" type="Label" parent="hbox"]
+margin_top = 3.0
+margin_right = 435.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Infrastructure"
+
+[node name="cost" type="Label" parent="hbox"]
+margin_left = 439.0
+margin_top = 3.0
+margin_right = 875.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "500"
+
+[node name="MenuButton" type="Button" parent="hbox"]
+margin_left = 879.0
+margin_right = 924.0
+margin_bottom = 20.0
+text = "Build"

@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/control/window.gd" type="Script" id=1]
+
+[node name="window" type="Control"]
+anchor_right = 0.3
+anchor_bottom = 0.304
+margin_right = 384.0
+margin_bottom = 211.68
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title_bar" type="Panel" parent="."]
+margin_right = 958.0
+margin_bottom = 40.0
+rect_scale = Vector2( 1.00178, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="exit_button" type="Button" parent="title_bar"]
+margin_left = 926.0
+margin_top = 8.0
+margin_right = 950.0
+margin_bottom = 32.0
+
+[connection signal="gui_input" from="." to="." method="_on_window_gui_input"]
+[connection signal="gui_input" from="title_bar" to="." method="_on_title_bar_gui_input"]
+[connection signal="pressed" from="title_bar/exit_button" to="." method="_on_exit_button_pressed"]
