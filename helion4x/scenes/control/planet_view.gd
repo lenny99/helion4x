@@ -23,4 +23,10 @@ func _on_settlement_state_changed(state):
 
 func _on_settlement_projects_updated(projects):
 	for project in projects:
-		$window/tab_container/project/table.add_child(ProjectRow.new(project))
+		var row: Node = load("res://scenes/control/infrastructure_row.tscn").instance()
+		row.set_project(project)
+		row.connect("build_button_pressed", self, "_on_build_button_pressed")
+		$window/tab_container/project/table.add_child(row)
+
+func _on_build_button_pressed(project: Project):
+	pass

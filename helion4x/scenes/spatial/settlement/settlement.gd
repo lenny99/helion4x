@@ -5,11 +5,17 @@ signal projects_updated(projects)
 
 export var population: float = 0
 export var gdp: float = 0
+export var tax: float = 0.1
+export var gdp_growth: float = 0.1
 var population_incrase: float = 0.02
 
 
 func _ready():
-	set_size()
+	self.add_to_group("Timeables")
+	self.scale = get_parent().scale
+	$economy.gdp = gdp
+	$economy.growth = gdp_growth
+	$economy.tax = tax
 	state_change()
 
 
@@ -23,16 +29,12 @@ func state_change():
 	})
 
 
-func set_size():
-	self.scale = get_parent().scale
-
-
 func _time_process(intervall):
 	if intervall == 'Day':
 		$economy.process_day()
+		$economy.process_year()
 	if intervall == 'Year':
 		population += population * population_incrase
-		$economy.process_year()
 	state_change()
 
 

@@ -22,6 +22,7 @@ script = ExtResource( 1 )
 [node name="infrastructure" type="Node" parent="economy/projects"]
 script = ExtResource( 3 )
 project_name = "Infrastructure"
+cost = 500.0
 
 [node name="infrastructure" type="Node" parent="economy"]
 

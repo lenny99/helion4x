@@ -20,7 +20,7 @@
 
 [node name="sol" type="Spatial" parent="space"]
 
-[node name="earth" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
+[node name="earth" parent="space/sol" instance=ExtResource( 3 )]
 
 [node name="MeshInstance" type="MeshInstance" parent="space/sol/earth"]
 mesh = SubResource( 1 )
@@ -33,7 +33,7 @@ gdp = 1000.0
 
 [node name="planet_view" parent="space/sol/earth" instance=ExtResource( 5 )]
 
-[node name="moon" parent="space/sol" groups=["Timeables"] instance=ExtResource( 3 )]
+[node name="moon" parent="space/sol" instance=ExtResource( 3 )]
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 33.6808, 0, 0 )
 parent_node_path = NodePath("../earth")
 mass_type = 2

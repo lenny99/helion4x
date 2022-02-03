@@ -3,9 +3,8 @@
 [ext_resource path="res://scenes/control/infrastructure_row.gd" type="Script" id=1]
 
 [node name="row" type="PanelContainer"]
-margin_top = 32.0
 margin_right = 938.0
-margin_bottom = 66.0
+margin_bottom = 34.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -32,8 +31,10 @@ margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "500"
 
-[node name="MenuButton" type="Button" parent="hbox"]
+[node name="build_button" type="Button" parent="hbox"]
 margin_left = 879.0
 margin_right = 924.0
 margin_bottom = 20.0
 text = "Build"
+
+[connection signal="pressed" from="hbox/build_button" to="." method="_on_build_button_pressed"]

@@ -42,5 +42,5 @@ func progress_project(project: Project):
 	
 
 func process_year():
-	gdp *= growth
+	gdp *= growth + 1
 

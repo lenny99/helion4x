@@ -1,8 +1,14 @@
 class_name ProjectRow extends PanelContainer
 
-var project_name: String
-var cost: String
+var project: Project
 
-func _init(project: Project):
-	self.project_name = project.project_name
-	self.cost = str(project.cost)
+signal build_button_pressed(project)
+
+func set_project(project: Project):
+	self.project = project
+	$hbox/name.text = project.project_name
+	$hbox/cost.text = str(project.cost)
+
+
+func _on_build_button_pressed():
+	emit_signal("build_button_pressed", project)

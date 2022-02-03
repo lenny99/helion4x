@@ -23,6 +23,7 @@ var is_orbiting: bool = false
 
 
 func _ready():
+	add_to_group("Timeables")
 	match mass_type:
 		Mass.Earth: mass = EARTH_MASS * mass_amount
 		Mass.Sun: mass = SUN_MASS * mass_amount

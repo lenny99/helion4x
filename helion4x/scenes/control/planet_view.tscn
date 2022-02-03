@@ -5,8 +5,8 @@
 [ext_resource path="res://scenes/control/label_and_field.tscn" type="PackedScene" id=3]
 
 [node name="planet_view" type="Control"]
-margin_right = 1920.0
-margin_bottom = 1080.0
+margin_right = 960.0
+margin_bottom = 540.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -15,9 +15,11 @@ __meta__ = {
 [node name="window" parent="." instance=ExtResource( 2 )]
 
 [node name="Panel" type="Panel" parent="window"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 1.429
+anchor_bottom = 1.437
 margin_top = 40.0
+margin_right = -0.288025
+margin_bottom = -0.0820313
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -32,7 +34,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="planet" type="GridContainer" parent="window/tab_container"]
+[node name="planet" type="Control" parent="window/tab_container"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -50,7 +53,7 @@ margin_right = 97.0
 margin_bottom = 52.0
 label = "Gravity"
 
-[node name="economy" type="GridContainer" parent="window/tab_container"]
+[node name="economy" type="Control" parent="window/tab_container"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -82,7 +85,6 @@ margin_bottom = 108.0
 label = "Budget: "
 
 [node name="project" type="Control" parent="window/tab_container"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -120,5 +122,12 @@ margin_right = 924.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 text = "Cost"
+
+[node name="table2" type="HBoxContainer" parent="window/tab_container/project"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="close_button_pressed" from="window" to="." method="_on_window_close_button_pressed"]

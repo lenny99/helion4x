@@ -564,6 +564,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/fuzzers/IntFuzzer.gd"
 }, {
+"base": "HBoxContainer",
+"class": "LabelAndField",
+"language": "GDScript",
+"path": "res://scenes/control/label_and_field.gd"
+}, {
 "base": "Resource",
 "class": "LocalTime",
 "language": "GDScript",
@@ -796,6 +801,7 @@ _global_script_class_icons={
 "Infrastructure": "",
 "InfrastructureProject": "",
 "IntFuzzer": "",
+"LabelAndField": "",
 "LocalTime": "",
 "OrbitCamera": "",
 "Project": "",

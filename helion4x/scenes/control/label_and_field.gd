@@ -1,4 +1,4 @@
-extends HBoxContainer
+class_name LabelAndField extends HBoxContainer
 
 export var label: String = "label: "
 
