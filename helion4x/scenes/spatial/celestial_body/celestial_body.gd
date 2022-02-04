@@ -4,6 +4,8 @@ const EARTH_MASS = 5.972e24
 const SUN_MASS = 1.989e30
 const MOON_MASS = 7.342e22
 
+const MEGA_METER = 1e9
+
 enum Mass { 
 	Earth, 
 	Sun,
@@ -35,14 +37,19 @@ func _ready():
 		return
 	is_orbiting = true
 	distance_from_parent = parent.translation.distance_to(self.translation)
-	var orbital_period = $orbital_calculator.calculate_orbital_period(distance_from_parent, parent.mass)
+	var orbital_period = calculate_orbital_period(distance_from_parent)
 	orbital_period_in_hours = orbital_period / 60 / 60
+
+
+func calculate_orbital_period(distance_from_parent) -> float:
+	var radius = distance_from_parent * MEGA_METER
+	return $orbital_calculator.calculate_orbital_period(radius, parent.mass)
 
 
 func _time_process(intervall):
 	if intervall == 'Hour':
 		process_day()
-		
+
 
 func process_day():
 	if is_orbiting:

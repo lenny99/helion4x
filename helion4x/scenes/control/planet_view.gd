@@ -1,10 +1,14 @@
 extends Control
 
+
+export var infrastructure_row: PackedScene
+
+
 func _ready():
 	hide()
 
 
-func _on_settlement_input_event(camera: Camera, event, position, normal, shape_idx):
+func _on_static_body_input_event(camera: Camera, event, position, normal, shape_idx):
 	if Input.is_mouse_button_pressed(1):
 		var location = camera.unproject_position(position)
 		show()
@@ -23,10 +27,10 @@ func _on_settlement_state_changed(state):
 
 func _on_settlement_projects_updated(projects):
 	for project in projects:
-		var row: Node = load("res://scenes/control/infrastructure_row.tscn").instance()
+		var row: Node = infrastructure_row.instance()
 		row.set_project(project)
 		row.connect("build_button_pressed", self, "_on_build_button_pressed")
-		$window/tab_container/project/table.add_child(row)
+		$window/tab_container/project/project_table.add_child(row)
 
 func _on_build_button_pressed(project: Project):
 	pass

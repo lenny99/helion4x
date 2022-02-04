@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/spatial/camera/camera.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/time/time.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/node/time/time.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/spatial/celestial_body/celesital_body.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/spatial/settlement/settlement.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/node/settlement/settlement.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/control/planet_view.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SphereShape" id=3]
 
 [sub_resource type="SphereMesh" id=2]
 
@@ -17,31 +19,33 @@
 [node name="space" type="Spatial" parent="."]
 
 [node name="camera" parent="space" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.26096 )
 
 [node name="sol" type="Spatial" parent="space"]
 
 [node name="earth" parent="space/sol" instance=ExtResource( 3 )]
+transform = Transform( 6.371, 0, 0, 0, 6.371, 0, 0, 0, 6.371, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="space/sol/earth"]
+[node name="mesh" type="MeshInstance" parent="space/sol/earth"]
 mesh = SubResource( 1 )
 material/0 = null
 
+[node name="static_body" type="StaticBody" parent="space/sol/earth"]
+
+[node name="shape" type="CollisionShape" parent="space/sol/earth/static_body"]
+shape = SubResource( 3 )
+
 [node name="settlement" parent="space/sol/earth" instance=ExtResource( 4 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
 population = 1000.0
-gdp = 1000.0
 
 [node name="planet_view" parent="space/sol/earth" instance=ExtResource( 5 )]
 
 [node name="moon" parent="space/sol" instance=ExtResource( 3 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 33.6808, 0, 0 )
-parent_node_path = NodePath("../earth")
-mass_type = 2
+transform = Transform( 1.737, 0, 0, 0, 1.737, 0, 0, 0, 1.737, 384.399, 0, 0 )
+_parentNodePath = NodePath("../earth")
 
-[node name="MeshInstance2" type="MeshInstance" parent="space/sol/moon"]
+[node name="mesh" type="MeshInstance" parent="space/sol/moon"]
 mesh = SubResource( 2 )
 material/0 = null
 
-[connection signal="input_event" from="space/sol/earth/settlement" to="space/sol/earth/planet_view" method="_on_settlement_input_event"]
-[connection signal="projects_updated" from="space/sol/earth/settlement" to="space/sol/earth/planet_view" method="_on_settlement_projects_updated"]
-[connection signal="state_changed" from="space/sol/earth/settlement" to="space/sol/earth/planet_view" method="_on_settlement_state_changed"]
+[connection signal="input_event" from="space/sol/earth/static_body" to="space/sol/earth/planet_view" method="_on_static_body_input_event"]
