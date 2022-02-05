@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/node/time/UniverseTime.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/UniverseTime.cs" type="Script" id=1]
 [ext_resource path="res://scenes/node/time/timewarp.gd" type="Script" id=2]
 [ext_resource path="res://scenes/node/time/time_controller.gd" type="Script" id=3]
 
@@ -97,7 +97,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="state_changed" from="." to="control" method="_on_time_state_changed"]
 [connection signal="state_changed" from="timer" to="control" method="_on_timer_state_changed"]
 [connection signal="timeout" from="timer" to="timer" method="_on_Timer_timeout"]
 [connection signal="timewarp_timeout" from="timer" to="." method="_on_timer_timewarp_timeout"]

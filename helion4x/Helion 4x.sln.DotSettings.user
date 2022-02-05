@@ -1,4 +1,24 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0604c346_002Dc906_002D49b7_002Db318_002Db05bdc45ca97/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ProgressProjects #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::494CA4D8-B358-4753-ABBE-C949B78E1587::net5.0::Helion4x_Tests.EconomyTest.ProgressProjects&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=465f2b4e_002D9913_002D44f0_002D9cef_002D644032816608/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestProgressProject" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::494CA4D8-B358-4753-ABBE-C949B78E1587::net5.0::Helion4x_Tests.EconomyTest.ProgressProjects&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ee6b14b3_002D0342_002D4a60_002D8115_002De5fe38ed73a9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ProgressProjects #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::494CA4D8-B358-4753-ABBE-C949B78E1587::net5.0::Helion4x_Tests.EconomyTest.ProgressProjects&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f085cf05_002D247d_002D438e_002Dad66_002D436a1b7479f6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ProgressProjects" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::494CA4D8-B358-4753-ABBE-C949B78E1587::net5.0::Helion4x_Tests.EconomyTest.ProgressProjects&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Helion/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Timeables/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Timewarp/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

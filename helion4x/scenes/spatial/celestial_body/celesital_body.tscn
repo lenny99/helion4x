@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scripts/CircularOrbiter.cs" type="Script" id=1]
+[ext_resource path="res://scripts/CircularOrbiter.cs" type="Script" id=1]
 
 [node name="celestial_body" type="Spatial"]
 script = ExtResource( 1 )

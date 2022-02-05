@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/matchers/ChainedArgumentMatcher.gd"
 }, {
-"base": "Spatial",
+"base": "",
 "class": "CircularOrbit",
 "language": "NativeScript",
 "path": "res://scenes/spatial/celestial_body/circular_orbit.gdns"

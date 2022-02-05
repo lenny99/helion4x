@@ -4,8 +4,12 @@
     <RootNamespace>Helion4x</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="scenes\node\settlement" />
-    <Folder Include="scenes\node\time" />
-    <Folder Include="scenes\spatial\celestial_body" />
+    <Compile Remove="scenes\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="scenes\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.13.2" />
   </ItemGroup>
 </Project>
