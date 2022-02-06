@@ -16,10 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Tests" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\helion4x-core\helion4x-core.csproj" />
     </ItemGroup>
 

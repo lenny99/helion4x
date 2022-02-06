@@ -7,42 +7,59 @@ namespace Helion4x.Scripts
     {
         [Signal]
         public delegate void TimewarpTimeout();
-        
-        private ITimewarpState _timewarp;
+
         private ITimewarpState _prePauseTimewarp;
+
+        private ITimewarpState _timewarp;
+
+        public ITimewarpState Timewarp
+        {
+            get => _timewarp;
+            set
+            {
+                _timewarp = value;
+                WaitTime = value.GetWaitTime();
+                Paused = value.IsPaused();
+            }
+        }
+
+        public override void _Ready()
+        {
+            Timewarp = new Normal();
+            _prePauseTimewarp = new Normal();
+        }
 
         public void OnTimerTimeout()
         {
             EmitSignal(nameof(TimewarpTimeout));
         }
 
-        public override void _Input(InputEvent @event)
+        public void SpeedUp()
         {
-            if (@event.IsActionPressed("pause"))
-            {
-                Pause();
-            }
+            Timewarp = Timewarp.SpeedUp();
         }
 
-        private void Pause()
+        public void SlowDown()
+        {
+            Timewarp = Timewarp.SlowDown();
+        }
+
+        public override void _Input(InputEvent @event)
+        {
+            if (@event.IsActionPressed("pause")) Pause();
+        }
+
+        public void Pause()
         {
             if (Paused)
             {
-                _timewarp = _prePauseTimewarp;
-                SetWaitTimeForTimewarp();
+                Timewarp = _prePauseTimewarp;
             }
             else
             {
                 _prePauseTimewarp = _timewarp;
-                _timewarp = new Paused();
-                SetWaitTimeForTimewarp();
+                Timewarp = new Paused();
             }
-        }
-
-        private void SetWaitTimeForTimewarp()
-        {
-            WaitTime = _timewarp.GetWaitTime();
-            Paused = _timewarp.IsPaused();
         }
     }
 }

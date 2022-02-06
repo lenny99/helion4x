@@ -6,5 +6,6 @@
         Month,
         Day,
         Hour,
+        Minute
     }
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://scenes/camera/camera.gd" type="Script" id=1]
+[ext_resource path="res://scenes/camera.gd" type="Script" id=1]
 
 [node name="Anchor" type="Spatial"]
 
@@ -10,5 +10,5 @@ current = true
 fov = 70.1288
 far = 1e+06
 script = ExtResource( 1 )
-ROTATE_SPEED = 2.0
+ROTATE_SPEED = 0.5
 ANCHOR_NODE_PATH = NodePath("..")

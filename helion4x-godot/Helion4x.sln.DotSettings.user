@@ -3,7 +3,5 @@
   &lt;Assembly Path="C:\Users\Lennart\Quellcode\helion4x\helion4x-godot\.mono\assemblies\Debug\GodotSharp.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e47e4ca1_002D98b3_002D4711_002Dac3f_002Dad4b4a3b41fe/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ProgressProjects" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::11FEAD7D-CD76-437C-B01D-E129E86450F1::net5.0::Helion4x.Tests.EconomyTest.ProgressProjects&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Project Location="C:\Users\Lennart\Quellcode\helion4x\helion4x-test" Presentation="&amp;lt;helion4x-test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

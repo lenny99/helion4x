@@ -8,4 +8,10 @@
   <ItemGroup>
     <Content Include=".gitignore" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="scenes\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="scenes\**" />
+  </ItemGroup>
 </Project>

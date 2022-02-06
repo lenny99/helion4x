@@ -9,79 +9,59 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
-"class": "Bonus",
-"language": "GDScript",
-"path": "res://scenes/settlement/installations/bonus.gd"
-}, {
-"base": "Spatial",
-"class": "CelestialBody",
-"language": "GDScript",
-"path": "res://scenes/celestial_body/celestial_body.gd"
-}, {
-"base": "",
-"class": "CircularOrbit",
-"language": "NativeScript",
-"path": "res://scenes/celestial_body/circular_orbit.gdns"
-}, {
-"base": "Installation",
-"class": "Infrastructure",
-"language": "GDScript",
-"path": "res://scenes/settlement/installations/infrastructure.gd"
-}, {
-"base": "Project",
-"class": "InfrastructureProject",
-"language": "GDScript",
-"path": "res://scenes/settlement/projects/infrastructure_project.gd"
-}, {
-"base": "Node",
-"class": "Installation",
-"language": "GDScript",
-"path": "res://scenes/settlement/installations/installation.gd"
-}, {
-"base": "HBoxContainer",
-"class": "LabelAndField",
-"language": "GDScript",
-"path": "res://scenes/control/label_and_field.gd"
-}, {
 "base": "Camera",
 "class": "OrbitCamera",
 "language": "GDScript",
 "path": "res://addons/orbit_camera/orbit_camera.gd"
 }, {
-"base": "Node",
-"class": "Project",
+"base": "OrbitCamera",
+"class": "SpaceOrbitCamera",
 "language": "GDScript",
-"path": "res://scenes/settlement/projects/project.gd"
-}, {
-"base": "PanelContainer",
-"class": "ProjectRow",
-"language": "GDScript",
-"path": "res://scenes/control/infrastructure_row.gd"
-}, {
-"base": "Node",
-"class": "Settlement",
-"language": "GDScript",
-"path": "res://scenes/settlement/settlement.gd"
+"path": "res://scenes/camera.gd"
 } ]
 _global_script_class_icons={
-"Bonus": "",
-"CelestialBody": "",
-"CircularOrbit": "",
-"Infrastructure": "",
-"InfrastructureProject": "",
-"Installation": "",
-"LabelAndField": "",
 "OrbitCamera": "",
-"Project": "",
-"ProjectRow": "",
-"Settlement": ""
+"SpaceOrbitCamera": ""
 }
 
 [application]
 
 config/name="Helion4x"
+run/main_scene="res://scenes/game.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/orbit_camera/plugin.cfg" )
+
+[input]
+
+pause={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+anchor_forward={
+"deadzone": 0.5,
+"events": [  ]
+}
+anchor_back={
+"deadzone": 0.5,
+"events": [  ]
+}
+anchor_left={
+"deadzone": 0.5,
+"events": [  ]
+}
+anchor_right={
+"deadzone": 0.5,
+"events": [  ]
+}
 
 [physics]
 

@@ -1,78 +1,42 @@
-using System;
 using Godot;
 using Helion4x.Core;
 using Helion4x.Core.Time;
 
 namespace Helion4x.Scripts
 {
-    public class CircularOrbiter : Spatial, ITimeables 
+    public class CircularOrbiter : Spatial, ITimeables
     {
-        [Export] private MassType _massType = MassType.Earth;
-        [Export] private NodePath _parentNodePath;
-        private CircularOrbiter _parent;
-        private OrbitalPeriod _orbitalPeriod;
+        [Export] private readonly MassType _massType = MassType.Earth;
+        [Export] private readonly NodePath _parentNodePath = new NodePath();
         private float _mass;
-        private float _radius;
+        private OrbitalPeriod _orbitalPeriod;
+        private CircularOrbiter _parent;
+        private Distance _radius;
         private float _theta;
-
-        public override void _Ready()
-        {
-            AddToGroup("Timeables");
-            _mass = Mass.ForMassType(_massType);
-            if (_parentNodePath.IsEmpty())
-            {
-                return;
-            }
-            _parent = GetNode<CircularOrbiter>(_parentNodePath);
-            _radius = _parent.Translation.DistanceTo(Translation);
-            _orbitalPeriod = new OrbitalPeriod(_radius, _parent._mass, OrbitType.Circular);
-        }
 
         public void TimeProcess(Interval interval)
         {
-            if (interval == Interval.Hour && _parent != null)
-            {
-                Translation = CalculateNextPosition(1);
-            }
+            if (interval == Interval.Minute && _parent != null) Translation = CalculateNextPosition(1);
         }
 
-        private Vector3 CalculateNextPosition(int hours)
+        public override void _Ready()
         {
-            _theta -= 2 * Mathf.Pi / _orbitalPeriod.InHours() * hours;
-            if (Mathf.Abs(_theta) > 2 * Mathf.Pi)
-            {
-                _theta += 2 * Mathf.Pi;
-            }
-            return new Vector3(Mathf.Cos(_theta), 0, Mathf.Sin(_theta)) * _radius + _parent.Translation;
+            AddToGroup(nameof(ITimeables));
+            _mass = Mass.ForMassType(_massType);
+            if (_parentNodePath != null && _parentNodePath.IsEmpty()) return;
+
+            _parent = GetNode<CircularOrbiter>(_parentNodePath);
+            _radius = Distance.OfMegameters(_parent.Translation.DistanceTo(Translation));
+            _orbitalPeriod = new OrbitalPeriod(_radius.Meters, _parent._mass, OrbitType.Circular);
         }
-    }
 
-    public enum MassType
-    {
-        Sun,
-        Earth,
-        Moon
-    }
-
-    public static class Mass
-    {
-        private const float Sun = 1.989e30f;
-        private const float Earth = 5.972e24f;
-        private const float Moon = 7.342e22f;
-
-        public static float ForMassType(MassType massType)
+        private Vector3 CalculateNextPosition(int minutes)
         {
-            switch (massType)
-            {
-                case MassType.Sun:
-                    return Sun;
-                case MassType.Earth:
-                    return Earth;
-                case MassType.Moon:
-                    return Moon;
-                default:
-                    return 0f;
-            }
+            _theta -= 2 * Mathf.Pi / _orbitalPeriod.InMinutes() * minutes;
+            if (Mathf.Abs(_theta) > 2 * Mathf.Pi) _theta += 2 * Mathf.Pi;
+
+            return new Vector3(Mathf.Cos(_theta), 0, Mathf.Sin(_theta)) * (float) _radius.Megameters +
+                   _parent.Translation;
         }
     }
 }

@@ -1,4 +1,4 @@
-extends OrbitCamera
+class_name SpaceOrbitCamera extends OrbitCamera
 
 export var RAY_LENGTH: float = 200
 var distance_from_anchor: float

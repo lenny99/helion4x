@@ -1,19 +1,19 @@
 ﻿using Godot;
-using Helion4x.Core.Time;
 using Helion4x.Core.Settlement;
 using Helion4x.Core.Settlement.Installation;
+using Helion4x.Core.Time;
 
 namespace Helion4x.Scripts
 {
-    public class Settlement : Node, ITimeables 
+    public class Settlement : Node, ITimeables, IEventInput
     {
-        private Population _population;
         private Economy _economy;
         private Installations _installations;
+        private Population _population;
 
-        public override void _Ready()
+        public void OnInputEvent(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shapeIndex)
         {
-            AddToGroup("Timeables");
+            var controller = new SettlementController();
         }
 
         public void TimeProcess(Interval interval)
@@ -23,7 +23,7 @@ namespace Helion4x.Scripts
             switch (interval)
             {
                 case Interval.Day:
-                    _economy.CalculateGdp(population ,bonuses);
+                    _economy.CalculateGdp(population, bonuses);
                     var finishedProjects = _economy.ProgressProjects();
                     _installations.AddInstallations(finishedProjects);
                     break;
@@ -31,6 +31,14 @@ namespace Helion4x.Scripts
                     _population.GrowPopulation(bonuses);
                     break;
             }
+        }
+
+        public override void _Ready()
+        {
+            AddToGroup(nameof(ITimeables));
+            _population = new Population();
+            _economy = new Economy(0.2f);
+            _installations = new Installations();
         }
     }
 }
