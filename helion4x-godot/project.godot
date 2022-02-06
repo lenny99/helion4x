@@ -1,0 +1,92 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Bonus",
+"language": "GDScript",
+"path": "res://scenes/settlement/installations/bonus.gd"
+}, {
+"base": "Spatial",
+"class": "CelestialBody",
+"language": "GDScript",
+"path": "res://scenes/celestial_body/celestial_body.gd"
+}, {
+"base": "",
+"class": "CircularOrbit",
+"language": "NativeScript",
+"path": "res://scenes/celestial_body/circular_orbit.gdns"
+}, {
+"base": "Installation",
+"class": "Infrastructure",
+"language": "GDScript",
+"path": "res://scenes/settlement/installations/infrastructure.gd"
+}, {
+"base": "Project",
+"class": "InfrastructureProject",
+"language": "GDScript",
+"path": "res://scenes/settlement/projects/infrastructure_project.gd"
+}, {
+"base": "Node",
+"class": "Installation",
+"language": "GDScript",
+"path": "res://scenes/settlement/installations/installation.gd"
+}, {
+"base": "HBoxContainer",
+"class": "LabelAndField",
+"language": "GDScript",
+"path": "res://scenes/control/label_and_field.gd"
+}, {
+"base": "Camera",
+"class": "OrbitCamera",
+"language": "GDScript",
+"path": "res://addons/orbit_camera/orbit_camera.gd"
+}, {
+"base": "Node",
+"class": "Project",
+"language": "GDScript",
+"path": "res://scenes/settlement/projects/project.gd"
+}, {
+"base": "PanelContainer",
+"class": "ProjectRow",
+"language": "GDScript",
+"path": "res://scenes/control/infrastructure_row.gd"
+}, {
+"base": "Node",
+"class": "Settlement",
+"language": "GDScript",
+"path": "res://scenes/settlement/settlement.gd"
+} ]
+_global_script_class_icons={
+"Bonus": "",
+"CelestialBody": "",
+"CircularOrbit": "",
+"Infrastructure": "",
+"InfrastructureProject": "",
+"Installation": "",
+"LabelAndField": "",
+"OrbitCamera": "",
+"Project": "",
+"ProjectRow": "",
+"Settlement": ""
+}
+
+[application]
+
+config/name="Helion4x"
+config/icon="res://icon.png"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

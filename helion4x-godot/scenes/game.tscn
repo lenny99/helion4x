@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/camera/camera.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/UniverseTime.cs" type="Script" id=2]
+[ext_resource path="res://scenes/celestial_body/celesital_body.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/TimewarpTimer.cs" type="Script" id=4]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SphereMesh" id=2]
+
+[node name="Game" type="Node"]
+
+[node name="Timewarp" type="Timer" parent="."]
+autostart = true
+script = ExtResource( 4 )
+
+[node name="Time" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Space" type="Spatial" parent="."]
+
+[node name="Camera" parent="Space" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.26096 )
+
+[node name="Sol" type="Spatial" parent="Space"]
+
+[node name="Earth" parent="Space/Sol" instance=ExtResource( 3 )]
+transform = Transform( 6.371, 0, 0, 0, 6.371, 0, 0, 0, 6.371, 0, 0, 0 )
+
+[node name="Mesh" type="MeshInstance" parent="Space/Sol/Earth"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Moon" parent="Space/Sol" instance=ExtResource( 3 )]
+transform = Transform( 1.737, 0, 0, 0, 1.737, 0, 0, 0, 1.737, 384.399, 0, 0 )
+
+[node name="Mesh" type="MeshInstance" parent="Space/Sol/Moon"]
+mesh = SubResource( 2 )
+material/0 = null
