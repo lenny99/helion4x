@@ -2,6 +2,6 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\Lennart\Quellcode\helion4x\helion4x-godot\.mono\assemblies\Debug\GodotSharp.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e47e4ca1_002D98b3_002D4711_002Dac3f_002Dad4b4a3b41fe/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ProgressProjects" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\Lennart\Quellcode\helion4x\helion4x-test" Presentation="&amp;lt;helion4x-test&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e47e4ca1_002D98b3_002D4711_002Dac3f_002Dad4b4a3b41fe/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ProgressProjects" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;ProjectFolder&gt;11FEAD7D-CD76-437C-B01D-E129E86450F1/d:Tests&lt;/ProjectFolder&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

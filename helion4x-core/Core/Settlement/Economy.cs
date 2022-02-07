@@ -43,25 +43,13 @@ namespace Helion4x.Core.Settlement
         {
             var finishedProjects = new List<Project>();
             var dailyBudget = Gdp * _tax / 365;
-            return Foo(dailyBudget, finishedProjects);;
-        }
-
-        private List<Project> Foo(float dailyBudget, List<Project> finishedProjects)
-        {
-            var project = _projects_in_progress.Peek();
-            dailyBudget = project.Progress(dailyBudget);
-            if (project.IsFinished)
+            while (_projects_in_progress.Any() && dailyBudget > 0)
             {
+                var project = _projects_in_progress.Peek();
+                dailyBudget = project.Progress(dailyBudget);
+                if (!project.IsFinished) break;
                 _projects_in_progress.Dequeue();
                 finishedProjects.Add(project);
-            }
-            if (_projects_in_progress.Count == 0)
-            {
-                return finishedProjects;
-            }
-            if (dailyBudget > 0)
-            {
-                Foo(dailyBudget, finishedProjects);
             }
             return finishedProjects;
         }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/camera.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/UniverseTime.cs" type="Script" id=2]
@@ -6,14 +6,16 @@
 [ext_resource path="res://Scripts/TimewarpTimer.cs" type="Script" id=4]
 [ext_resource path="res://scenes/time_view.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Settlement.cs" type="Script" id=6]
+[ext_resource path="res://Models/untitled.glb" type="PackedScene" id=7]
+
+[sub_resource type="Environment" id=5]
+background_mode = 1
 
 [sub_resource type="SphereShape" id=4]
 
 [sub_resource type="SphereMesh" id=1]
 
 [sub_resource type="SphereMesh" id=2]
-
-[sub_resource type="SphereMesh" id=3]
 
 [node name="Game" type="Node"]
 
@@ -38,6 +40,7 @@ _timewarpPath = NodePath("../../Timewarp")
 [node name="Space" type="Spatial" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Space"]
+environment = SubResource( 5 )
 
 [node name="Sol" type="Spatial" parent="Space"]
 
@@ -75,9 +78,8 @@ transform = Transform( 0.501387, 0, 0, 0, 0.501387, 0, 0, 0, 0.501387, 9.36093, 
 script = ExtResource( 3 )
 _parentNodePath = NodePath("../Earth")
 
-[node name="MeshInstance" type="MeshInstance" parent="Space/Sol/ISS"]
-mesh = SubResource( 3 )
-material/0 = null
+[node name="untitled" parent="Space/Sol/ISS" instance=ExtResource( 7 )]
+transform = Transform( 0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0 )
 
 [node name="Anchor" type="Spatial" parent="Space"]
 
