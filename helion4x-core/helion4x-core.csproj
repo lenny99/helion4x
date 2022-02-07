@@ -6,4 +6,8 @@
         <LangVersion>7.3</LangVersion>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="UnitsNet" Version="4.116.0" />
+    </ItemGroup>
+
 </Project>

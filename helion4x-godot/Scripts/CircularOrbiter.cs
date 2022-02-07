@@ -1,6 +1,7 @@
 using Godot;
 using Helion4x.Core;
 using Helion4x.Core.Time;
+using UnitsNet;
 
 namespace Helion4x.Scripts
 {
@@ -11,7 +12,7 @@ namespace Helion4x.Scripts
         private float _mass;
         private OrbitalPeriod _orbitalPeriod;
         private CircularOrbiter _parent;
-        private Distance _radius;
+        private AstronomicalLength _radius;
         private float _theta;
 
         public void TimeProcess(Interval interval)
@@ -26,7 +27,7 @@ namespace Helion4x.Scripts
             if (_parentNodePath != null && _parentNodePath.IsEmpty()) return;
 
             _parent = GetNode<CircularOrbiter>(_parentNodePath);
-            _radius = Distance.OfMegameters(_parent.Translation.DistanceTo(Translation));
+            _radius = AstronomicalLength.OfMegameters(_parent.Translation.DistanceTo(Translation));
             _orbitalPeriod = new OrbitalPeriod(_radius.Meters, _parent._mass, OrbitType.Circular);
         }
 
