@@ -30,6 +30,14 @@ namespace Helion4x.Runtime
             else  _timer.Pause();
         }
 
+        public void SetTimewarp(float duration)
+        {
+            _timer.Cancel();
+            _timer = Timer.Register(duration, ProgressTime, isLooped: true);
+        }
+        
+        
+
         private void ProgressTime()
         {
             if (_nextUpdate.minute <= _time)
