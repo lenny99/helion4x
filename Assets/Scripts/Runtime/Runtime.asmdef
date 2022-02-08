@@ -1,0 +1,17 @@
+{
+    "name": "Runtime",
+    "rootNamespace": "Helion4x",
+    "references": [
+        "GUID:3845c5c6182a26d4887200791734a58d",
+        "GUID:237cbb5df8d2d4f479a9e1f12e52df95"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
