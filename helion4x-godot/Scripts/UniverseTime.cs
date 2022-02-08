@@ -64,7 +64,7 @@ namespace Helion4x.Scripts
 
         private void ProgressTimeBy(Interval interval)
         {
-            GetTree().CallGroup(nameof(ITimeables), nameof(ITimeables.TimeProcess), interval);
+            GetTree().CallGroup(nameof(ITimeable), nameof(ITimeable.TimeProcess), interval);
         }
     }
 

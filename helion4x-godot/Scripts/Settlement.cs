@@ -5,7 +5,7 @@ using Helion4x.Core.Time;
 
 namespace Helion4x.Scripts
 {
-    public class Settlement : Node, ITimeables, IEventInput
+    public class Settlement : Node, ITimeable, IEventInput
     {
         private Economy _economy;
         private Installations _installations;
@@ -35,7 +35,7 @@ namespace Helion4x.Scripts
 
         public override void _Ready()
         {
-            AddToGroup(nameof(ITimeables));
+            AddToGroup(nameof(ITimeable));
             _population = new Population();
             _economy = new Economy(0.2f);
             _installations = new Installations();

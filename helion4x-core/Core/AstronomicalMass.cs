@@ -1,6 +1,6 @@
 ﻿namespace Helion4x.Scripts
 {
-    public static class Mass
+    public static class AstronomicalMass
     {
         private const float Sun = 1.989e30f;
         private const float Earth = 5.972e24f;

@@ -4,7 +4,7 @@ using System.Globalization;
 using Helion4x.Core.Time;
 using Helion4x.Scripts;
 
-public class TimeController : Control, ITimeables
+public class TimeController : Control, ITimeable
 {
     [Export] private NodePath _universeTimePath;
     private UniverseTime _universeTime;
@@ -19,7 +19,7 @@ public class TimeController : Control, ITimeables
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        AddToGroup(nameof(ITimeables));
+        AddToGroup(nameof(ITimeable));
         _universeTime = GetNode<UniverseTime>(_universeTimePath);
         _timewarp = GetNode<TimewarpTimer>(_timewarpPath);
         _timeLabel = GetNode<Label>("VBoxContainer/PanelContainer/TimeLabel");

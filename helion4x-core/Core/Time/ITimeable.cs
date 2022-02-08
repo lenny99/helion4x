@@ -1,6 +1,6 @@
 ﻿namespace Helion4x.Core.Time
 {
-    public interface ITimeables
+    public interface ITimeable
     {
         void TimeProcess(Interval interval);
     }
