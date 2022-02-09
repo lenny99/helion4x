@@ -1,6 +1,6 @@
 {
     "name": "EditMode",
-    "rootNamespace": "",
+    "rootNamespace": "Helion4x",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Helion4x.Runtime
 {
-    public class CircularOrbiter
+    public class CircularOrbit
     {
         private readonly OrbitalPeriod _orbitalPeriod;
         private readonly IAstronomicalObject _parent;
         private readonly AstronomicalLength _radius;
         private float _theta;
 
-        public CircularOrbiter(IAstronomicalObject parent, OrbitalPeriod orbitalPeriod, AstronomicalLength radius)
+        public CircularOrbit(IAstronomicalObject parent, OrbitalPeriod orbitalPeriod, AstronomicalLength radius)
         {
             _parent = parent;
             _orbitalPeriod = orbitalPeriod;
@@ -22,11 +22,12 @@ namespace Helion4x.Runtime
             _theta -= 2 * Mathf.PI / _orbitalPeriod.InMinutes() * minutes;
             if (Mathf.Abs(_theta) > 2 * Mathf.PI) _theta += 2 * Mathf.PI;
 
-            return new Vector3(
-                Mathf.Cos(_theta),
-                0,
-                Mathf.Sin(_theta)
-            ) * (float) _radius.Megameters + _parent.transform.position;
+            return new Vector3(Mathf.Cos(_theta), 0, Mathf.Sin(_theta)) * (float) _radius.Megameters;
+        }
+
+        public Vector3 GetPosition(float angle)
+        {
+            return new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * (float) _radius.Megameters;
         }
     }
 }

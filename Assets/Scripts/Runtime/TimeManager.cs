@@ -35,8 +35,6 @@ namespace Helion4x.Runtime
             _timer.Cancel();
             _timer = Timer.Register(duration, ProgressTime, isLooped: true);
         }
-        
-        
 
         private void ProgressTime()
         {

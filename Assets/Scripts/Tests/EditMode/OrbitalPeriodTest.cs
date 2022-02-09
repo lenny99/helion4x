@@ -1,7 +1,6 @@
 ﻿using Helion4x.Core;
 using Helion4x.Scripts;
 using NUnit.Framework;
-using Assert = UnityEngine.Assertions.Assert;
 
 namespace Helion4x.Tests.EditMode
 {
