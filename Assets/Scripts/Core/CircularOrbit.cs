@@ -6,11 +6,11 @@ namespace Helion4x.Runtime
     public class CircularOrbit
     {
         private readonly OrbitalPeriod _orbitalPeriod;
-        private readonly IAstronomicalObject _parent;
+        private readonly IAstronomicalBody _parent;
         private readonly AstronomicalLength _radius;
         private float _theta;
 
-        public CircularOrbit(IAstronomicalObject parent, OrbitalPeriod orbitalPeriod, AstronomicalLength radius)
+        public CircularOrbit(IAstronomicalBody parent, OrbitalPeriod orbitalPeriod, AstronomicalLength radius)
         {
             _parent = parent;
             _orbitalPeriod = orbitalPeriod;

@@ -7,14 +7,15 @@ using UnityEngine.Serialization;
 
 namespace Helion4x.Runtime
 {
-    public class AstronomicalObject : MonoBehaviour, IAstronomicalObject
+    public class AstronomicalBody : MonoBehaviour, IAstronomicalBody, IFollowable
     {
         private LineRenderer _lineRenderer;
 
         [SerializeField] private MassType massType;
         [SerializeField, Range(8, 64)] private int orbitSegments;
+        [SerializeField] private GameObject parent;
         private CircularOrbit _circularOrbit;
-        private IAstronomicalObject _parent;
+        private IAstronomicalBody _parent;
 
         public float Mass { get; private set; }
 
@@ -27,11 +28,10 @@ namespace Helion4x.Runtime
         {
             Mass = AstronomicalMass.ForMassType(massType);
             TimeManager.MinutePassed += OnMinutePassed;
-            if (transform.parent == null) return;
-            var myTransform = transform;
-            _parent = myTransform.parent.GetComponent<IAstronomicalObject>();
+            if (parent == null) return;
+            _parent = parent.GetComponent<IAstronomicalBody>();
             var radius =
-                AstronomicalLength.FromMegameters(Vector3.Distance(_parent.transform.position, myTransform.localPosition));
+                AstronomicalLength.FromMegameters(Vector3.Distance(_parent.transform.position, transform.localPosition));
             var orbitalPeriod = new OrbitalPeriod(radius.Meters, _parent.Mass, OrbitType.Circular);
             _circularOrbit = new CircularOrbit(_parent, orbitalPeriod, radius);
         }
@@ -57,5 +57,7 @@ namespace Helion4x.Runtime
             _lineRenderer.positionCount = orbitSegments + 1;
             _lineRenderer.SetPositions(points);
         }
+
+        public Transform Transform => transform;
     }
 }

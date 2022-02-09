@@ -1,11 +1,8 @@
 {
-    "name": "Runtime",
+    "name": "Actions",
     "rootNamespace": "Helion4x",
     "references": [
-        "GUID:3845c5c6182a26d4887200791734a58d",
-        "GUID:237cbb5df8d2d4f479a9e1f12e52df95",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:d2ea585162b621042b2a31b24682e62e"
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

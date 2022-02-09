@@ -11,7 +11,7 @@ namespace Helion4x.Runtime
     public class Fleet : MonoBehaviour
     {
         [SerializeField] private GameObject parent;
-        private IAstronomicalObject _parent;
+        private IAstronomicalBody _parent;
         
         private CircularOrbit _circularOrbit;
         private MovementType _movement;
@@ -24,7 +24,7 @@ namespace Helion4x.Runtime
         public void Start()
         {
             TimeManager.MinutePassed += OnMinutePassed;
-            _parent = parent.GetComponent<IAstronomicalObject>();
+            _parent = parent.GetComponent<IAstronomicalBody>();
             if (_parent == null) return;
             var radius = AstronomicalLength.FromMegameters(Vector3.Distance(_parent.transform.position, transform.position));
             var orbitalPeriod = new OrbitalPeriod(radius.Meters, _parent.Mass, OrbitType.Circular);
