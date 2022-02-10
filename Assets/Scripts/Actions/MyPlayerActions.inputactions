@@ -1,5 +1,5 @@
 {
-    "name": "CameraActions",
+    "name": "MyPlayerActions",
     "maps": [
         {
             "name": "Player",
@@ -63,6 +63,15 @@
                     "name": "Click",
                     "type": "Button",
                     "id": "bdcdb62c-7000-4c81-a0b4-cfd53a433a34",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Focus",
+                    "type": "Button",
+                    "id": "309d8da7-ac19-4873-8067-035317e0d8d7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -353,6 +362,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca7c1054-8111-4b9b-84d0-0eb0ab42935b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Focus",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

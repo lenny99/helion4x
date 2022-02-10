@@ -1,43 +1,38 @@
-﻿using System.Net.Sockets;
-using System.Numerics;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using Plane = UnityEngine.Plane;
-using Quaternion = UnityEngine.Quaternion;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
 namespace Helion4x.Runtime
 {
     public class AstronomicalCamera : MonoBehaviour
     {
         [SerializeField] private Transform cameraTransform;
-        [SerializeField, Range(0, 1)] private float movementSpeed;
-        [SerializeField, Range(0, 10)] private float movementTime;
-        [SerializeField, Range(0, 1)] private float rotationSpeed;
-        [SerializeField, Range(0, 10)] private float rotationTime;
-        [SerializeField, Range(0, 5)] private float zoomSpeed;
-        [SerializeField, Range(0, 10)] private float zoomTime;
+        [SerializeField] [Range(0, 1)] private float movementSpeed;
+        [SerializeField] [Range(0, 10)] private float movementTime;
+        [SerializeField] [Range(0, 1)] private float rotationSpeed;
+        [SerializeField] [Range(0, 10)] private float rotationTime;
+        [SerializeField] [Range(0, 5)] private float zoomSpeed;
+        [SerializeField] [Range(0, 10)] private float zoomTime;
+
+        private MyPlayerActions _cameraActions;
+        private Vector3 _dragCurrent;
+
+        private Vector3 _dragStart;
+
+        private Transform _followTransform;
 
         private Vector3 _newPosition;
         private Quaternion _newRotation;
         private Vector3 _newZoom;
-
-        private Vector3 _dragStart;
-        private Vector3 _dragCurrent;
-        private Vector3 _rotateStart;
         private Vector3 _rotateCurrent;
-
-        private @CameraActions _cameraActions;
-
-        private Transform _followTransform;
+        private Vector3 _rotateStart;
 
         private void Awake()
         {
-            _cameraActions = new CameraActions();
+            _cameraActions = new MyPlayerActions();
             _cameraActions.Player.Enable();
             _cameraActions.Player.Drag.performed += HandleFirstDrag;
             _cameraActions.Player.DragRotate.performed += HandleFirstMouseRotation;
+            _cameraActions.Player.Focus.performed += HandleFocus;
         }
 
         private void Start()
@@ -50,10 +45,6 @@ namespace Helion4x.Runtime
 
         private void Update()
         {
-            if (_cameraActions.Player.Click.IsPressed())
-            {
-                SelectFollow();
-            }
             if (_followTransform != null)
             {
                 _newPosition = _followTransform.position;
@@ -64,12 +55,22 @@ namespace Helion4x.Runtime
                 HandleKeyboardMovement();
                 HandleMouseMovement();
             }
+
             HandleKeyboardRotation();
             HandleMouseRotation();
             HandleMouseZoom();
-            transform.position = Vector3.Lerp(transform.position, _newPosition, Time.deltaTime * movementTime);
-            transform.rotation = Quaternion.Lerp(transform.rotation, _newRotation, Time.deltaTime * rotationTime);
-            cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, _newZoom, Time.deltaTime * zoomTime);
+            transform.position =
+                Vector3.Lerp(transform.position, _newPosition, Time.deltaTime * movementTime);
+            transform.rotation =
+                Quaternion.Lerp(transform.rotation, _newRotation, Time.deltaTime * rotationTime);
+            cameraTransform.localPosition =
+                Vector3.Lerp(cameraTransform.localPosition, _newZoom, Time.deltaTime * zoomTime);
+        }
+
+        private void HandleFocus(InputAction.CallbackContext obj)
+        {
+            SelectFollow();
+            transform.LookAt(_followTransform);
         }
 
         private void SelectFollow()
@@ -78,7 +79,7 @@ namespace Helion4x.Runtime
             var ray = Camera.main!.ScreenPointToRay(mousePosition);
             if (!Physics.Raycast(ray, out var hit)) return;
             var followable = hit.collider.GetComponent<IFollowable>();
-            _followTransform = followable.Transform;
+            _followTransform = followable.FollowTransform;
         }
 
         private void HandleFirstDrag(InputAction.CallbackContext obj)
@@ -103,7 +104,7 @@ namespace Helion4x.Runtime
             if (_cameraActions.Player.DragRotate.IsPressed())
             {
                 _rotateCurrent = Mouse.current.position.ReadValue();
-                Vector3 difference = _rotateStart - _rotateCurrent;
+                var difference = _rotateStart - _rotateCurrent;
                 _rotateStart = _rotateCurrent;
                 _newRotation *= Quaternion.Euler(Vector3.up * (-difference.x / 5));
             }
@@ -124,8 +125,9 @@ namespace Helion4x.Runtime
             var zoom = _cameraActions.Player.Zoom.ReadValue<float>() / 120;
             if (zoom != 0)
             {
-                var newZoom = _newZoom + zoomDirection * zoom * zoomSpeed;
-                if (newZoom.y > 10 && newZoom.z < -10) _newZoom = newZoom;
+                var distanceFromRig = Vector3.Distance(transform.position, cameraTransform.position);
+                var newZoom = _newZoom + zoomDirection * zoom * Mathf.Sqrt(distanceFromRig * zoomSpeed);
+                if (newZoom.y > 0.1 && newZoom.z < -0.1) _newZoom = newZoom;
             }
         }
 
@@ -145,6 +147,6 @@ namespace Helion4x.Runtime
 
     public interface IFollowable
     {
-        public Transform Transform { get; }
+        public Transform FollowTransform { get; }
     }
 }

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="TopBar" style="flex-wrap: wrap-reverse;">
+        <ui:VisualElement name="TimeView" style="align-items: center; width: 178px; justify-content: flex-start; background-color: rgba(128, 128, 128, 0.69); flex-direction: column; flex-wrap: nowrap; position: relative; top: auto; left: auto; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; border-top-left-radius: 0; border-bottom-left-radius: 8px; border-top-right-radius: 0; border-bottom-right-radius: 0;">
+            <ui:Label text="01.01.2030 00/00/00" display-tooltip-when-elided="true" name="TimeLabel" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

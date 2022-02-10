@@ -2,154 +2,114 @@
 {
     public interface ITimewarpState
     {
+        bool Paused { get; }
+        float Duration { get; }
         ITimewarpState SpeedUp();
         ITimewarpState SlowDown();
-        bool IsPaused();
-        float GetWaitTime();
     }
 
-    public class Paused : ITimewarpState
+    public abstract class BaseTimewarpState
     {
+        private protected float DurationPerTick(float timesPerTick)
+        {
+            return 1 / timesPerTick;
+        }
+    }
+
+    public class PausedState : BaseTimewarpState, ITimewarpState
+    {
+        public PausedState()
+        {
+            Paused = true;
+            Duration = DurationPerTick(1);
+        }
+
         public ITimewarpState SpeedUp()
         {
-            return new Slowest();
+            return new OneSpeed();
         }
 
         public ITimewarpState SlowDown()
         {
-            return new Paused();
+            return new PausedState();
         }
 
-        public bool IsPaused()
-        {
-            return true;
-        }
-
-        public float GetWaitTime()
-        {
-            return 1;
-        }
+        public bool Paused { get; }
+        public float Duration { get; }
 
         public override string ToString()
         {
-            return nameof(Paused);
+            return "(x0)";
         }
     }
 
-    public class Slowest : ITimewarpState
+    public class OneSpeed : BaseTimewarpState, ITimewarpState
     {
+        private const float SixtyTimesPerSecond = 1;
+
+        public OneSpeed()
+        {
+            Paused = false;
+            Duration = DurationPerTick(10);
+        }
+
         public ITimewarpState SpeedUp()
         {
-            return new Slow();
+            return new TwoSpeed();
         }
 
         public ITimewarpState SlowDown()
         {
-            return new Paused();
+            return new PausedState();
         }
 
-        public bool IsPaused()
-        {
-            return false;
-        }
-
-        public float GetWaitTime()
-        {
-            return 2;
-        }
+        public bool Paused { get; }
+        public float Duration { get; }
 
         public override string ToString()
         {
-            return nameof(Slowest);
+            return "(1x)";
         }
     }
 
-    public class Slow : ITimewarpState
+    public class TwoSpeed : BaseTimewarpState, ITimewarpState
     {
+        public TwoSpeed()
+        {
+            Paused = false;
+            Duration = DurationPerTick(20);
+        }
+
         public ITimewarpState SpeedUp()
         {
-            return new Normal();
+            return new ThreeSpeed();
         }
 
         public ITimewarpState SlowDown()
         {
-            return new Slowest();
+            return new OneSpeed();
         }
 
-        public bool IsPaused()
-        {
-            return false;
-        }
-
-        public float GetWaitTime()
-        {
-            return 1;
-        }
+        public bool Paused { get; }
+        public float Duration { get; }
 
         public override string ToString()
         {
-            return nameof(Slow);
+            return "(2x)";
         }
     }
 
-    public class Normal : ITimewarpState
+    public class ThreeSpeed : BaseTimewarpState, ITimewarpState
     {
-        public ITimewarpState SpeedUp()
+        public ThreeSpeed()
         {
-            return new Fast();
+            Paused = false;
+            Duration = DurationPerTick(40);
         }
 
-        public ITimewarpState SlowDown()
-        {
-            return new Slow();
-        }
+        public bool Paused { get; }
+        public float Duration { get; }
 
-        public bool IsPaused()
-        {
-            return false;
-        }
-
-        public float GetWaitTime()
-        {
-            return 0.01f;
-        }
-
-        public override string ToString()
-        {
-            return nameof(Normal);
-        }
-    }
-
-    public class Fast : ITimewarpState
-    {
-        public ITimewarpState SpeedUp()
-        {
-            return new Fastest();
-        }
-
-        public ITimewarpState SlowDown()
-        {
-            return new Normal();
-        }
-
-        public bool IsPaused()
-        {
-            return false;
-        }
-
-        public float GetWaitTime()
-        {
-            return 0.01f;
-        }
-
-        public override string ToString()
-        {
-            return nameof(Fast);
-        }
-    }
-
-    public class Fastest : ITimewarpState
-    {
         public ITimewarpState SpeedUp()
         {
             return this;
@@ -157,22 +117,12 @@
 
         public ITimewarpState SlowDown()
         {
-            return new Fast();
-        }
-
-        public bool IsPaused()
-        {
-            return false;
-        }
-
-        public float GetWaitTime()
-        {
-            return 0.001f;
+            return new TwoSpeed();
         }
 
         public override string ToString()
         {
-            return nameof(Fastest);
+            return "(3x)";
         }
     }
 }

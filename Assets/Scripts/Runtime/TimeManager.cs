@@ -1,4 +1,6 @@
 using System;
+using System.Runtime.CompilerServices;
+using Helion4x.Core.Time;
 using UnityEngine;
 using UnityTimer;
 
@@ -13,27 +15,35 @@ namespace Helion4x.Runtime
         public static event Action YearPassed = delegate {  };
         
         public DateTime Time => _time;
-        private NextUpdate _nextUpdate;
+        public ITimewarpState Timewarp
+        {
+            get => _timewarp;
+            private set
+            {
+                _timer.Cancel();
+                _timer = Timer.Register(value.Duration, ProgressTime, isLooped: true);
+                if (value.Paused) _timer.Pause(); 
+                _timewarp = value;
+            }
+        }
+
+        private ITimewarpState _timewarp;
         private DateTime _time;
+        private NextUpdate _nextUpdate;
         private Timer _timer;
 
         private void Start()
         {
             _time = DateTime.Parse("01/01/2030 00:00:00");
             _nextUpdate = new NextUpdate(_time);
-            _timer  = Timer.Register(0.1f, ProgressTime, isLooped: true);
+            _timewarp = new OneSpeed();
+            _timer  = Timer.Register(_timewarp.Duration, ProgressTime, isLooped: true);
         }
 
         public void Pause()
         {
             if (_timer.isPaused) _timer.Resume();
             else  _timer.Pause();
-        }
-
-        public void SetTimewarp(float duration)
-        {
-            _timer.Cancel();
-            _timer = Timer.Register(duration, ProgressTime, isLooped: true);
         }
 
         private void ProgressTime()
@@ -69,6 +79,16 @@ namespace Helion4x.Runtime
             }
 
             _time = _time.AddMinutes(1);
+        }
+
+        public void SlowDown()
+        {
+            Timewarp = Timewarp.SlowDown();
+        }
+
+        public void SpeedUp()
+        {
+            Timewarp = Timewarp.SpeedUp();
         }
     }
 
