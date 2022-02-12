@@ -1,5 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="SettlementSelection" src="SettlementSelection.uxml" />
     <ui:VisualElement name="TopBar" style="flex-wrap: wrap-reverse; height: 74px;">
         <ui:VisualElement name="TimeView" style="align-items: center; width: 196px; justify-content: flex-start; background-color: rgba(128, 128, 128, 0.69); flex-direction: column; flex-wrap: nowrap; position: relative; top: auto; left: auto; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; border-top-left-radius: 0; border-bottom-left-radius: 8px; border-top-right-radius: 0; border-bottom-right-radius: 0;">
             <ui:VisualElement name="TimeRow" style="flex-direction: row;">
@@ -15,6 +14,6 @@
     </ui:VisualElement>
     <ui:VisualElement name="MainContent" style="display: flex; visibility: visible; overflow: visible; flex-shrink: 1; justify-content: flex-start; align-items: auto; height: 100%;" />
     <ui:VisualElement name="BottomBar" style="height: 156px;">
-        <ui:Instance template="SettlementSelection" name="SettlementSelection" />
+        <ui:VisualElement name="SelectorContainer" style="width: 445px; height: 100%;" />
     </ui:VisualElement>
 </ui:UXML>

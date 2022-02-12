@@ -82,8 +82,8 @@ namespace Helion4x.Runtime.HelionCamera
 
         private bool IsExitingFollow()
         {
-            return _playerActions.Player.Focus.WasPerformedThisFrame() ||
-                   _playerActions.Player.Move.WasPerformedThisFrame();
+            return _playerActions.Player.Focus.IsPressed() ||
+                   _playerActions.Player.Move.IsPressed();
         }
 
 
@@ -96,14 +96,14 @@ namespace Helion4x.Runtime.HelionCamera
                 var selectable = hit.collider.GetComponent<ISelectable>();
                 selectable?.Select();
                 _selected = selectable;
+                Selected.Invoke(_selected);
             }
-            else
+            else if (_selected != null)
             {
-                _selected?.Unselect();
+                _selected.Unselect();
+                Unselected.Invoke(_selected);
                 _selected = null;
             }
-
-            Selected.Invoke(_selected);
         }
 
         private void HandleFocus(InputAction.CallbackContext obj)

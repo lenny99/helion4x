@@ -33,7 +33,7 @@ namespace Helion4x.Runtime.Gui
         protected abstract void BindUi(VisualElement root);
     }
 
-    public class TimeController : BaseController
+    public class TimeController : MonoBehaviour
     {
         [SerializeField] private TimeManager timeManager;
 
@@ -44,8 +44,21 @@ namespace Helion4x.Runtime.Gui
         private TimeManager _timeManager;
         private Label _timewarpLabel;
 
+        private void Start()
+        {
+            _timeManager = timeManager.GetComponent<TimeManager>();
+            var root = GetComponentInParent<UIDocument>().rootVisualElement;
+            BindUi(root);
+        }
 
-        protected override void BindUi(VisualElement root)
+        private void Update()
+        {
+            _timeLabel.text = _timeManager.Time.ToString(CultureInfo.InvariantCulture);
+            _timewarpLabel.text = _timeManager.Timewarp.ToString();
+        }
+
+
+        private void BindUi(VisualElement root)
         {
             _timeLabel = root.Q<Label>("TimeLabel");
             _timewarpLabel = root.Q<Label>("TimewarpLabel");
@@ -55,17 +68,6 @@ namespace Helion4x.Runtime.Gui
             _pauseButton.clicked += OnPauseButtonClicked;
             _fasterButton = root.Q<Button>("FasterButton");
             _fasterButton.clicked += OnFasterButtonClicked;
-        }
-
-        protected override void StartUi()
-        {
-            _timeManager = timeManager.GetComponent<TimeManager>();
-        }
-
-        protected override void UpdateUi()
-        {
-            _timeLabel.text = _timeManager.Time.ToString(CultureInfo.InvariantCulture);
-            _timewarpLabel.text = _timeManager.Timewarp.ToString();
         }
 
         private void OnSlowerButtonClicked()
