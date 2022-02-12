@@ -50,7 +50,7 @@
         public OneSpeed()
         {
             Paused = false;
-            Duration = DurationPerTick(10);
+            Duration = DurationPerTick(60);
         }
 
         public ITimewarpState SpeedUp()
@@ -77,7 +77,7 @@
         public TwoSpeed()
         {
             Paused = false;
-            Duration = DurationPerTick(20);
+            Duration = DurationPerTick(120);
         }
 
         public ITimewarpState SpeedUp()
@@ -104,7 +104,7 @@
         public ThreeSpeed()
         {
             Paused = false;
-            Duration = DurationPerTick(40);
+            Duration = DurationPerTick(240);
         }
 
         public bool Paused { get; }

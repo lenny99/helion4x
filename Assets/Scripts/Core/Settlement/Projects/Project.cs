@@ -1,20 +1,21 @@
 ﻿namespace Helion4x.Core.Settlement.Projects
 {
-    public abstract class Project
+    public class Project
     {
-        public string Name => _name;
-        public bool IsFinished => _progress >= _cost;
-        public bool IsNotFinished => !IsFinished;
-        
-        private string _name;
-        private float _cost;
+        private readonly float _cost;
+
         private float _progress;
 
         public Project(string name, float cost)
         {
-            _name = name;
+            Name = name;
             _cost = cost;
         }
+
+        public string Name { get; }
+
+        public bool IsFinished => _progress >= _cost;
+        public bool IsNotFinished => !IsFinished;
 
         public float Progress(float budget)
         {
@@ -24,10 +25,14 @@
                 _progress = _cost;
                 return newProgress - _cost;
             }
+
             _progress = newProgress;
             return 0;
         }
 
-        abstract public Installation.Installation Finish();
+        public Installation.Installation Finish()
+        {
+            return null;
+        }
     }
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44fe4cccd272459ca6352b123538690a, type: 3}
+  m_Name: StartingSettlement
+  m_EditorClassIdentifier: 
+  population:
+    population: 100
+    growthRate: 0.01
+  economy:
+    tax: 0.2
+  installationsAndAmount:
+  - bonusObject: {fileID: 11400000, guid: 16767e32d69470d48aca949c9ead695b, type: 2}
+    amount: 100
+  - bonusObject: {fileID: 11400000, guid: 63162ecdc4fdf7748a3b39d119d0cd38, type: 2}
+    amount: 10

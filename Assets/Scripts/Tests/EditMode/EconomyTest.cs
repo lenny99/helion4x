@@ -12,14 +12,14 @@ namespace Helion4x.Tests.EditMode
         public void ProgressProjects()
         {
             var economy = new Economy(0.1f);
-            var installationBonuses = new InstallationBonuses(new Dictionary<InstallationBonusType,float>()
+            var installationBonuses = new InstallationBonuses(new Dictionary<InstallationBonusType, float>
             {
-                [InstallationBonusType.PrimarySectorJobs] = 2500,
+                [InstallationBonusType.PrimarySectorJobs] = 2500
             });
             economy.CalculateGdp(1000, installationBonuses);
             Assert.True(economy.Gdp > 0);
-            economy.BuildProject(new InfrastructureProject());
-            for (int i = 1; i < 10; i++)
+            economy.BuildProject(new Project("Factory", 1000));
+            for (var i = 1; i < 10; i++)
             {
                 var finishedProjects = economy.ProgressProjects();
                 if (finishedProjects.Count > 0)
@@ -29,6 +29,7 @@ namespace Helion4x.Tests.EditMode
                     return;
                 }
             }
+
             Assert.Fail("Project was not finished");
         }
     }

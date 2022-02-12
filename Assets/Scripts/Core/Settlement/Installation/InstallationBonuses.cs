@@ -19,10 +19,7 @@ namespace Helion4x.Core.Settlement.Installation
         public void AddBonuses(InstallationBonuses bonuses)
         {
             var dictionary = bonuses.GetBonuses();
-            foreach (var key in dictionary.Keys)
-            {
-                AddBonus(key, dictionary[key]);
-            }
+            foreach (var key in dictionary.Keys) AddBonus(key, dictionary[key]);
         }
 
         private Dictionary<InstallationBonusType, float> GetBonuses()
@@ -30,16 +27,12 @@ namespace Helion4x.Core.Settlement.Installation
             return _bonuses;
         }
 
-        private void AddBonus(InstallationBonusType type, float amount)
+        public void AddBonus(InstallationBonusType type, float amount)
         {
             if (_bonuses.ContainsKey(type))
-            {
                 _bonuses[type] += amount;
-            }
             else
-            {
                 _bonuses[type] = amount;
-            }
         }
 
         public bool Contains(InstallationBonusType type)
@@ -48,7 +41,7 @@ namespace Helion4x.Core.Settlement.Installation
         }
 
         public float Get(InstallationBonusType type)
-         {
+        {
             return _bonuses.ContainsKey(type) ? _bonuses[type] : 0;
         }
     }

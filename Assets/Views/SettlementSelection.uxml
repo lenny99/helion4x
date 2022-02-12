@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="-unity-background-image-tint-color: rgb(0, 0, 0); background-image: none; -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 0; background-color: rgb(56, 56, 56);">
+        <ui:TextField picking-mode="Ignore" label="Population" value="filler text" name="PopulationField" />
+        <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" text="filler text" />
+        <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" text="filler text" />
+    </ui:VisualElement>
+</ui:UXML>

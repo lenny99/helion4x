@@ -1,9 +1,15 @@
 ﻿namespace Helion4x.Core.Settlement.Installation
 {
-    public abstract class Installation
+    public class Installation
     {
         private int _count;
 
-        public abstract InstallationBonuses GetBonuses();
+        public Installation(int count, InstallationBonuses bonuses)
+        {
+            _count = count;
+            Bonuses = bonuses;
+        }
+
+        public InstallationBonuses Bonuses { get; }
     }
 }

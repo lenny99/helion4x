@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Helion4x.Runtime
+namespace Helion4x.Core
 {
     public interface IFollowable
     {

@@ -3,26 +3,23 @@ using Helion4x.Core.Settlement.Projects;
 
 namespace Helion4x.Core.Settlement.Installation
 {
-    public class Installations
+    public class InstallationHolder
     {
-        private List<Installation> _installations;
+        private readonly List<Installation> _installations;
 
-        public Installations()
+        public InstallationHolder(List<Installation> installations)
         {
-            _installations = new List<Installation>();
+            _installations = installations;
         }
-        
+
         public InstallationBonuses GetBonuses()
         {
             var bonuses = new InstallationBonuses();
-            foreach (var infrastructure in _installations)
-            {
-                bonuses.AddBonuses(infrastructure.GetBonuses());
-            }
+            foreach (var infrastructure in _installations) bonuses.AddBonuses(infrastructure.Bonuses);
             return bonuses;
         }
 
-        public void AddInstallations(List<Project> projects)
+        public void AddProjects(List<Project> projects)
         {
             projects.ForEach(project => _installations.Add(project.Finish()));
         }

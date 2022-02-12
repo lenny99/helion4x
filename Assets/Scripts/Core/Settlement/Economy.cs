@@ -8,18 +8,16 @@ namespace Helion4x.Core.Settlement
 {
     public class Economy
     {
-        public float Gdp => _primarySector.GDP + _secondarySector.GDP + _tertiarySector.GDP;
-
         private readonly List<Project> _available_projects;
-        private readonly Queue<Project> _projects_in_progress;
-        private readonly Sector[] _sectors;
         private readonly Sector _primarySector;
+        private readonly Queue<Project> _projects_in_progress;
         private readonly Sector _secondarySector;
+        private readonly Sector[] _sectors;
+        private readonly float _tax;
         private readonly Sector _tertiarySector;
 
         private float _employed;
         private float _unemployed;
-        private float _tax;
 
         public Economy(float tax)
         {
@@ -28,9 +26,10 @@ namespace Helion4x.Core.Settlement
             _tertiarySector = new TertiarySector();
             _sectors = new[] {_primarySector, _secondarySector, _tertiarySector};
             _projects_in_progress = new Queue<Project>();
-            _available_projects = new List<Project>(new[] {new InfrastructureProject()});
             _tax = tax;
         }
+
+        public float Gdp => _primarySector.GDP + _secondarySector.GDP + _tertiarySector.GDP;
 
         public void CalculateGdp(float population, InstallationBonuses bonuses)
         {
@@ -51,10 +50,11 @@ namespace Helion4x.Core.Settlement
                 _projects_in_progress.Dequeue();
                 finishedProjects.Add(project);
             }
+
             return finishedProjects;
         }
 
-        public void BuildProject(InfrastructureProject project)
+        public void BuildProject(Project project)
         {
             _projects_in_progress.Enqueue(project);
         }
