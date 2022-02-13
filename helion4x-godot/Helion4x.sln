@@ -2,10 +2,6 @@
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helion4x", "Helion4x.csproj", "{4ACECABA-E718-48F6-9896-5B8C8129CA21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helion4x-core", "..\helion4x-core\helion4x-core.csproj", "{D6A087C9-6C6F-4AE1-A55D-176F086ADB09}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helion4x-test", "..\helion4x-test\helion4x-test.csproj", "{11FEAD7D-CD76-437C-B01D-E129E86450F1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -19,17 +15,5 @@ Global
 		{4ACECABA-E718-48F6-9896-5B8C8129CA21}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{4ACECABA-E718-48F6-9896-5B8C8129CA21}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{4ACECABA-E718-48F6-9896-5B8C8129CA21}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
-		{D6A087C9-6C6F-4AE1-A55D-176F086ADB09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6A087C9-6C6F-4AE1-A55D-176F086ADB09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6A087C9-6C6F-4AE1-A55D-176F086ADB09}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6A087C9-6C6F-4AE1-A55D-176F086ADB09}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
-		{D6A087C9-6C6F-4AE1-A55D-176F086ADB09}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6A087C9-6C6F-4AE1-A55D-176F086ADB09}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
-		{11FEAD7D-CD76-437C-B01D-E129E86450F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11FEAD7D-CD76-437C-B01D-E129E86450F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11FEAD7D-CD76-437C-B01D-E129E86450F1}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11FEAD7D-CD76-437C-B01D-E129E86450F1}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
-		{11FEAD7D-CD76-437C-B01D-E129E86450F1}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
-		{11FEAD7D-CD76-437C-B01D-E129E86450F1}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

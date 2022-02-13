@@ -3,9 +3,6 @@
     <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\helion4x-core\helion4x-core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
@@ -13,5 +10,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="scenes\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="UnitsNet" Version="4.120.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Runtime\Gui" />
   </ItemGroup>
 </Project>

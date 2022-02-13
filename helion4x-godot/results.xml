@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<testsuites failures="0" name="TestXML" tests="2" time="0.159">
+	<testsuite name="EconomyTest" failures="0"  tests="1" time="0">
+		<testcase name="ProgressProjects" time="0"></testcase>
+	</testsuite>
+
+	<testsuite name="OrbitalPeriodTest" failures="0"  tests="1" time="0">
+		<testcase name="TestCircularOrbitalPeriod" time="0"></testcase>
+	</testsuite>
+
+</testsuites>
