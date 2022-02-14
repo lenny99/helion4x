@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StartingSettlement
   m_EditorClassIdentifier: 
   population:
-    population: 100
-    growthRate: 0.01
+    population: 10000
+    growthRate: 0.02
   economy:
     tax: 0.2
   installationsAndAmount:

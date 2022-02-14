@@ -9,11 +9,11 @@ namespace Helion4x.Core.Settlement
 
         public PopulationSystem(float startPopulation, float growthRate)
         {
-            Population = startPopulation;
+            Population = new Population(startPopulation);
             _growthRate = growthRate;
         }
 
-        public float Population { get; private set; }
+        public Population Population { get; private set; }
 
         public void GrowPopulation(InstallationBonuses installationBonuses)
         {
@@ -23,8 +23,11 @@ namespace Helion4x.Core.Settlement
 
         private void CalculatePopulationIncrease(float carryCapacity)
         {
-            var A = carryCapacity - Population / Population;
-            Population = (float) (carryCapacity / 1 + A * Math.Pow(Math.E, _growthRate * 1));
+            // var A = carryCapacity - Population / Population;
+            // Population = (float) (carryCapacity / 1 + A * Math.Pow(Math.E, -_growthRate * 1));
+            var newPopulation = Population.Count * 1.02f;
+            var population = new Population(newPopulation > carryCapacity ? carryCapacity : newPopulation);
+            Population = population;
         }
     }
 }

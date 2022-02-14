@@ -14,7 +14,7 @@ namespace Helion4x.Runtime
         private Economy _economy;
         private InstallationHolder _installationHolder;
         private PopulationSystem _populationSystem;
-        public float Population => _populationSystem.Population;
+        public Population Population => _populationSystem.Population;
 
         public void Start()
         {
@@ -38,7 +38,7 @@ namespace Helion4x.Runtime
 
         private void OnDayPassed()
         {
-            _economy.CalculateGdp(_populationSystem.Population, _installationHolder.GetBonuses());
+            _economy.CalculateGdp(_populationSystem.Population.Count, _installationHolder.GetBonuses());
             var finishedProjects = _economy.ProgressProjects();
             _installationHolder.AddProjects(finishedProjects);
         }

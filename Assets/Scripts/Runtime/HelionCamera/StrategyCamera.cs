@@ -1,7 +1,9 @@
 ﻿using System;
 using Helion4x.Core;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using ISelectable = Helion4x.Core.ISelectable;
 
 namespace Helion4x.Runtime.HelionCamera
 {
@@ -21,6 +23,7 @@ namespace Helion4x.Runtime.HelionCamera
         private MyPlayerActions _playerActions;
         private ISelectable _selected;
         private StrategyMouseMovement _strategyMouseMovement;
+        private bool _isOverUi;
 
 
         public Transform CameraTransform { get; internal set; }
@@ -47,6 +50,7 @@ namespace Helion4x.Runtime.HelionCamera
 
         private void Update()
         {
+            _isOverUi = EventSystem.current.IsPointerOverGameObject();
             if (_followTransform != null)
             {
                 NewPosition = _followTransform.position;
@@ -90,9 +94,15 @@ namespace Helion4x.Runtime.HelionCamera
         private void HandleClick(InputAction.CallbackContext obj)
         {
             if (_playerActions.Player.Focus.WasPerformedThisFrame()) return;
+            if (_isOverUi) return;
             var ray = Camera.main!.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out var hit))
             {
+                
+                if (hit.collider.GetComponent<RectTransform>() != null)
+                {
+                    return;
+                }
                 var selectable = hit.collider.GetComponent<ISelectable>();
                 selectable?.Select();
                 _selected = selectable;
