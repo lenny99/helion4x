@@ -15,7 +15,8 @@ material/0 = null
 [node name="Spatial" type="Spatial" parent="."]
 script = ExtResource( 1 )
 _cameraPath = NodePath("Camera")
-_rotationSpeed = 0.104
+_movementSpeed = 3.0
+_rotationSpeed = 3.0
 
 [node name="Camera" type="Camera" parent="Spatial"]
 transform = Transform( -1, 6.30095e-08, -6.06015e-08, 0, 0.693201, 0.720745, 8.74228e-08, 0.720745, -0.693201, 0, 14.4999, -10.6358 )

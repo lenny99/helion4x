@@ -2,7 +2,7 @@
 
 namespace Helion4x.Runtime
 {
-    public static class RaycastUtils
+    public static class SpatialExtensions
     {
         public static Vector3? GetPlanePosition(this Spatial node)
         {
@@ -10,7 +10,7 @@ namespace Helion4x.Runtime
             var mousePosition = node.GetViewport().GetMousePosition();
             var camera = node.GetViewport().GetCamera();
             var mouseWorldPosition = camera.ProjectPosition(mousePosition, 10000);
-            return  plane.IntersectRay(camera.Translation, mouseWorldPosition);
+            return plane.IntersectRay(camera.Translation, mouseWorldPosition);
         }
     }
 }

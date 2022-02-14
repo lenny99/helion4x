@@ -19,7 +19,8 @@ namespace Helion4x.Runtime
             get => _timewarp;
             private set
             {
-                _timer.Paused  = value.Paused;
+                _timer.Paused = value.Paused;
+                _timer.WaitTime = value.Duration;
                 _timewarp = value;
             }
         }

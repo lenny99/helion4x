@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/time_view.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/Runtime/Settlement.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Runtime/HelionCamera/StrategyCamera.cs" type="Script" id=3]
 [ext_resource path="res://Textures/earth.tres" type="Material" id=5]
 
@@ -26,10 +25,10 @@ background_sky = SubResource( 5 )
 
 [node name="Game" type="Node"]
 
-[node name="Timewarp" type="Timer" parent="."]
-autostart = true
-
 [node name="Time" type="Node" parent="."]
+
+[node name="Timer" type="Timer" parent="Time"]
+autostart = true
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -60,7 +59,6 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 5 )
 
 [node name="Settlement" type="Node" parent="Space/Sol/Earth"]
-script = ExtResource( 2 )
 
 [node name="Moon" type="Spatial" parent="Space/Sol"]
 transform = Transform( 1.737, 0, 0, 0, 1.737, 0, 0, 0, 1.737, 384.399, 0, 0 )
@@ -82,10 +80,14 @@ material/0 = null
 
 [node name="Anchor" type="Spatial" parent="Space"]
 script = ExtResource( 3 )
+_cameraPath = NodePath("SpaceOrbitCamera")
+_zoomVector = Vector3( 0, -1, 1 )
+_movementSpeed = 40.0
+_rotationSpeed = 3.0
+_zoomSpeed = 3.0
 
 [node name="SpaceOrbitCamera" type="Camera" parent="Space/Anchor"]
-transform = Transform( 1, -0.000108544, 9.24343e-05, -1.00424e-06, 0.642969, 0.765892, -0.000142565, -0.765892, 0.642969, -0.000183105, 38.2428, 21.7503 )
+transform = Transform( -1, 6.18172e-08, -6.18172e-08, 0, 0.707107, 0.707107, 8.74228e-08, 0.707107, -0.707107, 0, 30, -30 )
 far = 8128.0
 
-[connection signal="timeout" from="Timewarp" to="Timewarp" method="OnTimerTimeout"]
 [connection signal="input_event" from="Space/Sol/Earth/KinematicBody" to="Space/Sol/Earth/Settlement" method="OnInputEvent"]
