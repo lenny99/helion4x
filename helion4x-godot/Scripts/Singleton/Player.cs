@@ -15,7 +15,7 @@ namespace Helion4x.Runtime
                 if (value != null)
                     value.Select();
                 else
-                    _selectable.Unselect();
+                    _selectable?.Unselect();
                 Selected(value);
                 _selectable = value;
             }

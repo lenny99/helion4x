@@ -15,7 +15,6 @@ namespace Helion4x.Runtime
 
         public void Select()
         {
-            var selectable = new Selectable();
             foreach (var child in GetParent().GetChildren())
             {
                 if (child is Settlement settlement)
@@ -23,8 +22,6 @@ namespace Helion4x.Runtime
                 if (child is Environment planet)
                     Environment = planet;
             }
-
-            _player.Selectable = selectable;
         }
 
         public override void _Ready()

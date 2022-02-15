@@ -15,25 +15,16 @@ namespace Helion4x.Gui
 
         #endregion
 
-        private Selectable _selectable;
-
         public override void _Ready()
         {
             _player = this.GetPlayer();
             _populationLabel = GetNode<LineEdit>(_populationLabelPath);
-            _player.Selected += OnSelected;
         }
 
-        private void OnSelected(Selectable obj)
+        public override void _Process(float delta)
         {
-            _selectable = obj;
-        }
-
-        public override void _Draw()
-        {
-            if (_selectable == null) return;
-            if (_selectable.HasSettlement)
-                _populationLabel.Text = _selectable.Settlement.Population.ToString();
+            if (_player?.Selectable != null && _player.Selectable.HasSettlement)
+                _populationLabel.Text = _player.Selectable.Settlement.Population.ToString();
         }
     }
 }

@@ -13,13 +13,13 @@ namespace Helion4x.Runtime
 
         #region Exports
 
-        [Export] private Resource start;
+        [Export] private File start;
 
         #endregion
 
         public Population Population => _populationComponent.Population;
 
-        public void Start()
+        public override void _Ready()
         {
             _populationComponent = new PopulationComponent(1000000, 2);
             _economyComponent = new EconomyComponent(0.10f);

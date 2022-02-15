@@ -36,11 +36,18 @@ namespace Helion4x.Runtime
                 if (mouseEvent.ButtonIndex == (int) ButtonList.WheelUp ||
                     mouseEvent.ButtonIndex == (int) ButtonList.WheelDown)
                     HandleZoomInput(mouseEvent);
-                if (mouseEvent.ButtonIndex == (int) ButtonList.Left) HandeClick(mouseEvent);
+                if (mouseEvent.ButtonIndex == (int) ButtonList.Left) HandeRightClick(mouseEvent);
+                if (mouseEvent.ButtonIndex == (int) ButtonList.Right) HandleRightClick(mouseEvent);
             }
         }
 
-        private void HandeClick(InputEventMouseButton inputEventMouseButton)
+        private void HandleRightClick(InputEventMouseButton mouseEvent)
+        {
+            GetViewport().GetMousePosition();
+            // TODO add command view to screen
+        }
+
+        private void HandeRightClick(InputEventMouseButton inputEventMouseButton)
         {
             var viewport = GetViewport();
             var from = Camera.ProjectRayOrigin(inputEventMouseButton.Position);
