@@ -1,49 +1,43 @@
 ﻿using System.Collections.Generic;
 using Godot;
-using Helion4x.Core;
 using Helion4x.Core.Settlement;
 using Helion4x.Core.Settlement.Installation;
 
 namespace Helion4x.Runtime
 {
-    public class Settlement : Node, ISelectable
+    public class Settlement : Node
     {
-        [Export()] private Resource start;
+        private EconomyComponent _economyComponent;
+        private InstallationComponent _installationComponent;
+        private PopulationComponent _populationComponent;
 
-        private EconomySystem _economySystem;
-        private InstallationHolder _installationHolder;
-        private PopulationSystem _populationSystem;
-        public float Population => _populationSystem.Population;
+        #region Exports
+
+        [Export] private Resource start;
+
+        #endregion
+
+        public Population Population => _populationComponent.Population;
 
         public void Start()
         {
-            _populationSystem = new PopulationSystem(1000000, 0.02f);
-            _economySystem = new EconomySystem(0.10f);
-            _installationHolder = new InstallationHolder(new List<Installation>());
+            _populationComponent = new PopulationComponent(1000000, 2);
+            _economyComponent = new EconomyComponent(0.10f);
+            _installationComponent = new InstallationComponent(new List<Installation>());
             TimeManager.DayPassed += OnDayPassed;
             TimeManager.MonthPassed += OnMonthPassed;
         }
 
         private void OnDayPassed()
         {
-            _economySystem.CalculateGdp(_populationSystem.Population, _installationHolder.GetBonuses());
-            var finishedProjects = _economySystem.ProgressProjects();
-            _installationHolder.AddProjects(finishedProjects);
+            _economyComponent.CalculateGdp(_populationComponent.Population.Amount, _installationComponent.GetBonuses());
+            var finishedProjects = _economyComponent.ProgressProjects();
+            _installationComponent.AddProjects(finishedProjects);
         }
 
         private void OnMonthPassed()
         {
-            _populationSystem.GrowPopulation(_installationHolder.GetBonuses());
-        }
-
-        public void Select()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Unselect()
-        {
-            throw new System.NotImplementedException();
+            _populationComponent.GrowPopulation(_installationComponent.GetBonuses());
         }
     }
 }

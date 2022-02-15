@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Helion4x.Runtime.HelionCamera
+namespace Helion4x.Util
 {
     internal static class Vector3Extensions
     {

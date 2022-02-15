@@ -14,7 +14,4 @@
   <ItemGroup>
     <PackageReference Include="UnitsNet" Version="4.120.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\Runtime\Gui" />
-  </ItemGroup>
 </Project>

@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://scenes/time_view.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Gui/time_view.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Runtime/TimeManager.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Runtime/HelionCamera/StrategyCamera.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/Runtime/StrategyCamera.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/Gui/PlanetLabel.cs" type="Script" id=4]
 [ext_resource path="res://Textures/earth.tres" type="Material" id=5]
+[ext_resource path="res://Gui/Selection.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Runtime/Selectable.cs" type="Script" id=7]
 
 [sub_resource type="ProceduralSky" id=5]
 sky_top_color = Color( 0, 0, 0, 1 )
@@ -26,20 +29,22 @@ background_sky = SubResource( 5 )
 
 [node name="Game" type="Node"]
 
+[node name="TimeView" parent="." instance=ExtResource( 1 )]
+margin_left = -221.0
+margin_right = -2.0
+margin_bottom = 66.0
+timeManagerPath = NodePath("../Time")
+
+[node name="Selection" parent="." instance=ExtResource( 6 )]
+margin_top = -190.0
+margin_bottom = -11.0
+populationLabel = NodePath("../Control/VBoxContainer/HBoxContainer/LineEdit")
+
 [node name="Time" type="Node" parent="."]
 script = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="Time"]
 autostart = true
-
-[node name="Control" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Time" parent="Control" instance=ExtResource( 1 )]
 
 [node name="Space" type="Spatial" parent="."]
 
@@ -51,9 +56,10 @@ environment = SubResource( 6 )
 [node name="Earth" type="Spatial" parent="Space/Sol"]
 transform = Transform( 6.371, 0, 0, 0, 6.371, 0, 0, 0, 6.371, 0, 0, 0 )
 
-[node name="KinematicBody" type="StaticBody" parent="Space/Sol/Earth"]
+[node name="Selectable" type="StaticBody" parent="Space/Sol/Earth"]
+script = ExtResource( 7 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Earth/KinematicBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Earth/Selectable"]
 shape = SubResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Space/Sol/Earth"]
@@ -61,6 +67,28 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 5 )
 
 [node name="Settlement" type="Node" parent="Space/Sol/Earth"]
+
+[node name="Planet" type="Node" parent="Space/Sol/Earth"]
+
+[node name="PanelContainer" type="PanelContainer" parent="Space/Sol/Earth"]
+anchor_left = 0.027
+anchor_right = 0.027
+margin_left = -51.84
+margin_right = 52.16
+margin_bottom = 28.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_moveDown = 10.0
+
+[node name="Label" type="Label" parent="Space/Sol/Earth/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 97.0
+margin_bottom = 21.0
+text = "Earth"
+align = 1
 
 [node name="Moon" type="Spatial" parent="Space/Sol"]
 transform = Transform( 1.737, 0, 0, 0, 1.737, 0, 0, 0, 1.737, 384.399, 0, 0 )
@@ -83,13 +111,9 @@ material/0 = null
 [node name="Anchor" type="Spatial" parent="Space"]
 script = ExtResource( 3 )
 _cameraPath = NodePath("SpaceOrbitCamera")
-_zoomVector = Vector3( 0, -1, 1 )
-_movementSpeed = 40.0
-_rotationSpeed = 3.0
-_zoomSpeed = 3.0
+_zoomVector = Vector3( 0, -2, 2 )
+_movementSpeed = 20.0
 
 [node name="SpaceOrbitCamera" type="Camera" parent="Space/Anchor"]
 transform = Transform( -1, 6.18172e-08, -6.18172e-08, 0, 0.707107, 0.707107, 8.74228e-08, 0.707107, -0.707107, 0, 30, -30 )
 far = 8128.0
-
-[connection signal="input_event" from="Space/Sol/Earth/KinematicBody" to="Space/Sol/Earth/Settlement" method="OnInputEvent"]

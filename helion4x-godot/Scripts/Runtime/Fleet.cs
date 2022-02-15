@@ -8,14 +8,8 @@ namespace Helion4x.Runtime
 {
     public class Fleet : Spatial, IFollowable
     {
-        [Export] private Spatial parent;
-        [Export] private float movementTime;
-        [Export] private int orbitSegments;
-
         private CircularOrbit _circularOrbit;
-
         private MovementType _movement;
-
         private Vector3 _nextPosition;
         private IAstronomicalBody _parent;
         private List<Acceleration> _ships;
@@ -25,6 +19,8 @@ namespace Helion4x.Runtime
         private Acceleration Acceleration => _ships?.Min(AccelerationUnit.MeterPerSecondSquared) != null
             ? _ships.Min(AccelerationUnit.MeterPerSecondSquared)
             : Acceleration.Zero;
+
+        public Vector3 FollowPosition => Translation;
 
         public override void _Ready()
         {
@@ -48,7 +44,13 @@ namespace Helion4x.Runtime
             if (_movement == MovementType.Orbit) Translation = _circularOrbit.CalculateNextPosition(1);
         }
 
-        public Vector3 FollowPosition => Translation;
+        #region Exports
+
+        [Export] private Spatial parent;
+        [Export] private float movementTime;
+        [Export] private int orbitSegments;
+
+        #endregion
     }
 
     internal enum MovementType

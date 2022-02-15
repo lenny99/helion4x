@@ -3,11 +3,11 @@ using Helion4x.Core.Settlement.Projects;
 
 namespace Helion4x.Core.Settlement.Installation
 {
-    public class InstallationHolder
+    public class InstallationComponent
     {
         private readonly List<Installation> _installations;
 
-        public InstallationHolder(List<Installation> installations)
+        public InstallationComponent(List<Installation> installations)
         {
             _installations = installations;
         }

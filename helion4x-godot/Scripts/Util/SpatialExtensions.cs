@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Helion4x.Runtime
+namespace Helion4x.Util
 {
     public static class SpatialExtensions
     {

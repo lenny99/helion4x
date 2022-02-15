@@ -6,7 +6,7 @@ using Helion4x.Core.Settlement.Sectors;
 
 namespace Helion4x.Core.Settlement
 {
-    public class EconomySystem
+    public class EconomyComponent
     {
         private readonly List<Project> _available_projects;
         private readonly Sector _primarySector;
@@ -19,7 +19,7 @@ namespace Helion4x.Core.Settlement
         private float _employed;
         private float _unemployed;
 
-        public EconomySystem(float tax)
+        public EconomyComponent(float tax)
         {
             _primarySector = new PrimarySector(2500);
             _secondarySector = new SecondarySector();

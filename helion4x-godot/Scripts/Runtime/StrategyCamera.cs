@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Helion4x.Core;
+using Helion4x.Util;
 
 namespace Helion4x.Runtime.HelionCamera
 {
@@ -32,7 +33,19 @@ namespace Helion4x.Runtime.HelionCamera
 
         public override void _Input(InputEvent @event)
         {
-            if (@event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed()) HandleZoomInput(mouseEvent);
+            if (@event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed())
+            {
+                HandleZoomInput(mouseEvent);
+                HandleMouseClick(mouseEvent);
+            }
+        }
+
+        private void HandleMouseClick(InputEventMouseButton mouseEvent)
+        {
+            var camera = GetViewport().GetCamera();
+            var normal = camera.ProjectRayNormal(mouseEvent.Position);
+            normal *= 10000;
+            // GetWorld().DirectSpaceState.IntersectRay(camera.);
         }
 
         private void HandleZoomInput(InputEventMouseButton mouseEvent)
@@ -139,13 +152,13 @@ namespace Helion4x.Runtime.HelionCamera
         #region Exports
 
         [Export] private NodePath _cameraPath;
-        [Export] private Vector3 _zoomVector = new Vector3(0, -10, 10);
-        [Export] private float _movementSpeed = 1;
-        [Export] private float _movementTime = 1;
-        [Export] private float _rotationSpeed = 1;
+        [Export] private readonly Vector3 _zoomVector = new Vector3(0, -10, 10);
+        [Export] private readonly float _movementSpeed = 1;
+        [Export] private readonly float _movementTime = 1;
+        [Export] private readonly float _rotationSpeed = 1;
         [Export] private float _rotationTime = 1;
-        [Export] private float _zoomSpeed = 1;
-        [Export] private float _zoomTime = 1;
+        [Export] private readonly float _zoomSpeed = 1;
+        [Export] private readonly float _zoomTime = 1;
 
         #endregion
 

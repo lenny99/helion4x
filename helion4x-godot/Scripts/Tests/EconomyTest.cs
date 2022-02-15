@@ -2,15 +2,16 @@ using System.Collections.Generic;
 using Helion4x.Core.Settlement;
 using Helion4x.Core.Settlement.Installation;
 using Helion4x.Core.Settlement.Projects;
+using WAT;
 
 namespace Helion4x.Tests
 {
-    public class EconomyTest : WAT.Test
+    public class EconomyTest : Test
     {
         [Test]
         public void ProgressProjects()
         {
-            var economy = new EconomySystem(0.1f);
+            var economy = new EconomyComponent(0.1f);
             var installationBonuses = new InstallationBonuses(new Dictionary<InstallationBonusType, float>
             {
                 [InstallationBonusType.PrimarySectorJobs] = 2500
