@@ -1,25 +1,21 @@
 using Godot;
+using Helion4x.Util;
 
 namespace Helion4x.Runtime
 {
-    public class Selectable : StaticBody
+    public class Selectable : StaticBody, ISelectable
     {
-        private bool _isSelected;
+        private Player _player;
+
         public Environment Environment { get; private set; }
         public Settlement Settlement { get; private set; }
 
         public bool HasSettlement => Settlement != null;
         public bool HasEnvironment => Environment != null;
 
-        public override void _Ready()
+        public void Select()
         {
-            Connect("input_event", this, nameof(OnInputEvent));
-        }
-
-        public void OnInputEvent(Object camera, InputEvent @event, Vector3 position, Vector3 normal,
-            int shapeIdx)
-        {
-            if (!@event.is) return;
+            var selectable = new Selectable();
             foreach (var child in GetParent().GetChildren())
             {
                 if (child is Settlement settlement)
@@ -28,24 +24,16 @@ namespace Helion4x.Runtime
                     Environment = planet;
             }
 
-            _isSelected = true;
-            EventBus.Select(this);
+            _player.Selectable = selectable;
         }
 
-        public override void _UnhandledInput(InputEvent @event)
+        public override void _Ready()
         {
-            if (_isSelected)
-                EventBus.Unselect(this);
+            _player = this.GetPlayer();
         }
-    }
 
-    public class Environment
-    {
-        public Environment(float temperature)
+        public void Unselect()
         {
-            Temperature = temperature;
         }
-
-        public float Temperature { get; }
     }
 }

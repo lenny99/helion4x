@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Helion4x.Core;
 using Helion4x.Util;
 
-namespace Helion4x.Runtime.HelionCamera
+namespace Helion4x.Runtime
 {
     public class StrategyCamera : Spatial
     {
+        private const float RayLength = 10000;
         private Spatial _followTransform;
-
-        private ISelectable _selected;
-
+        private Player _player;
 
         public Camera Camera { get; private set; }
         public Vector3 NewPosition { get; private set; }
@@ -29,23 +26,31 @@ namespace Helion4x.Runtime.HelionCamera
             NewRotation = GlobalTransform.basis;
             Camera = GetNode<Camera>(_cameraPath);
             NewZoom = Camera.Translation;
+            _player = this.GetPlayer();
         }
 
         public override void _Input(InputEvent @event)
         {
             if (@event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed())
             {
-                HandleZoomInput(mouseEvent);
-                HandleMouseClick(mouseEvent);
+                if (mouseEvent.ButtonIndex == (int) ButtonList.WheelUp ||
+                    mouseEvent.ButtonIndex == (int) ButtonList.WheelDown)
+                    HandleZoomInput(mouseEvent);
+                if (mouseEvent.ButtonIndex == (int) ButtonList.Left) HandeClick(mouseEvent);
             }
         }
 
-        private void HandleMouseClick(InputEventMouseButton mouseEvent)
+        private void HandeClick(InputEventMouseButton inputEventMouseButton)
         {
-            var camera = GetViewport().GetCamera();
-            var normal = camera.ProjectRayNormal(mouseEvent.Position);
-            normal *= 10000;
-            // GetWorld().DirectSpaceState.IntersectRay(camera.);
+            var viewport = GetViewport();
+            var from = Camera.ProjectRayOrigin(inputEventMouseButton.Position);
+            var to = from + Camera.ProjectRayNormal(inputEventMouseButton.Position) * RayLength;
+            var collision = viewport.World.DirectSpaceState.IntersectRay(from, to);
+            if (collision.Contains("collider")
+                && collision["collider"] is Selectable selectable)
+                _player.Selectable = selectable;
+            else
+                _player.Selectable = null;
         }
 
         private void HandleZoomInput(InputEventMouseButton mouseEvent)
@@ -80,10 +85,6 @@ namespace Helion4x.Runtime.HelionCamera
                 NewPosition = _followTransform.GlobalTransform.origin;
                 if (ShouldExitFollow()) _followTransform = null;
             }
-            else
-            {
-                HandleMouseMovement(delta);
-            }
 
             HandleMouseRotation(delta);
             HandleKeyboardMovement(delta);
@@ -114,13 +115,6 @@ namespace Helion4x.Runtime.HelionCamera
                 .Contains(true);
         }
 
-        private void HandleMouseMovement(float delta)
-        {
-            // if (!_cameraActions.Player.Drag.IsPressed()) return;
-            // _dragCurrent = this.GetPlanePosition();
-            // _camera.NewPosition = _camera.transform.position + _dragStart - _dragCurrent;
-        }
-
         private void HandleKeyboardMovement(float delta)
         {
             float forwardBackward = 0;
@@ -146,9 +140,6 @@ namespace Helion4x.Runtime.HelionCamera
             NewRotation = NewRotation.Rotated(Vector3.Up, rotation * _rotationSpeed * delta);
         }
 
-        public static event Action<ISelectable> Selected = delegate { };
-        public static event Action<ISelectable> Unselected = delegate { };
-
         #region Exports
 
         [Export] private NodePath _cameraPath;
@@ -161,25 +152,5 @@ namespace Helion4x.Runtime.HelionCamera
         [Export] private readonly float _zoomTime = 1;
 
         #endregion
-
-
-        // private void HandleClick(InputAction.CallbackContext obj)
-        // {
-        //     GetWorld().Space.
-        //     var ray = Godot.Camera.main!.ScreenPointToRay(Mouse.current.position.ReadValue());
-        //     if (Physics.Raycast(ray, out var hit))
-        //     {
-        //         var selectable = hit.collider.GetComponent<ISelectable>();
-        //         selectable?.Select();
-        //         _selected = selectable;
-        //         Selected.Invoke(_selected);
-        //     }
-        //     else if (_selected != null)
-        //     {
-        //         _selected.Unselect();
-        //         Unselected.Invoke(_selected);
-        //         _selected = null;
-        //     }
-        // }
     }
 }

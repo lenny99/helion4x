@@ -1,5 +1,6 @@
 using Godot;
-using Helion4x.Core;
+using Helion4x.Runtime;
+using Helion4x.Util;
 
 namespace Helion4x.Gui
 {
@@ -12,10 +13,12 @@ namespace Helion4x.Gui
         #endregion
 
         private Spatial _parent;
+        private Player _player;
 
         public override void _Ready()
         {
             _parent = GetParent<Spatial>();
+            _player = this.GetPlayer();
         }
 
         public override void _Process(float delta)
@@ -33,9 +36,10 @@ namespace Helion4x.Gui
         {
             if (@event is InputEventMouseButton mouseButton
                 && mouseButton.IsPressed()
-                && mouseButton.ButtonIndex == 1
-                && _parent is ISelectable selectable)
-                selectable.Select();
+                && mouseButton.ButtonIndex == 1)
+                foreach (var child in _parent.GetChildren())
+                    if (child is Selectable selectable)
+                        _player.Selectable = selectable;
         }
     }
 }

@@ -16,11 +16,11 @@ namespace Helion4x.Gui
 
         public override void _Ready()
         {
-            _timeManager = GetNode<TimeManager>(timeManagerPath);
-            _timeLabel = GetNode<Label>(timeLabelPath);
-            _slowerButton = GetNode<Button>(slowerButtonPath);
-            _pauseButton = GetNode<Button>(pauseButtonPath);
-            _fasterButton = GetNode<Button>(fasterButtonPath);
+            _timeManager = GetNode<TimeManager>(_timeManagerPath);
+            _timeLabel = GetNode<Label>(_timeLabelPath);
+            _slowerButton = GetNode<Button>(_slowerButtonPath);
+            _pauseButton = GetNode<Button>(_pauseButtonPath);
+            _fasterButton = GetNode<Button>(_fasterButtonPath);
         }
 
         public override void _Process(float delta)
@@ -30,11 +30,11 @@ namespace Helion4x.Gui
 
         #region Exports
 
-        [Export] private NodePath timeManagerPath;
-        [Export] private NodePath timeLabelPath;
-        [Export] private NodePath slowerButtonPath;
-        [Export] private NodePath pauseButtonPath;
-        [Export] private NodePath fasterButtonPath;
+        [Export] private NodePath _timeManagerPath;
+        [Export] private NodePath _timeLabelPath;
+        [Export] private NodePath _slowerButtonPath;
+        [Export] private NodePath _pauseButtonPath;
+        [Export] private NodePath _fasterButtonPath;
 
         #endregion
     }

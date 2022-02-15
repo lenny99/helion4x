@@ -1,38 +1,39 @@
 using Godot;
 using Helion4x.Runtime;
+using Helion4x.Util;
 
 namespace Helion4x.Gui
 {
     public class SelectableController : Control
     {
+        private Player _player;
         private LineEdit _populationLabel;
-        private Selectable _selectable;
 
         #region Exports
 
-        [Export] private NodePath populationLabel;
+        [Export] private NodePath _populationLabelPath;
 
         #endregion
 
+        private Selectable _selectable;
+
         public override void _Ready()
         {
-            _populationLabel = GetNode<LineEdit>(populationLabel);
-            EventBus.Selected += s =>
-            {
-                _selectable = s;
-                Show();
-            };
-            EventBus.Unselected += s =>
-            {
-                Hide();
-                _selectable = null;
-            };
+            _player = this.GetPlayer();
+            _populationLabel = GetNode<LineEdit>(_populationLabelPath);
+            _player.Selected += OnSelected;
+        }
+
+        private void OnSelected(Selectable obj)
+        {
+            _selectable = obj;
         }
 
         public override void _Draw()
         {
             if (_selectable == null) return;
-            if (_selectable.HasSettlement) _populationLabel.Text = _selectable.Settlement.Population.ToString();
+            if (_selectable.HasSettlement)
+                _populationLabel.Text = _selectable.Settlement.Population.ToString();
         }
     }
 }

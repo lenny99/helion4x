@@ -26,7 +26,7 @@ namespace Helion4x.Runtime
         {
             TimeManager.MinutePassed += OnMinutePassed;
             _ships = new List<Acceleration>(new[] {Acceleration.FromKilometersPerSecondSquared(1)});
-            _parent = (IAstronomicalBody) parent;
+            _parent = GetNode<IAstronomicalBody>(_parentPath);
             _movement = MovementType.Orbit;
             if (_parent == null) return;
             var radius =
@@ -46,9 +46,9 @@ namespace Helion4x.Runtime
 
         #region Exports
 
-        [Export] private Spatial parent;
-        [Export] private float movementTime;
-        [Export] private int orbitSegments;
+        [Export] private NodePath _parentPath;
+        [Export] private float _movementTime;
+        [Export] private int _orbitSegments;
 
         #endregion
     }
