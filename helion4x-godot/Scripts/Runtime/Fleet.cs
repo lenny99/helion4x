@@ -20,7 +20,7 @@ namespace Helion4x.Runtime
             ? _ships.Min(AccelerationUnit.MeterPerSecondSquared)
             : Acceleration.Zero;
 
-        public Vector3 FollowPosition => Translation;
+        public Spatial Followable => this;
 
         public override void _Ready()
         {

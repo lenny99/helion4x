@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Godot.Collections;
+using Helion4x.Core;
 using Helion4x.Singleton;
 using Helion4x.Util;
 
@@ -9,7 +11,7 @@ namespace Helion4x.Runtime
     public class StrategyCamera : Spatial
     {
         private const float RayLength = 10000;
-        private Spatial _followTransform;
+        private Spatial _focusSpatial;
 
         public Camera Camera { get; private set; }
         public Vector3 NewPosition { get; private set; }
@@ -35,9 +37,28 @@ namespace Helion4x.Runtime
                 if (mouseEvent.ButtonIndex == (int) ButtonList.WheelUp ||
                     mouseEvent.ButtonIndex == (int) ButtonList.WheelDown)
                     HandleZoomInput(mouseEvent);
-                if (mouseEvent.ButtonIndex == (int) ButtonList.Left) HandeLeftClick(mouseEvent);
-                if (mouseEvent.ButtonIndex == (int) ButtonList.Right) HandleRightClick(mouseEvent);
+
+                if (mouseEvent.ButtonIndex == (int) ButtonList.Left)
+                {
+                    if (mouseEvent.Doubleclick)
+                        HandleDoubleLeftClick(mouseEvent);
+                    HandeLeftClick(mouseEvent);
+                }
+
+                if (mouseEvent.ButtonIndex == (int) ButtonList.Right)
+                    HandleRightClick(mouseEvent);
             }
+        }
+
+        private void HandleDoubleLeftClick(InputEventMouseButton mouseEvent)
+        {
+            var collision = FireRaycastFromMouse(mouseEvent);
+            if (collision.Contains("collider")
+                && collision["collider"] is Node node
+                && node.GetParent() is IFollowable followable)
+                _focusSpatial = followable.Followable;
+            else
+                _focusSpatial = null;
         }
 
         private void HandleRightClick(InputEventMouseButton mouseEvent)
@@ -48,16 +69,22 @@ namespace Helion4x.Runtime
 
         private void HandeLeftClick(InputEventMouseButton inputEventMouseButton)
         {
-            var viewport = GetViewport();
-            var from = Camera.ProjectRayOrigin(inputEventMouseButton.Position);
-            var to = from + Camera.ProjectRayNormal(inputEventMouseButton.Position) * RayLength;
-            var collision = viewport.World.DirectSpaceState.IntersectRay(from, to);
+            var collision = FireRaycastFromMouse(inputEventMouseButton);
             if (collision.Contains("collider")
                 && collision["collider"] is Selectable selectable)
             {
                 EventBus.InvokeSelected(selectable);
                 GetTree().SetInputAsHandled();
             }
+        }
+
+        private Dictionary FireRaycastFromMouse(InputEventMouseButton inputEventMouseButton)
+        {
+            var viewport = GetViewport();
+            var from = Camera.ProjectRayOrigin(inputEventMouseButton.Position);
+            var to = from + Camera.ProjectRayNormal(inputEventMouseButton.Position) * RayLength;
+            var collision = viewport.World.DirectSpaceState.IntersectRay(from, to);
+            return collision;
         }
 
         private void HandleZoomInput(InputEventMouseButton mouseEvent)
@@ -87,10 +114,10 @@ namespace Helion4x.Runtime
 
         public override void _Process(float delta)
         {
-            if (_followTransform != null)
+            if (_focusSpatial != null)
             {
-                NewPosition = _followTransform.GlobalTransform.origin;
-                if (ShouldExitFollow()) _followTransform = null;
+                NewPosition = _focusSpatial.GlobalTransform.origin;
+                if (ShouldExitFollow()) _focusSpatial = null;
             }
 
             HandleMouseRotation(delta);

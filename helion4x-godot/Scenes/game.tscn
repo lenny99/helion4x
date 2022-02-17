@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Runtime/StrategyCamera.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Time/Time.tscn" type="PackedScene" id=2]
@@ -6,8 +6,10 @@
 [ext_resource path="res://Scripts/Runtime/Settlement.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/Gui/PlanetLabel.cs" type="Script" id=5]
 [ext_resource path="res://Scenes/Player/Selection.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Runtime/AstronomicalBody.cs" type="Script" id=7]
 [ext_resource path="res://Config/EarthStart.tres" type="Resource" id=8]
 [ext_resource path="res://Textures/earth.tres" type="Material" id=9]
+[ext_resource path="res://Models/Spaceship.glb" type="PackedScene" id=10]
 
 [sub_resource type="ProceduralSky" id=5]
 sky_top_color = Color( 0, 0, 0, 1 )
@@ -26,6 +28,12 @@ background_sky = SubResource( 5 )
 
 [sub_resource type="SphereMesh" id=2]
 
+[sub_resource type="SphereShape" id=8]
+
+[sub_resource type="CapsuleShape" id=7]
+radius = 27.8902
+height = 79.0144
+
 [node name="Game" type="Node"]
 
 [node name="Managers" type="Node" parent="."]
@@ -43,6 +51,9 @@ environment = SubResource( 6 )
 
 [node name="Earth" type="Spatial" parent="Space/Sol"]
 transform = Transform( 6.371, 0, 0, 0, 6.371, 0, 0, 0, 6.371, 0, 0, 0 )
+script = ExtResource( 7 )
+_massType = 1
+_rotation = 0.001
 
 [node name="Selectable" type="StaticBody" parent="Space/Sol/Earth"]
 script = ExtResource( 3 )
@@ -83,19 +94,35 @@ align = 1
 
 [node name="Moon" type="Spatial" parent="Space/Sol"]
 transform = Transform( 1.737, 0, 0, 0, 1.737, 0, 0, 0, 1.737, 384.399, 0, 0 )
+script = ExtResource( 7 )
+_massType = 2
+_parentPath = NodePath("../Earth")
+_rotation = 0.001
 
 [node name="MeshInstance" type="MeshInstance" parent="Space/Sol/Moon"]
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="OmniLight" type="OmniLight" parent="Space/Sol"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4000, 0, 0 )
-omni_range = 20000.0
+[node name="StaticBody" type="StaticBody" parent="Space/Sol/Moon"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Moon/StaticBody"]
+shape = SubResource( 8 )
 
 [node name="ISS" type="Spatial" parent="Space/Sol"]
-transform = Transform( 0.501387, 0, 0, 0, 0.501387, 0, 0, 0, 0.501387, 9.36093, 0, 0 )
+transform = Transform( 0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 9.36093, 0, 0 )
+script = ExtResource( 7 )
+_parentPath = NodePath("../Earth")
 
-[node name="MeshInstance" type="MeshInstance" parent="Space/Sol/ISS"]
+[node name="Spaceship" parent="Space/Sol/ISS" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="StaticBody" type="StaticBody" parent="Space/Sol/ISS"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/ISS/StaticBody"]
+shape = SubResource( 7 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Space/Sol"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.3571 )
 
 [node name="Anchor" type="Spatial" parent="Space"]
 script = ExtResource( 1 )
