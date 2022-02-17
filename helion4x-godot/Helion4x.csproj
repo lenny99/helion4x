@@ -12,6 +12,8 @@
     <EmbeddedResource Remove="scenes\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Optional" Version="4.0.0" />
     <PackageReference Include="UnitsNet" Version="4.120.0" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 </Project>

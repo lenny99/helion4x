@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Runtime/SelectionSystem.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Player/EnvironmentSelectionView.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Player/SettlementSelectionView.tscn" type="PackedScene" id=3]
+
+[node name="Selection" type="Node"]
+script = ExtResource( 1 )
+_selectionContainerPath = NodePath("VBoxContainer")
+_settlementView = ExtResource( 3 )
+_environmentView = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -619.0
+margin_right = 405.0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -13,7 +13,6 @@ namespace Helion4x.Core.Settlement
         private readonly Queue<Project> _projects_in_progress;
         private readonly Sector _secondarySector;
         private readonly Sector[] _sectors;
-        private readonly float _tax;
         private readonly Sector _tertiarySector;
 
         private float _employed;
@@ -26,10 +25,11 @@ namespace Helion4x.Core.Settlement
             _tertiarySector = new TertiarySector();
             _sectors = new[] {_primarySector, _secondarySector, _tertiarySector};
             _projects_in_progress = new Queue<Project>();
-            _tax = tax;
+            Tax = tax;
         }
 
         public float Gdp => _primarySector.GDP + _secondarySector.GDP + _tertiarySector.GDP;
+        public float Tax { get; }
 
         public void CalculateGdp(float population, InstallationBonuses bonuses)
         {
@@ -41,7 +41,7 @@ namespace Helion4x.Core.Settlement
         public List<Project> ProgressProjects()
         {
             var finishedProjects = new List<Project>();
-            var dailyBudget = Gdp * _tax / 365;
+            var dailyBudget = Gdp * Tax / 365;
             while (_projects_in_progress.Any() && dailyBudget > 0)
             {
                 var project = _projects_in_progress.Peek();

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Editor/InstallationResource.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Bonuses = [ 0, 3 ]
+Count = PoolIntArray( 10000, 100 )
+Name = "CityDistrict"

@@ -1,13 +1,13 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://Gui/time.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/Runtime/TimeManager.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Runtime/StrategyCamera.cs" type="Script" id=3]
-[ext_resource path="res://Scripts/Gui/PlanetLabel.cs" type="Script" id=4]
-[ext_resource path="res://Textures/earth.tres" type="Material" id=5]
-[ext_resource path="res://Gui/selection.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scripts/Runtime/Selectable.cs" type="Script" id=7]
-[ext_resource path="res://Scripts/Runtime/Settlement.cs" type="Script" id=8]
+[ext_resource path="res://Scripts/Runtime/StrategyCamera.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Time/Time.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Runtime/Selectable.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/Runtime/Settlement.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Gui/PlanetLabel.cs" type="Script" id=5]
+[ext_resource path="res://Scenes/Player/Selection.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Config/EarthStart.tres" type="Resource" id=8]
+[ext_resource path="res://Textures/earth.tres" type="Material" id=9]
 
 [sub_resource type="ProceduralSky" id=5]
 sky_top_color = Color( 0, 0, 0, 1 )
@@ -26,29 +26,13 @@ background_sky = SubResource( 5 )
 
 [sub_resource type="SphereMesh" id=2]
 
-[sub_resource type="SphereMesh" id=3]
-
 [node name="Game" type="Node"]
-
-[node name="Views" type="Node" parent="."]
-
-[node name="TimeView" parent="Views" instance=ExtResource( 1 )]
-margin_left = -221.0
-margin_right = -2.0
-margin_bottom = 66.0
-_timeManagerPath = NodePath("../../Managers/Time")
-
-[node name="Selection" parent="Views" instance=ExtResource( 6 )]
-margin_top = -190.0
-margin_bottom = -11.0
 
 [node name="Managers" type="Node" parent="."]
 
-[node name="Time" type="Node" parent="Managers"]
-script = ExtResource( 2 )
+[node name="Time" parent="Managers" instance=ExtResource( 2 )]
 
-[node name="Timer" type="Timer" parent="Managers/Time"]
-autostart = true
+[node name="Selection" parent="Managers" instance=ExtResource( 6 )]
 
 [node name="Space" type="Spatial" parent="."]
 
@@ -61,27 +45,29 @@ environment = SubResource( 6 )
 transform = Transform( 6.371, 0, 0, 0, 6.371, 0, 0, 0, 6.371, 0, 0, 0 )
 
 [node name="Selectable" type="StaticBody" parent="Space/Sol/Earth"]
-script = ExtResource( 7 )
+script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Earth/Selectable"]
 shape = SubResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Space/Sol/Earth"]
 mesh = SubResource( 1 )
-material/0 = ExtResource( 5 )
+material/0 = ExtResource( 9 )
 
 [node name="Settlement" type="Node" parent="Space/Sol/Earth"]
-script = ExtResource( 8 )
+script = ExtResource( 4 )
+_settlementResource = ExtResource( 8 )
 
 [node name="Planet" type="Node" parent="Space/Sol/Earth"]
 
 [node name="PanelContainer" type="PanelContainer" parent="Space/Sol/Earth"]
+visible = false
 anchor_left = 0.027
 anchor_right = 0.027
 margin_left = -51.84
 margin_right = 52.16
 margin_bottom = 28.0
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -110,11 +96,9 @@ omni_range = 20000.0
 transform = Transform( 0.501387, 0, 0, 0, 0.501387, 0, 0, 0, 0.501387, 9.36093, 0, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Space/Sol/ISS"]
-mesh = SubResource( 3 )
-material/0 = null
 
 [node name="Anchor" type="Spatial" parent="Space"]
-script = ExtResource( 3 )
+script = ExtResource( 1 )
 _cameraPath = NodePath("SpaceOrbitCamera")
 _zoomVector = Vector3( 0, -2, 2 )
 _movementSpeed = 20.0

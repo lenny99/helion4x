@@ -12,9 +12,9 @@ namespace Helion4x.Tests
         public void ProgressProjects()
         {
             var economy = new EconomyComponent(0.1f);
-            var installationBonuses = new InstallationBonuses(new Dictionary<InstallationBonusType, float>
+            var installationBonuses = new InstallationBonuses(new Dictionary<InstallationBonus, float>
             {
-                [InstallationBonusType.PrimarySectorJobs] = 2500
+                [InstallationBonus.PrimarySectorJobs] = 2500
             });
             economy.CalculateGdp(1000, installationBonuses);
             Assert.IsTrue(economy.Gdp > 0);

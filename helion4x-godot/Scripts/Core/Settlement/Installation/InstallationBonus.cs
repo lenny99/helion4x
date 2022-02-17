@@ -1,6 +1,6 @@
 ﻿namespace Helion4x.Core.Settlement.Installation
 {
-    public enum InstallationBonusType
+    public enum InstallationBonus
     {
         CarryCapacity,
         PrimarySectorJobs,

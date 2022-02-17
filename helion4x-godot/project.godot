@@ -24,6 +24,12 @@ _global_script_class_icons={
 "WATTest": ""
 }
 
+[MonoCustomResourceRegistry]
+
+ClassPrefix=""
+SearchType=0
+ResourceScriptDirectories=[ "res://" ]
+
 [WAT]
 
 Test_Directory="res://"
@@ -39,12 +45,12 @@ Display=8
 [application]
 
 config/name="Helion4x"
-run/main_scene="res://Scenes/game.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Player="*res://Scripts/Singleton/Player.cs"
+EventBus="*res://Scripts/Singleton/EventBus.cs"
 
 [display]
 
@@ -53,7 +59,7 @@ window/size/height=1080
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/WAT/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/MonoCustomResourceRegistry/plugin.cfg", "res://addons/WAT/plugin.cfg" )
 
 [input]
 

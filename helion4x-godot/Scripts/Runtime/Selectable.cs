@@ -1,32 +1,28 @@
 using Godot;
-using Helion4x.Util;
+using Optional;
 
 namespace Helion4x.Runtime
 {
     public class Selectable : StaticBody, ISelectable
     {
-        private Player _player;
-
-        public Environment Environment { get; private set; }
-        public Settlement Settlement { get; private set; }
-
-        public bool HasSettlement => Settlement != null;
-        public bool HasEnvironment => Environment != null;
+        public Option<Environment> Environment { get; private set; }
+        public Option<Settlement> Settlement { get; private set; }
 
         public void Select()
         {
             foreach (var child in GetParent().GetChildren())
             {
+                if (child is Environment environment)
+                    Environment = Option.Some(environment);
                 if (child is Settlement settlement)
-                    Settlement = settlement;
-                if (child is Environment planet)
-                    Environment = planet;
+                    Settlement = Option.Some(settlement);
             }
         }
 
         public override void _Ready()
         {
-            _player = this.GetPlayer();
+            Environment = Option.None<Environment>();
+            Settlement = Option.None<Settlement>();
         }
 
         public void Unselect()

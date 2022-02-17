@@ -17,7 +17,7 @@ namespace Helion4x.Core.Settlement
 
         public void GrowPopulation(InstallationBonuses installationBonuses)
         {
-            var carryCapacity = installationBonuses.Get(InstallationBonusType.CarryCapacity);
+            var carryCapacity = installationBonuses.Get(InstallationBonus.CarryCapacity);
             CalculatePopulationIncrease(carryCapacity);
         }
 

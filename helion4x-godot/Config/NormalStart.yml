@@ -1,7 +1,0 @@
-﻿installations:
-  CityDistrict:
-    count: 100
-    bonuses:
-      carryCapacity: 1000000
-      tertiarySectorJobs: 1000
-  

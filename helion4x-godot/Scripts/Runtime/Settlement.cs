@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Godot;
+﻿using Godot;
 using Helion4x.Core.Settlement;
 using Helion4x.Core.Settlement.Installation;
+using Helion4x.Editor;
 
 namespace Helion4x.Runtime
 {
@@ -13,17 +13,25 @@ namespace Helion4x.Runtime
 
         #region Exports
 
-        [Export] private File start;
+        [Export] private SettlementResource _settlementResource;
 
         #endregion
 
         public Population Population => _populationComponent.Population;
+        public float Gdp => _economyComponent.Gdp;
+        public float Tax => _economyComponent.Tax;
 
         public override void _Ready()
         {
-            _populationComponent = new PopulationComponent(1000000, 2);
-            _economyComponent = new EconomyComponent(0.10f);
-            _installationComponent = new InstallationComponent(new List<Installation>());
+            if (_settlementResource == null)
+            {
+                GD.PushWarning($"SettlementResource not assigned to ${Name}. Disabling node...");
+                PauseMode = PauseModeEnum.Stop;
+            }
+
+            _populationComponent = _settlementResource.MakePopulation();
+            _economyComponent = _settlementResource.MakeEconomy();
+            _installationComponent = _settlementResource.MakeInstallations();
             TimeManager.DayPassed += OnDayPassed;
             TimeManager.MonthPassed += OnMonthPassed;
         }

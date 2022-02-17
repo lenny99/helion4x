@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Helion4x.Singleton;
 using Helion4x.Util;
 
 namespace Helion4x.Runtime
@@ -9,7 +10,6 @@ namespace Helion4x.Runtime
     {
         private const float RayLength = 10000;
         private Spatial _followTransform;
-        private Player _player;
 
         public Camera Camera { get; private set; }
         public Vector3 NewPosition { get; private set; }
@@ -26,7 +26,6 @@ namespace Helion4x.Runtime
             NewRotation = GlobalTransform.basis;
             Camera = GetNode<Camera>(_cameraPath);
             NewZoom = Camera.Translation;
-            _player = this.GetPlayer();
         }
 
         public override void _Input(InputEvent @event)
@@ -36,7 +35,7 @@ namespace Helion4x.Runtime
                 if (mouseEvent.ButtonIndex == (int) ButtonList.WheelUp ||
                     mouseEvent.ButtonIndex == (int) ButtonList.WheelDown)
                     HandleZoomInput(mouseEvent);
-                if (mouseEvent.ButtonIndex == (int) ButtonList.Left) HandeRightClick(mouseEvent);
+                if (mouseEvent.ButtonIndex == (int) ButtonList.Left) HandeLeftClick(mouseEvent);
                 if (mouseEvent.ButtonIndex == (int) ButtonList.Right) HandleRightClick(mouseEvent);
             }
         }
@@ -47,7 +46,7 @@ namespace Helion4x.Runtime
             // TODO add command view to screen
         }
 
-        private void HandeRightClick(InputEventMouseButton inputEventMouseButton)
+        private void HandeLeftClick(InputEventMouseButton inputEventMouseButton)
         {
             var viewport = GetViewport();
             var from = Camera.ProjectRayOrigin(inputEventMouseButton.Position);
@@ -55,9 +54,10 @@ namespace Helion4x.Runtime
             var collision = viewport.World.DirectSpaceState.IntersectRay(from, to);
             if (collision.Contains("collider")
                 && collision["collider"] is Selectable selectable)
-                _player.Selectable = selectable;
-            else
-                _player.Selectable = null;
+            {
+                EventBus.InvokeSelected(selectable);
+                GetTree().SetInputAsHandled();
+            }
         }
 
         private void HandleZoomInput(InputEventMouseButton mouseEvent)

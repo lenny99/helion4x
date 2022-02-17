@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Gui/EnvironmentSelectionControl.cs" type="Script" id=1]
+
+[node name="Control" type="PanelContainer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -124.0
+margin_right = 252.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 245.0
+margin_bottom = 117.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+margin_right = 238.0
+margin_bottom = 24.0
+
+[node name="Gdp" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 30.0
+margin_bottom = 19.0
+text = "Gdp:"
+
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/HBoxContainer"]
+margin_left = 34.0
+margin_right = 238.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+editable = false

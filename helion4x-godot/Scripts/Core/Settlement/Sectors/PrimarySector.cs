@@ -8,10 +8,10 @@ namespace Helion4x.Core.Settlement.Sectors
         {
             _gdpPerCapita = gdpPerCapita;
         }
-        
+
         public override float CalculateJobs(InstallationBonuses bonuses)
         {
-            _jobs = bonuses.Get(InstallationBonusType.PrimarySectorJobs);
+            _jobs = bonuses.Get(InstallationBonus.PrimarySectorJobs);
             return Jobs;
         }
     }

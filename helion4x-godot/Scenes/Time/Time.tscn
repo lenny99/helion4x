@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Runtime/TimeManager.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Time/TimeView.tscn" type="PackedScene" id=2]
+
+[node name="Time" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="TimeView" parent="." instance=ExtResource( 2 )]
+margin_left = -221.0
+margin_right = -2.0
+margin_bottom = 66.0
+_timeManagerPath = NodePath("..")
