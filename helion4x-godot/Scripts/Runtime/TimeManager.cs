@@ -31,7 +31,7 @@ namespace Helion4x.Runtime
             _nextUpdate = new NextUpdate(_time);
             _timer = GetNode<Timer>("Timer");
             _timer.Connect("timeout", this, nameof(ProgressTime));
-            _timewarp = new OneSpeed();
+            Timewarp = new OneSpeed();
         }
 
         public static event Action MinutePassed = delegate { };
