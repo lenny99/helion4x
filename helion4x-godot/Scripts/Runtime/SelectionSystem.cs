@@ -7,10 +7,13 @@ namespace Helion4x.Runtime
 {
     public class SelectionSystem : Node
     {
+        private Selectable _current;
         private VBoxContainer _selectionContainer;
 
         private void ShowSelectables(Selectable selectable)
         {
+            if (_current != null && _current.Equals(selectable)) return;
+            _current = selectable;
             selectable.Select();
             selectable.Settlement.MatchSome(settlement =>
             {
@@ -38,7 +41,10 @@ namespace Helion4x.Runtime
             if (@event is InputEventMouseButton inputEventMouseButton
                 && inputEventMouseButton.IsPressed()
                 && inputEventMouseButton.ButtonIndex == (int) ButtonList.Left)
+            {
+                _current = null;
                 EventBus.InvokeUnselected();
+            }
         }
 
 

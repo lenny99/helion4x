@@ -14,7 +14,6 @@ namespace Helion4x.Singleton
             Selected.Invoke(selectable);
         }
 
-
         public static void InvokeUnselected()
         {
             Unselected.Invoke();

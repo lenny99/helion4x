@@ -33,24 +33,26 @@ namespace Helion4x.Runtime
         public override void _Input(InputEvent @event)
         {
             if (@event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed())
-            {
-                if (mouseEvent.ButtonIndex == (int) ButtonList.WheelUp ||
-                    mouseEvent.ButtonIndex == (int) ButtonList.WheelDown)
-                    HandleZoomInput(mouseEvent);
-
-                if (mouseEvent.ButtonIndex == (int) ButtonList.Left)
+                switch (mouseEvent.ButtonIndex)
                 {
-                    if (mouseEvent.Doubleclick)
-                        HandleDoubleLeftClick(mouseEvent);
-                    HandeLeftClick(mouseEvent);
+                    case (int) ButtonList.WheelUp:
+                    case (int) ButtonList.WheelDown:
+                        Zoom(mouseEvent);
+                        break;
+                    case (int) ButtonList.Left:
+                    {
+                        if (mouseEvent.Doubleclick)
+                            RaycastFocus(mouseEvent);
+                        Select(mouseEvent);
+                        break;
+                    }
+                    case (int) ButtonList.Right:
+                        Rotate(mouseEvent);
+                        break;
                 }
-
-                if (mouseEvent.ButtonIndex == (int) ButtonList.Right)
-                    HandleRightClick(mouseEvent);
-            }
         }
 
-        private void HandleDoubleLeftClick(InputEventMouseButton mouseEvent)
+        private void RaycastFocus(InputEventMouseButton mouseEvent)
         {
             var collision = FireRaycastFromMouse(mouseEvent);
             if (collision.Contains("collider")
@@ -59,15 +61,16 @@ namespace Helion4x.Runtime
                 _focusSpatial = followable.Followable;
             else
                 _focusSpatial = null;
+            GetTree().SetInputAsHandled();
         }
 
-        private void HandleRightClick(InputEventMouseButton mouseEvent)
+        private void Rotate(InputEventMouseButton mouseEvent)
         {
             GetViewport().GetMousePosition();
             // TODO add command view to screen
         }
 
-        private void HandeLeftClick(InputEventMouseButton inputEventMouseButton)
+        private void Select(InputEventMouseButton inputEventMouseButton)
         {
             var collision = FireRaycastFromMouse(inputEventMouseButton);
             if (collision.Contains("collider")
@@ -87,7 +90,7 @@ namespace Helion4x.Runtime
             return collision;
         }
 
-        private void HandleZoomInput(InputEventMouseButton mouseEvent)
+        private void Zoom(InputEventMouseButton mouseEvent)
         {
             var zoom = GetZoom(mouseEvent);
             if (zoom == 0) return;

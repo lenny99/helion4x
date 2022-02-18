@@ -29,9 +29,9 @@ namespace Helion4x.Runtime
         {
             _time = DateTime.Parse("01/01/2030 00:00:00");
             _nextUpdate = new NextUpdate(_time);
-            _timewarp = new OneSpeed();
             _timer = GetNode<Timer>("Timer");
             _timer.Connect("timeout", this, nameof(ProgressTime));
+            _timewarp = new OneSpeed();
         }
 
         public static event Action MinutePassed = delegate { };
