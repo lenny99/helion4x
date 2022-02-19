@@ -48,10 +48,6 @@ config/name="Helion4x"
 run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
 
-[autoload]
-
-EventBus="*res://Scripts/Singleton/EventBus.cs"
-
 [display]
 
 window/size/width=1920

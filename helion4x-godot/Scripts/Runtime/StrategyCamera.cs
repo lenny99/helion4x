@@ -3,7 +3,6 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 using Helion4x.Core;
-using Helion4x.Singleton;
 using Helion4x.Util;
 
 namespace Helion4x.Runtime
@@ -19,8 +18,6 @@ namespace Helion4x.Runtime
         public Vector3 NewZoom { get; private set; }
         public Vector2 RotateStart { get; private set; }
         public Vector2 RotateCurrent { get; private set; }
-        public Vector3 DragStart { get; }
-        public Vector3 DragCurrent { get; }
 
         public override void _Ready()
         {
@@ -32,24 +29,27 @@ namespace Helion4x.Runtime
 
         public override void _Input(InputEvent @event)
         {
-            if (@event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed())
-                switch (mouseEvent.ButtonIndex)
+            if (!(@event is InputEventMouseButton mouseEvent) || !mouseEvent.IsPressed()) return;
+            switch (mouseEvent.ButtonIndex)
+            {
+                case (int) ButtonList.WheelUp:
+                case (int) ButtonList.WheelDown:
+                    Zoom(mouseEvent);
+                    break;
+                case (int) ButtonList.Left:
                 {
-                    case (int) ButtonList.WheelUp:
-                    case (int) ButtonList.WheelDown:
-                        Zoom(mouseEvent);
-                        break;
-                    case (int) ButtonList.Left:
-                    {
-                        if (mouseEvent.Doubleclick)
-                            RaycastFocus(mouseEvent);
-                        Select(mouseEvent);
-                        break;
-                    }
-                    case (int) ButtonList.Right:
-                        Rotate(mouseEvent);
-                        break;
+                    if (mouseEvent.Doubleclick)
+                        RaycastFocus(mouseEvent);
+                    Select(mouseEvent);
+                    Selection.CloseContext();
+                    break;
                 }
+                case (int) ButtonList.Right:
+                    Rotate(mouseEvent);
+                    Selection.OpenContextMenu(mouseEvent);
+                    GetTree().SetInputAsHandled();
+                    break;
+            }
         }
 
         private void RaycastFocus(InputEventMouseButton mouseEvent)
@@ -61,7 +61,6 @@ namespace Helion4x.Runtime
                 _focusSpatial = followable.Followable;
             else
                 _focusSpatial = null;
-            GetTree().SetInputAsHandled();
         }
 
         private void Rotate(InputEventMouseButton mouseEvent)
@@ -73,12 +72,9 @@ namespace Helion4x.Runtime
         private void Select(InputEventMouseButton inputEventMouseButton)
         {
             var collision = FireRaycastFromMouse(inputEventMouseButton);
-            if (collision.Contains("collider")
-                && collision["collider"] is Selectable selectable)
-            {
-                EventBus.InvokeSelected(selectable);
-                GetTree().SetInputAsHandled();
-            }
+            if (!collision.Contains("collider") || !(collision["collider"] is Selectable selectable)) return;
+            Selection.Select(selectable);
+            GetTree().SetInputAsHandled();
         }
 
         private Dictionary FireRaycastFromMouse(InputEventMouseButton inputEventMouseButton)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Helion4x.Core;
 using UnitsNet;
@@ -12,12 +13,13 @@ namespace Helion4x.Runtime
         private MovementType _movement;
         private Vector3 _nextPosition;
         private IAstronomicalBody _parent;
-        private List<Acceleration> _ships;
         private Speed _speed;
         private Voyage _voyage;
 
-        private Acceleration Acceleration => _ships?.Min(AccelerationUnit.MeterPerSecondSquared) != null
-            ? _ships.Min(AccelerationUnit.MeterPerSecondSquared)
+        public List<SpaceShip> Ships => GetNode("Ships").GetChildren().Cast<SpaceShip>().ToList();
+
+        public Acceleration Acceleration => Ships.Count > 0
+            ? Ships.Select(ship => ship.Acceleration).Min(AccelerationUnit.MeterPerSecondSquared)
             : Acceleration.Zero;
 
         public Spatial Followable => this;
@@ -25,7 +27,6 @@ namespace Helion4x.Runtime
         public override void _Ready()
         {
             TimeManager.MinutePassed += OnMinutePassed;
-            _ships = new List<Acceleration>(new[] {Acceleration.FromKilometersPerSecondSquared(1)});
             _parent = GetNode<IAstronomicalBody>(_parentPath);
             _movement = MovementType.Orbit;
             if (_parent == null) return;

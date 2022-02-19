@@ -3,26 +3,29 @@ using Optional;
 
 namespace Helion4x.Runtime
 {
-    public class Selectable : StaticBody, ISelectable
+    public struct Selectables
     {
-        public Option<Environment> Environment { get; private set; }
-        public Option<Settlement> Settlement { get; private set; }
+        public Option<Environment> Environment { get; set; }
+        public Option<Settlement> Settlement { get; set; }
+        public Option<Fleet> Fleet { get; set; }
+    }
 
-        public void Select()
+    public class Selectable : StaticBody
+    {
+        public Selectables Select()
         {
+            var selectables = new Selectables();
+            if (GetParent() is Fleet fleet)
+                selectables.Fleet = Option.Some(fleet);
             foreach (var child in GetParent().GetChildren())
             {
                 if (child is Environment environment)
-                    Environment = Option.Some(environment);
+                    selectables.Environment = Option.Some(environment);
                 if (child is Settlement settlement)
-                    Settlement = Option.Some(settlement);
+                    selectables.Settlement = Option.Some(settlement);
             }
-        }
 
-        public override void _Ready()
-        {
-            Environment = Option.None<Environment>();
-            Settlement = Option.None<Settlement>();
+            return selectables;
         }
 
         public void Unselect()

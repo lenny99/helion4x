@@ -1,10 +1,9 @@
 using Godot;
 using Helion4x.Runtime;
-using Helion4x.Singleton;
 
 namespace Helion4x.Gui
 {
-    public class PlanetLabel : Control
+    public class PlanetLabelControl : Control
     {
         #region Exports
 
@@ -13,7 +12,6 @@ namespace Helion4x.Gui
         #endregion
 
         private Spatial _parent;
-        private SelectionSystem _selectionSystem;
 
         public override void _Ready()
         {
@@ -38,7 +36,7 @@ namespace Helion4x.Gui
                 && mouseButton.ButtonIndex == 1)
                 foreach (var child in _parent.GetChildren())
                     if (child is Selectable selectable)
-                        EventBus.InvokeSelected(selectable);
+                        Selection.Select(selectable);
         }
     }
 }
