@@ -1,8 +1,8 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Runtime/StrategyCamera.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Time/Time.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/Runtime/Selectable.cs" type="Script" id=3]
+[ext_resource path="res://Textures/fleet_icon.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Runtime/Settlement.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/Gui/PlanetLabelControl.cs" type="Script" id=5]
 [ext_resource path="res://Scenes/Player/Selection.tscn" type="PackedScene" id=6]
@@ -11,7 +11,9 @@
 [ext_resource path="res://Textures/earth.tres" type="Material" id=9]
 [ext_resource path="res://Models/Spaceship.glb" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Runtime/SpaceShip.cs" type="Script" id=11]
+[ext_resource path="res://Textures/fleet_icon.tres" type="Material" id=12]
 [ext_resource path="res://Scripts/Runtime/Fleet.cs" type="Script" id=13]
+[ext_resource path="res://Textures/Selection.png" type="Texture" id=14]
 
 [sub_resource type="ProceduralSky" id=5]
 sky_top_color = Color( 0, 0, 0, 1 )
@@ -36,6 +38,9 @@ background_sky = SubResource( 5 )
 radius = 155.956
 height = 135.216
 
+[sub_resource type="QuadMesh" id=10]
+material = ExtResource( 12 )
+
 [node name="Game" type="Node"]
 
 [node name="Managers" type="Node" parent="."]
@@ -51,16 +56,13 @@ environment = SubResource( 6 )
 
 [node name="Sol" type="Spatial" parent="Space"]
 
-[node name="Earth" type="Spatial" parent="Space/Sol"]
-transform = Transform( 6.371, 0, 0, 0, 6.371, 0, 0, 0, 6.371, 0, 0, 0 )
+[node name="Earth" type="KinematicBody" parent="Space/Sol"]
+transform = Transform( 6371, 0, 0, 0, 6371, 0, 0, 0, 6371, 0, 0, 0 )
 script = ExtResource( 7 )
 _massType = 1
 _rotation = 0.001
 
-[node name="Selectable" type="StaticBody" parent="Space/Sol/Earth"]
-script = ExtResource( 3 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Earth/Selectable"]
+[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Earth"]
 shape = SubResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Space/Sol/Earth"]
@@ -93,8 +95,15 @@ margin_bottom = 21.0
 text = "Earth"
 align = 1
 
-[node name="Moon" type="Spatial" parent="Space/Sol"]
-transform = Transform( 1.737, 0, 0, 0, 1.737, 0, 0, 0, 1.737, 384.399, 0, 0 )
+[node name="Selection" type="Sprite3D" parent="Space/Sol/Earth"]
+transform = Transform( 1.00077, 0, 0, 0, 1.00077, 0, 0, 0, 1.00077, 0, 0, 0 )
+visible = false
+pixel_size = 0.0053
+axis = 1
+texture = ExtResource( 14 )
+
+[node name="Moon" type="KinematicBody" parent="Space/Sol"]
+transform = Transform( 1737, 0, 0, 0, 1737, 0, 0, 0, 1737, 384399, 0, 0 )
 script = ExtResource( 7 )
 _massType = 2
 _parentPath = NodePath("../Earth")
@@ -104,53 +113,68 @@ _rotation = 0.001
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="StaticBody" type="StaticBody" parent="Space/Sol/Moon"]
-
-[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Moon/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Moon"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 8 )
 
-[node name="Fleet" type="Spatial" parent="Space/Sol"]
-transform = Transform( 0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 9.185, 0, 0 )
+[node name="Fleet" type="KinematicBody" parent="Space/Sol"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8258.21, 0, 0 )
 script = ExtResource( 13 )
 _parentPath = NodePath("../Earth")
-
-[node name="Selector" type="StaticBody" parent="Space/Sol/Fleet"]
-script = ExtResource( 3 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Fleet/Selector"]
-shape = SubResource( 7 )
 
 [node name="Ships" type="Spatial" parent="Space/Sol/Fleet"]
 
 [node name="Spaceship" parent="Space/Sol/Fleet/Ships" instance=ExtResource( 10 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 115.35, 0, 0 )
+transform = Transform( -4.37114e-11, 0, -0.001, 0, 0.001, 0, 0.001, 0, -4.37114e-11, 1, 0, 0 )
 script = ExtResource( 11 )
 _acceleration = 10.0
 
 [node name="Spaceship2" parent="Space/Sol/Fleet/Ships" instance=ExtResource( 10 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -114.615, 0, -128.121 )
+transform = Transform( -4.37114e-11, 0, -0.001, 0, 0.001, 0, 0.001, 0, -4.37114e-11, 0, 1, 0 )
 script = ExtResource( 11 )
 _acceleration = 10.0
 
 [node name="Spaceship3" parent="Space/Sol/Fleet/Ships" instance=ExtResource( 10 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10.0215, 0, -193.425 )
+transform = Transform( -4.37114e-11, 0, -0.001, 0, 0.001, 0, 0.001, 0, -4.37114e-11, 0, 0, 1 )
 script = ExtResource( 11 )
 _acceleration = 10.0
 
 [node name="Spaceship4" parent="Space/Sol/Fleet/Ships" instance=ExtResource( 10 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -67.5791, 0, 47.4881 )
+transform = Transform( -4.37114e-11, 0, -0.001, 0, 0.001, 0, 0.001, 0, -4.37114e-11, 1, 1, 0 )
 script = ExtResource( 11 )
 _acceleration = 10.0
 
+[node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Fleet"]
+shape = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Space/Sol/Fleet"]
+transform = Transform( 0.999354, 0, -0.0359286, 0, 1, 0, 0.0359286, 0, 0.999354, 0.000976563, 0, 0 )
+visible = false
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Icon" type="Sprite3D" parent="Space/Sol/Fleet"]
+transform = Transform( 19.131, 0, 0, 0, 19.131, 0, 0, 0, 19.131, 0, 0, 0 )
+pixel_size = 0.0806
+axis = 1
+texture = ExtResource( 3 )
+
+[node name="Selection" type="Sprite3D" parent="Space/Sol/Fleet"]
+pixel_size = 0.4877
+axis = 1
+texture = ExtResource( 14 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="Space/Sol"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.3571 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 119748 )
 
 [node name="Anchor" type="Spatial" parent="Space"]
 script = ExtResource( 1 )
 _cameraPath = NodePath("SpaceOrbitCamera")
 _zoomVector = Vector3( 0, -2, 2 )
-_movementSpeed = 20.0
+_movementSpeed = 20000.0
+_rotationSpeed = 100.0
+_zoomSpeed = 100.0
 
 [node name="SpaceOrbitCamera" type="Camera" parent="Space/Anchor"]
-transform = Transform( -1, 6.18172e-08, -6.18172e-08, 0, 0.707107, 0.707107, 8.74228e-08, 0.707107, -0.707107, 0, 30, -30 )
-far = 8128.0
+transform = Transform( -1, 6.18173e-08, -6.18173e-08, 0, 0.707107, 0.707107, 8.74228e-08, 0.707107, -0.707107, 0, 8000, -8000 )
+far = 1e+06

@@ -7,7 +7,7 @@ using UnitsNet.Units;
 
 namespace Helion4x.Runtime
 {
-    public class Fleet : Spatial, IFollowable
+    public class Fleet : Spatial, IFollowable, ISelectable
     {
         private CircularOrbit _circularOrbit;
         private MovementType _movement;
@@ -24,6 +24,17 @@ namespace Helion4x.Runtime
 
         public Spatial Followable => this;
 
+        public IEnumerable<Node> Select()
+        {
+            GetNode<Sprite3D>("Selection")?.Show();
+            return new[] {this};
+        }
+
+        public void Unselect()
+        {
+            GetNode<Sprite3D>("Selection")?.Hide();
+        }
+
         public override void _Ready()
         {
             TimeManager.MinutePassed += OnMinutePassed;
@@ -31,7 +42,7 @@ namespace Helion4x.Runtime
             _movement = MovementType.Orbit;
             if (_parent == null) return;
             var radius =
-                AstronomicalLength.FromMegameters(_parent.Translation.DistanceTo(Translation));
+                AstronomicalLength.FromKilometers(_parent.Translation.DistanceTo(Translation));
             var orbitalPeriod = new OrbitalPeriod(radius.Meters, _parent.Mass, OrbitType.Circular);
             _circularOrbit = new CircularOrbit(_parent, orbitalPeriod, radius);
         }

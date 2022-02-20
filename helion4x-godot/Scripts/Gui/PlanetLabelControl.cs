@@ -1,5 +1,4 @@
 using Godot;
-using Helion4x.Runtime;
 
 namespace Helion4x.Gui
 {
@@ -31,12 +30,12 @@ namespace Helion4x.Gui
 
         public override void _GuiInput(InputEvent @event)
         {
-            if (@event is InputEventMouseButton mouseButton
-                && mouseButton.IsPressed()
-                && mouseButton.ButtonIndex == 1)
-                foreach (var child in _parent.GetChildren())
-                    if (child is Selectable selectable)
-                        Selection.Select(selectable);
+            // if (@event is InputEventMouseButton mouseButton
+            //     && mouseButton.IsPressed()
+            //     && mouseButton.ButtonIndex == 1)
+            //     foreach (var child in _parent.GetChildren())
+            //         if (child is Selectable selectable)
+            //             Selection.Select(selectable);
         }
     }
 }

@@ -2,45 +2,55 @@
 using Godot;
 using Helion4x.Gui;
 using Helion4x.Util;
+using Environment = Helion4x.Core.Environment;
 
 namespace Helion4x.Runtime
 {
     public class Selection : Node
     {
-        private Selectable _currentSelectable;
+        private ISelectable _currentSelectable;
         private VBoxContainer _selectionContainer;
         public static event Action<InputEventMouseButton> ContextOpend = delegate { };
         public static event Action ContextClosed = delegate { };
 
-        private void ShowSelectables(Selectable selectable)
+        private void OnSelected(object obj)
         {
-            if (_currentSelectable != null && _currentSelectable.Equals(selectable)) return;
+            if (!(obj is ISelectable selectable)) return;
+            _selectionContainer.ClearChildren();
             _currentSelectable = selectable;
-            var selectables = selectable.Select();
-            selectables.Settlement.MatchSome(settlement =>
-            {
-                var scene = _settlementView.Instance<SettlementSelectionControl>();
-                scene.Settlement = settlement;
-                _selectionContainer.AddChild(scene);
-            });
-            selectables.Environment.MatchSome(environment =>
-            {
-                var scene = _environmentView.Instance<EnvironmentSelectionControl>();
-                scene.Environment = environment;
-                _selectionContainer.AddChild(scene);
-            });
-            selectables.Fleet.MatchSome(fleet =>
-            {
-                var scene = _fleetControl.Instance<FleetControl>();
-                scene.Fleet = fleet;
-                _selectionContainer.AddChild(scene);
-            });
+            foreach (var selection in selectable.Select())
+                if (selection is Settlement settlement)
+                    OpenSettlement(settlement);
+                else if (selection is Environment environment)
+                    OpenEnvironment(environment);
+                else if (selection is Fleet fleet) OpenFleet(fleet);
+        }
+
+        private void OpenSettlement(Settlement settlement)
+        {
+            var scene = _settlementView.Instance<SettlementSelectionControl>();
+            scene.Settlement = settlement;
+            _selectionContainer.AddChild(scene);
+        }
+
+        private void OpenEnvironment(Environment environment)
+        {
+            var scene = _environmentView.Instance<EnvironmentSelectionControl>();
+            scene.Environment = environment;
+            _selectionContainer.AddChild(scene);
+        }
+
+        private void OpenFleet(Fleet fleet)
+        {
+            var scene = _fleetControl.Instance<FleetControl>();
+            scene.Fleet = fleet;
+            _selectionContainer.AddChild(scene);
         }
 
         public override void _Ready()
         {
             _selectionContainer = GetNode<VBoxContainer>(_selectionContainerPath);
-            Selected += ShowSelectables;
+            Selected += OnSelected;
             ContextOpend += OnContextOpen;
             ContextClosed += OnContextClosed;
         }
@@ -66,6 +76,7 @@ namespace Helion4x.Runtime
                 && inputEventMouseButton.IsPressed()
                 && inputEventMouseButton.ButtonIndex == (int) ButtonList.Left)
             {
+                _currentSelectable?.Unselect();
                 _currentSelectable = null;
                 _selectionContainer.ClearChildren();
             }
@@ -81,9 +92,9 @@ namespace Helion4x.Runtime
             ContextClosed();
         }
 
-        public static event Action<Selectable> Selected = delegate { };
+        public static event Action<object> Selected = delegate { };
 
-        public static void Select(Selectable selectable)
+        public static void Select(object selectable)
         {
             Selected.Invoke(selectable);
         }

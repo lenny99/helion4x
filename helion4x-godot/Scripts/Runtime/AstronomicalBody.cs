@@ -1,10 +1,13 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Helion4x.Core;
 using Helion4x.Scripts;
+using Environment = Helion4x.Core.Environment;
 
 namespace Helion4x.Runtime
 {
-    public class AstronomicalBody : Spatial, IAstronomicalBody, IFollowable
+    public class AstronomicalBody : Spatial, IAstronomicalBody, IFollowable, ISelectable
     {
         private CircularOrbit _circularOrbit;
         private Spatial _focus;
@@ -14,6 +17,17 @@ namespace Helion4x.Runtime
 
         public Spatial Followable => this;
 
+        public IEnumerable<Node> Select()
+        {
+            GetNodeOrNull<Sprite3D>("Selection")?.Show();
+            return GetChildren().Cast<Node>().Where(child => child is Settlement || child is Environment);
+        }
+
+        public void Unselect()
+        {
+            GetNodeOrNull<Sprite3D>("Selection")?.Hide();
+        }
+
         public override void _Ready()
         {
             Mass = AstronomicalMass.ForMassType(_massType);
@@ -21,7 +35,7 @@ namespace Helion4x.Runtime
             if (_parentPath == null) return;
             _parent = GetNode<IAstronomicalBody>(_parentPath);
             var radius =
-                AstronomicalLength.FromMegameters(_parent.Translation.DistanceTo(Translation));
+                AstronomicalLength.FromKilometers(_parent.Translation.DistanceTo(Translation));
             var orbitalPeriod = new OrbitalPeriod(radius.Meters, _parent.Mass, OrbitType.Circular);
             _circularOrbit = new CircularOrbit(_parent, orbitalPeriod, radius);
         }

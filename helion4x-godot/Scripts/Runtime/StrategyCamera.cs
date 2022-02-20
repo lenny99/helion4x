@@ -9,8 +9,8 @@ namespace Helion4x.Runtime
 {
     public class StrategyCamera : Spatial
     {
-        private const float RayLength = 10000;
         private Spatial _focusSpatial;
+        private float _rayLength;
 
         public Camera Camera { get; private set; }
         public Vector3 NewPosition { get; private set; }
@@ -25,6 +25,7 @@ namespace Helion4x.Runtime
             NewRotation = GlobalTransform.basis;
             Camera = GetNode<Camera>(_cameraPath);
             NewZoom = Camera.Translation;
+            _rayLength = GetViewport().GetCamera().Far;
         }
 
         public override void _Input(InputEvent @event)
@@ -56,8 +57,7 @@ namespace Helion4x.Runtime
         {
             var collision = FireRaycastFromMouse(mouseEvent);
             if (collision.Contains("collider")
-                && collision["collider"] is Node node
-                && node.GetParent() is IFollowable followable)
+                && collision["collider"] is IFollowable followable)
                 _focusSpatial = followable.Followable;
             else
                 _focusSpatial = null;
@@ -72,8 +72,8 @@ namespace Helion4x.Runtime
         private void Select(InputEventMouseButton inputEventMouseButton)
         {
             var collision = FireRaycastFromMouse(inputEventMouseButton);
-            if (!collision.Contains("collider") || !(collision["collider"] is Selectable selectable)) return;
-            Selection.Select(selectable);
+            if (!collision.Contains("collider")) return;
+            Selection.Select(collision["collider"]);
             GetTree().SetInputAsHandled();
         }
 
@@ -81,7 +81,7 @@ namespace Helion4x.Runtime
         {
             var viewport = GetViewport();
             var from = Camera.ProjectRayOrigin(inputEventMouseButton.Position);
-            var to = from + Camera.ProjectRayNormal(inputEventMouseButton.Position) * RayLength;
+            var to = from + Camera.ProjectRayNormal(inputEventMouseButton.Position) * _rayLength;
             var collision = viewport.World.DirectSpaceState.IntersectRay(from, to);
             return collision;
         }

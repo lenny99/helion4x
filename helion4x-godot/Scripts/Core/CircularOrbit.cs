@@ -21,7 +21,7 @@ namespace Helion4x.Core
             _theta -= 2 * Mathf.Pi / _orbitalPeriod.InMinutes() * minutes;
             if (Mathf.Abs(_theta) > 2 * Mathf.Pi) _theta += 2 * Mathf.Pi;
 
-            return new Vector3(Mathf.Cos(_theta), 0, Mathf.Sin(_theta)) * (float) _radius.Megameters;
+            return new Vector3(Mathf.Cos(_theta), 0, Mathf.Sin(_theta)) * (float) _radius.Kilometers;
         }
 
         public Vector3 GetPosition(float angle)
