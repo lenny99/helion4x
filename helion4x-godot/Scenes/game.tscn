@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Runtime/StrategyCamera.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Time/Time.tscn" type="PackedScene" id=2]
@@ -41,6 +41,12 @@ height = 135.216
 [sub_resource type="QuadMesh" id=10]
 material = ExtResource( 12 )
 
+[sub_resource type="Curve3D" id=11]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -2510.71, -4714.09, 1199.01, 0, 0, 0, 0, 0, 0, -1494.64, -4270.99, 3271.35, 0, 0, 0, 0, 0, 0, -1989.15, -4471.16, 4938.33, 0, 0, 0, 0, 0, 0, -2379.66, -3884.09, 6300.94 ),
+"tilts": PoolRealArray( 0, 0, 0, 0 )
+}
+
 [node name="Game" type="Node"]
 
 [node name="Managers" type="Node" parent="."]
@@ -59,7 +65,6 @@ environment = SubResource( 6 )
 [node name="Earth" type="KinematicBody" parent="Space/Sol"]
 transform = Transform( 6371, 0, 0, 0, 6371, 0, 0, 0, 6371, 0, 0, 0 )
 script = ExtResource( 7 )
-_massType = 1
 _rotation = 0.001
 
 [node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Earth"]
@@ -105,7 +110,6 @@ texture = ExtResource( 14 )
 [node name="Moon" type="KinematicBody" parent="Space/Sol"]
 transform = Transform( 1737, 0, 0, 0, 1737, 0, 0, 0, 1737, 384399, 0, 0 )
 script = ExtResource( 7 )
-_massType = 2
 _parentPath = NodePath("../Earth")
 _rotation = 0.001
 
@@ -114,7 +118,6 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Space/Sol/Moon"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 8 )
 
 [node name="Fleet" type="KinematicBody" parent="Space/Sol"]
@@ -160,9 +163,26 @@ axis = 1
 texture = ExtResource( 3 )
 
 [node name="Selection" type="Sprite3D" parent="Space/Sol/Fleet"]
+visible = false
 pixel_size = 0.4877
 axis = 1
 texture = ExtResource( 14 )
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Space/Sol/Fleet"]
+calculate_tangents = false
+mode = 2
+path_node = NodePath("../Path")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = true
+path_continuous_u = true
+path_u_distance = 1000.0
+path_joined = false
+
+[node name="Path" type="Path" parent="Space/Sol/Fleet"]
+curve = SubResource( 11 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Space/Sol"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 119748 )

@@ -47,10 +47,17 @@ namespace Helion4x.Runtime
                 }
                 case (int) ButtonList.Right:
                     Rotate(mouseEvent);
-                    Selection.OpenContextMenu(mouseEvent);
+                    OpenContext(mouseEvent);
                     GetTree().SetInputAsHandled();
                     break;
             }
+        }
+
+        private void OpenContext(InputEventMouseButton mouseEvent)
+        {
+            var godotCollision = FireRaycastFromMouse(mouseEvent);
+            var collision = new Collision(godotCollision);
+            Selection.OpenContextMenu(mouseEvent, collision);
         }
 
         private void RaycastFocus(InputEventMouseButton mouseEvent)

@@ -8,16 +8,16 @@ namespace Helion4x.Runtime
 {
     public class Selection : Node
     {
-        private ISelectable _currentSelectable;
         private VBoxContainer _selectionContainer;
-        public static event Action<InputEventMouseButton> ContextOpend = delegate { };
+        public ISelectable Selectable { get; private set; }
+        public static event Action<InputEventMouseButton, Collision> ContextOpened = delegate { };
         public static event Action ContextClosed = delegate { };
 
         private void OnSelected(object obj)
         {
             if (!(obj is ISelectable selectable)) return;
             _selectionContainer.ClearChildren();
-            _currentSelectable = selectable;
+            Selectable = selectable;
             foreach (var selection in selectable.Select())
                 if (selection is Settlement settlement)
                     OpenSettlement(settlement);
@@ -51,23 +51,22 @@ namespace Helion4x.Runtime
         {
             _selectionContainer = GetNode<VBoxContainer>(_selectionContainerPath);
             Selected += OnSelected;
-            ContextOpend += OnContextOpen;
+            ContextOpened += OnContextOpen;
             ContextClosed += OnContextClosed;
         }
 
         private void OnContextClosed()
         {
             foreach (Node child in GetChildren())
-                if (child is ContextControl contextControl)
+                if (child is FleetContextControl contextControl)
                     RemoveChild(contextControl);
         }
 
-        private void OnContextOpen(InputEventMouseButton obj)
+        private void OnContextOpen(InputEventMouseButton mouseEvent, Collision collision)
         {
-            if (_currentSelectable == null) return;
-            var contextControl = _contextControl.Instance<ContextControl>();
-            contextControl.RectPosition = obj.Position;
-            AddChild(contextControl);
+            if (Selectable == null) return;
+            var context = Selectable.CreateContext(mouseEvent, collision);
+            AddChild(context);
         }
 
         public override void _UnhandledInput(InputEvent @event)
@@ -76,15 +75,15 @@ namespace Helion4x.Runtime
                 && inputEventMouseButton.IsPressed()
                 && inputEventMouseButton.ButtonIndex == (int) ButtonList.Left)
             {
-                _currentSelectable?.Unselect();
-                _currentSelectable = null;
+                Selectable?.Unselect();
+                Selectable = null;
                 _selectionContainer.ClearChildren();
             }
         }
 
-        public static void OpenContextMenu(InputEventMouseButton inputEventMouseButton)
+        public static void OpenContextMenu(InputEventMouseButton inputEventMouseButton, Collision collider)
         {
-            ContextOpend(inputEventMouseButton);
+            ContextOpened(inputEventMouseButton, collider);
         }
 
         public static void CloseContext()
@@ -105,7 +104,6 @@ namespace Helion4x.Runtime
         [Export] private PackedScene _settlementView;
         [Export] private PackedScene _environmentView;
         [Export] private PackedScene _fleetControl;
-        [Export] private PackedScene _contextControl;
 
         #endregion
     }

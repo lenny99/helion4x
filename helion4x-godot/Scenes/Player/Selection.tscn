@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Runtime/Selection.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/EnvironmentSelectionView.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Player/SettlementSelectionView.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Fleet/FleetControl.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/ContextControl.tscn" type="PackedScene" id=5]
 
 [node name="Selection" type="Node"]
 script = ExtResource( 1 )
@@ -12,7 +11,6 @@ _selectionContainerPath = NodePath("VBoxContainer")
 _settlementView = ExtResource( 3 )
 _environmentView = ExtResource( 2 )
 _fleetControl = ExtResource( 4 )
-_contextControl = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_top = 1.0

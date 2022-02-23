@@ -15,6 +15,12 @@ namespace Helion4x.Core
         public double Kilometers => _length.Kilometers;
         public double Megameters => _length.Kilometers / 1000;
 
+        public static AstronomicalLength FromLength(Length length)
+        {
+            return new AstronomicalLength(length);
+        }
+
+
         public static AstronomicalLength FromMeters(double meters)
         {
             return new AstronomicalLength(Length.FromMeters(meters));

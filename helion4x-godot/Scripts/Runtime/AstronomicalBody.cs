@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -10,8 +11,9 @@ namespace Helion4x.Runtime
     public class AstronomicalBody : Spatial, IAstronomicalBody, IFollowable, ISelectable
     {
         private CircularOrbit _circularOrbit;
-        private Spatial _focus;
         private IAstronomicalBody _parent;
+
+        public PackedScene Context => null;
 
         public float Mass { get; private set; }
 
@@ -28,16 +30,20 @@ namespace Helion4x.Runtime
             GetNodeOrNull<Sprite3D>("Selection")?.Hide();
         }
 
+        public Node CreateContext(InputEventMouseButton mouseEvent, Collision collision)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void _Ready()
         {
-            Mass = AstronomicalMass.ForMassType(_massType);
+            Mass = AstronomicalMass.ForMassType(MassType);
             TimeManager.MinutePassed += OnMinutePassed;
             if (_parentPath == null) return;
             _parent = GetNode<IAstronomicalBody>(_parentPath);
             var radius =
                 AstronomicalLength.FromKilometers(_parent.Translation.DistanceTo(Translation));
-            var orbitalPeriod = new OrbitalPeriod(radius.Meters, _parent.Mass, OrbitType.Circular);
-            _circularOrbit = new CircularOrbit(_parent, orbitalPeriod, radius);
+            _circularOrbit = new CircularOrbit(_parent, radius);
         }
 
         private void OnMinutePassed()
@@ -50,7 +56,7 @@ namespace Helion4x.Runtime
 
         #region Exports
 
-        [Export] private MassType _massType;
+        [Export] public MassType MassType;
         [Export] private NodePath _parentPath;
         [Export] private float _rotation;
 

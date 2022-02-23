@@ -7,5 +7,6 @@ namespace Helion4x.Runtime
     {
         IEnumerable<Node> Select();
         void Unselect();
+        Node CreateContext(InputEventMouseButton mouseEvent, Collision collision);
     }
 }
